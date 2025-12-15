@@ -2,8 +2,13 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const CTASection = () => {
+  const { t } = useLanguage();
+
+  const clientTypes = ["Tech Startups", "Accounting Firms", "Marketing Agencies", "Legal Services", "E-commerce"];
+
   return (
     <section className="py-20 lg:py-32 bg-navy relative overflow-hidden">
       {/* Background Decoration */}
@@ -20,17 +25,16 @@ export const CTASection = () => {
           className="text-center max-w-3xl mx-auto"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-navy-foreground mb-6">
-            Ready to Build Your{" "}
-            <span className="text-secondary">Global Team?</span>
+            {t("cta.title")}
           </h2>
           <p className="text-lg text-navy-foreground/80 mb-10 leading-relaxed">
-            Join hundreds of companies that have transformed their workforce with Clear Path Hire. Get started with a free consultation today.
+            {t("cta.description")}
           </p>
 
           <div className="flex flex-wrap justify-center gap-4">
             <Button variant="hero" size="xl" asChild>
               <Link to="/contact">
-                Start Hiring Today <ArrowRight size={20} />
+                {t("cta.primary")} <ArrowRight size={20} aria-hidden="true" />
               </Link>
             </Button>
             <Button
@@ -39,7 +43,7 @@ export const CTASection = () => {
               className="border-navy-foreground/30 text-navy-foreground hover:bg-navy-foreground hover:text-navy"
               asChild
             >
-              <Link to="/services">Explore Services</Link>
+              <Link to="/services">{t("cta.secondary")}</Link>
             </Button>
           </div>
 
@@ -52,10 +56,10 @@ export const CTASection = () => {
             className="mt-12 pt-12 border-t border-navy-foreground/10"
           >
             <p className="text-navy-foreground/60 text-sm mb-4">
-              Trusted by growing businesses worldwide
+              {t("cta.trust")}
             </p>
             <div className="flex flex-wrap justify-center gap-8 items-center opacity-60">
-              {["Tech Startups", "Accounting Firms", "Marketing Agencies", "Legal Services", "E-commerce"].map((client) => (
+              {clientTypes.map((client) => (
                 <span key={client} className="text-navy-foreground font-medium">
                   {client}
                 </span>

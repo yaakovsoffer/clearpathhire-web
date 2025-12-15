@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ClientLogin = () => {
   const [email, setEmail] = useState("");
@@ -15,17 +16,17 @@ const ClientLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate login - replace with actual auth later
     setTimeout(() => {
       setIsLoading(false);
       toast({
-        title: "Demo Mode",
-        description: "Authentication will be enabled soon. Redirecting to dashboard preview.",
+        title: t("clientLogin.demoMessage"),
+        description: t("clientLogin.demoDescription"),
       });
       navigate("/client-dashboard");
     }, 1000);
@@ -45,17 +46,17 @@ const ClientLogin = () => {
               <div className="bg-card rounded-2xl shadow-brand p-8 border border-border">
                 <div className="text-center mb-8">
                   <h1 id="login-heading" className="text-3xl font-bold text-foreground mb-2">
-                    Client Portal
+                    {t("clientLogin.title")}
                   </h1>
                   <p className="text-muted-foreground">
-                    Sign in to view your invoices and manage payments
+                    {t("clientLogin.subtitle")}
                   </p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6" aria-label="Login form">
                   <div className="space-y-2">
                     <Label htmlFor="email" className="text-foreground">
-                      Email Address
+                      {t("clientLogin.email")}
                     </Label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" aria-hidden="true" />
@@ -75,7 +76,7 @@ const ClientLogin = () => {
 
                   <div className="space-y-2">
                     <Label htmlFor="password" className="text-foreground">
-                      Password
+                      {t("clientLogin.password")}
                     </Label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" aria-hidden="true" />
@@ -106,7 +107,7 @@ const ClientLogin = () => {
                       to="/forgot-password"
                       className="text-sm text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
                     >
-                      Forgot password?
+                      {t("clientLogin.forgotPassword")}
                     </Link>
                   </div>
 
@@ -117,18 +118,18 @@ const ClientLogin = () => {
                     disabled={isLoading}
                     aria-busy={isLoading}
                   >
-                    {isLoading ? "Signing in..." : "Sign In"}
+                    {isLoading ? t("clientLogin.signingIn") : t("clientLogin.signIn")}
                   </Button>
                 </form>
 
                 <div className="mt-6 text-center">
                   <p className="text-sm text-muted-foreground">
-                    Need help?{" "}
+                    {t("clientLogin.needHelp")}{" "}
                     <Link
                       to="/contact"
                       className="text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
                     >
-                      Contact Support
+                      {t("clientLogin.contactSupport")}
                     </Link>
                   </p>
                 </div>

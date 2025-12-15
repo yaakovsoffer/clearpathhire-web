@@ -3,19 +3,22 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
+import { useLanguage } from "@/contexts/LanguageContext";
 import logo from "@/assets/clearpath-logo.png";
-
-const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
-  { name: "Services", path: "/services" },
-  { name: "Testimonials", path: "/testimonials" },
-  { name: "Contact", path: "/contact" },
-];
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { t } = useLanguage();
+
+  const navLinks = [
+    { name: t("nav.home"), path: "/" },
+    { name: t("nav.about"), path: "/about" },
+    { name: t("nav.services"), path: "/services" },
+    { name: t("nav.testimonials"), path: "/testimonials" },
+    { name: t("nav.contact"), path: "/contact" },
+  ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-lg border-b border-border">
@@ -27,7 +30,7 @@ export const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8" aria-label="Main navigation">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
@@ -43,27 +46,32 @@ export const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Buttons */}
-          <div className="hidden md:flex items-center gap-3 lg:gap-4">
+          {/* CTA Buttons & Language Switcher */}
+          <div className="hidden md:flex items-center gap-2 lg:gap-3">
+            <LanguageSwitcher />
             <Button variant="ghost" size="sm" asChild className="lg:size-default">
-              <Link to="/client-login">Client Login</Link>
+              <Link to="/client-login">{t("nav.clientLogin")}</Link>
             </Button>
             <Button variant="outline" size="sm" asChild className="lg:size-default">
-              <Link to="/apply">Apply for Jobs</Link>
+              <Link to="/apply">{t("nav.applyForJobs")}</Link>
             </Button>
             <Button variant="hero" size="sm" asChild className="lg:size-default">
-              <Link to="/contact">Start Hiring</Link>
+              <Link to="/contact">{t("nav.startHiring")}</Link>
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 text-foreground"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="md:hidden flex items-center gap-2">
+            <LanguageSwitcher />
+            <button
+              className="p-2 text-foreground"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+              aria-expanded={isOpen}
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -76,7 +84,7 @@ export const Header = () => {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-card border-t border-border"
           >
-            <nav className="container mx-auto px-4 py-6 flex flex-col gap-4">
+            <nav className="container mx-auto px-4 py-6 flex flex-col gap-4" aria-label="Mobile navigation">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
@@ -94,17 +102,17 @@ export const Header = () => {
               <div className="flex flex-col gap-3 pt-4 border-t border-border">
                 <Button variant="ghost" asChild className="w-full">
                   <Link to="/client-login" onClick={() => setIsOpen(false)}>
-                    Client Login
+                    {t("nav.clientLogin")}
                   </Link>
                 </Button>
                 <Button variant="outline" asChild className="w-full">
                   <Link to="/apply" onClick={() => setIsOpen(false)}>
-                    Apply for Jobs
+                    {t("nav.applyForJobs")}
                   </Link>
                 </Button>
                 <Button variant="hero" asChild className="w-full">
                   <Link to="/contact" onClick={() => setIsOpen(false)}>
-                    Start Hiring
+                    {t("nav.startHiring")}
                   </Link>
                 </Button>
               </div>

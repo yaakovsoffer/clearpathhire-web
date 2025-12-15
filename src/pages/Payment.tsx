@@ -7,11 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Payment = () => {
   const [searchParams] = useSearchParams();
   const invoiceId = searchParams.get("invoice");
   const { toast } = useToast();
+  const { t } = useLanguage();
   
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentComplete, setPaymentComplete] = useState(false);
@@ -26,21 +28,18 @@ const Payment = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     
-    // Format card number with spaces
     if (name === "cardNumber") {
       const formatted = value.replace(/\s/g, "").replace(/(\d{4})/g, "$1 ").trim();
       setFormData(prev => ({ ...prev, [name]: formatted.slice(0, 19) }));
       return;
     }
     
-    // Format expiry date
     if (name === "expiry") {
       const formatted = value.replace(/\D/g, "").replace(/(\d{2})(\d)/, "$1/$2");
       setFormData(prev => ({ ...prev, [name]: formatted.slice(0, 5) }));
       return;
     }
     
-    // Limit CVC to 4 digits
     if (name === "cvc") {
       setFormData(prev => ({ ...prev, [name]: value.slice(0, 4) }));
       return;
@@ -53,13 +52,12 @@ const Payment = () => {
     e.preventDefault();
     setIsProcessing(true);
     
-    // Simulate payment processing - replace with Stripe integration
     setTimeout(() => {
       setIsProcessing(false);
       setPaymentComplete(true);
       toast({
-        title: "Payment Successful",
-        description: "Your payment has been processed. A receipt will be sent to your email.",
+        title: t("payment.success.title"),
+        description: t("payment.success.description"),
       });
     }, 2000);
   };
@@ -81,17 +79,17 @@ const Payment = () => {
                     <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" aria-hidden="true" />
                   </div>
                   <h1 id="success-heading" className="text-2xl font-bold text-foreground mb-2">
-                    Payment Successful!
+                    {t("payment.success.title")}
                   </h1>
                   <p className="text-muted-foreground mb-6">
-                    Thank you for your payment. A confirmation email has been sent to your registered email address.
+                    {t("payment.success.description")}
                   </p>
                   <div className="space-y-3">
                     <Button variant="hero" className="w-full" asChild>
-                      <Link to="/client-dashboard">Return to Dashboard</Link>
+                      <Link to="/client-dashboard">{t("payment.success.returnDashboard")}</Link>
                     </Button>
                     <Button variant="outline" className="w-full" asChild>
-                      <Link to="/">Go to Homepage</Link>
+                      <Link to="/">{t("payment.success.goHome")}</Link>
                     </Button>
                   </div>
                 </div>
@@ -116,12 +114,12 @@ const Payment = () => {
                 className="text-center mb-8"
               >
                 <h1 id="payment-heading" className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-                  Make a Payment
+                  {t("payment.title")}
                 </h1>
                 <p className="text-muted-foreground">
                   {invoiceId 
-                    ? `Pay invoice ${invoiceId}` 
-                    : "Enter the amount you'd like to pay"}
+                    ? `${t("payment.payInvoice")} ${invoiceId}` 
+                    : t("payment.subtitle")}
                 </p>
               </motion.div>
 
@@ -132,10 +130,9 @@ const Payment = () => {
                 className="bg-card rounded-2xl shadow-brand p-8 border border-border"
               >
                 <form onSubmit={handleSubmit} className="space-y-6" aria-label="Payment form">
-                  {/* Amount */}
                   <div className="space-y-2">
                     <Label htmlFor="amount" className="text-foreground">
-                      Payment Amount (USD)
+                      {t("payment.amount")}
                     </Label>
                     <div className="relative">
                       <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">
@@ -156,16 +153,15 @@ const Payment = () => {
                     </div>
                   </div>
 
-                  {/* Card Details */}
                   <div className="space-y-4">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <CreditCard className="h-4 w-4" aria-hidden="true" />
-                      <span>Card Details</span>
+                      <span>{t("payment.cardDetails")}</span>
                     </div>
 
                     <div className="space-y-2">
                       <Label htmlFor="name" className="text-foreground">
-                        Cardholder Name
+                        {t("payment.cardholderName")}
                       </Label>
                       <Input
                         id="name"
@@ -182,7 +178,7 @@ const Payment = () => {
 
                     <div className="space-y-2">
                       <Label htmlFor="cardNumber" className="text-foreground">
-                        Card Number
+                        {t("payment.cardNumber")}
                       </Label>
                       <Input
                         id="cardNumber"
@@ -201,7 +197,7 @@ const Payment = () => {
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="expiry" className="text-foreground">
-                          Expiry Date
+                          {t("payment.expiry")}
                         </Label>
                         <Input
                           id="expiry"
@@ -218,7 +214,7 @@ const Payment = () => {
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="cvc" className="text-foreground">
-                          CVC
+                          {t("payment.cvc")}
                         </Label>
                         <Input
                           id="cvc"
@@ -236,11 +232,10 @@ const Payment = () => {
                     </div>
                   </div>
 
-                  {/* Security Notice */}
                   <div className="flex items-center gap-2 p-4 bg-muted rounded-lg">
                     <Lock className="h-5 w-5 text-green-600 dark:text-green-400 flex-shrink-0" aria-hidden="true" />
                     <p className="text-sm text-muted-foreground">
-                      Your payment information is encrypted and secure. We never store your full card details.
+                      {t("payment.securityNotice")}
                     </p>
                   </div>
 
@@ -253,25 +248,24 @@ const Payment = () => {
                     aria-busy={isProcessing}
                   >
                     {isProcessing ? (
-                      <>Processing...</>
+                      <>{t("payment.processing")}</>
                     ) : (
                       <>
                         <Lock className="mr-2 h-4 w-4" aria-hidden="true" />
-                        Pay {formData.amount ? `$${formData.amount}` : "Now"}
+                        {t("payment.payNow")} {formData.amount ? `$${formData.amount}` : ""}
                       </>
                     )}
                   </Button>
                 </form>
 
-                {/* Alternative Payment */}
                 <div className="mt-6 pt-6 border-t border-border">
                   <p className="text-sm text-muted-foreground text-center mb-4">
-                    Prefer to pay by bank transfer?
+                    {t("payment.bankTransfer")}
                   </p>
                   <div className="bg-muted rounded-lg p-4">
                     <div className="flex items-center gap-2 mb-2">
                       <Building2 className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
-                      <span className="text-sm font-medium text-foreground">Bank Transfer Details</span>
+                      <span className="text-sm font-medium text-foreground">{t("payment.bankDetails")}</span>
                     </div>
                     <div className="text-sm text-muted-foreground space-y-1">
                       <p>Bank: First National Bank</p>

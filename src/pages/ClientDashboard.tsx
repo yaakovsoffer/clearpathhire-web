@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-// Mock invoice data - replace with actual data from backend
 const mockInvoices = [
   {
     id: "INV-2024-001",
@@ -42,14 +42,15 @@ const mockInvoices = [
   },
 ];
 
-const statusConfig = {
-  paid: { label: "Paid", icon: CheckCircle, className: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" },
-  pending: { label: "Pending", icon: Clock, className: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200" },
-  overdue: { label: "Overdue", icon: AlertCircle, className: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200" },
-};
-
 const ClientDashboard = () => {
+  const { t } = useLanguage();
   const [filter, setFilter] = useState<"all" | "paid" | "pending" | "overdue">("all");
+
+  const statusConfig = {
+    paid: { label: t("dashboard.paid"), icon: CheckCircle, className: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" },
+    pending: { label: t("dashboard.pending"), icon: Clock, className: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200" },
+    overdue: { label: t("dashboard.overdue"), icon: AlertCircle, className: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200" },
+  };
 
   const filteredInvoices = filter === "all" 
     ? mockInvoices 
@@ -79,7 +80,6 @@ const ClientDashboard = () => {
       <main id="main-content" role="main" aria-labelledby="dashboard-heading">
         <section className="py-20 bg-gradient-hero min-h-screen">
           <div className="container mx-auto px-4">
-            {/* Header */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -87,14 +87,13 @@ const ClientDashboard = () => {
               className="mb-8"
             >
               <h1 id="dashboard-heading" className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-                Welcome Back
+                {t("dashboard.welcome")}
               </h1>
               <p className="text-muted-foreground">
-                Manage your invoices and payments
+                {t("dashboard.subtitle")}
               </p>
             </motion.div>
 
-            {/* Stats Cards */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -107,7 +106,7 @@ const ClientDashboard = () => {
                     <DollarSign className="h-6 w-6 text-primary" aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Total Outstanding</p>
+                    <p className="text-sm text-muted-foreground">{t("dashboard.totalOutstanding")}</p>
                     <p className="text-2xl font-bold text-foreground">{formatCurrency(totalOutstanding)}</p>
                   </div>
                 </div>
@@ -119,7 +118,7 @@ const ClientDashboard = () => {
                     <CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Paid Invoices</p>
+                    <p className="text-sm text-muted-foreground">{t("dashboard.paidInvoices")}</p>
                     <p className="text-2xl font-bold text-foreground">
                       {mockInvoices.filter(inv => inv.status === "paid").length}
                     </p>
@@ -133,7 +132,7 @@ const ClientDashboard = () => {
                     <Clock className="h-6 w-6 text-yellow-600 dark:text-yellow-400" aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Pending Invoices</p>
+                    <p className="text-sm text-muted-foreground">{t("dashboard.pendingInvoices")}</p>
                     <p className="text-2xl font-bold text-foreground">
                       {mockInvoices.filter(inv => inv.status !== "paid").length}
                     </p>
@@ -142,7 +141,6 @@ const ClientDashboard = () => {
               </div>
             </motion.div>
 
-            {/* Quick Pay Button */}
             {totalOutstanding > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -153,13 +151,12 @@ const ClientDashboard = () => {
                 <Button variant="hero" size="lg" asChild>
                   <Link to="/payment">
                     <CreditCard className="mr-2 h-5 w-5" aria-hidden="true" />
-                    Pay Outstanding Balance ({formatCurrency(totalOutstanding)})
+                    {t("dashboard.payOutstanding")} ({formatCurrency(totalOutstanding)})
                   </Link>
                 </Button>
               </motion.div>
             )}
 
-            {/* Invoices Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -168,7 +165,7 @@ const ClientDashboard = () => {
             >
               <div className="p-6 border-b border-border">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                  <h2 className="text-xl font-semibold text-foreground">Invoices</h2>
+                  <h2 className="text-xl font-semibold text-foreground">{t("dashboard.invoices")}</h2>
                   <div className="flex gap-2 flex-wrap" role="group" aria-label="Filter invoices">
                     {(["all", "pending", "paid", "overdue"] as const).map((status) => (
                       <Button
@@ -178,7 +175,7 @@ const ClientDashboard = () => {
                         onClick={() => setFilter(status)}
                         aria-pressed={filter === status}
                       >
-                        {status.charAt(0).toUpperCase() + status.slice(1)}
+                        {t(`dashboard.${status}`)}
                       </Button>
                     ))}
                   </div>
@@ -188,7 +185,7 @@ const ClientDashboard = () => {
               <div className="divide-y divide-border">
                 {filteredInvoices.length === 0 ? (
                   <div className="p-8 text-center text-muted-foreground">
-                    No invoices found
+                    {t("dashboard.noInvoices")}
                   </div>
                 ) : (
                   filteredInvoices.map((invoice) => {
@@ -212,11 +209,11 @@ const ClientDashboard = () => {
                               <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
                                 <span className="flex items-center gap-1">
                                   <Calendar className="h-4 w-4" aria-hidden="true" />
-                                  <span>Issued: {formatDate(invoice.date)}</span>
+                                  <span>{t("dashboard.issued")}: {formatDate(invoice.date)}</span>
                                 </span>
                                 <span className="flex items-center gap-1">
                                   <Clock className="h-4 w-4" aria-hidden="true" />
-                                  <span>Due: {formatDate(invoice.dueDate)}</span>
+                                  <span>{t("dashboard.due")}: {formatDate(invoice.dueDate)}</span>
                                 </span>
                               </div>
                             </div>
@@ -237,12 +234,11 @@ const ClientDashboard = () => {
                                 aria-label={`Download invoice ${invoice.id}`}
                               >
                                 <Download className="h-4 w-4" aria-hidden="true" />
-                                <span className="sr-only">Download</span>
                               </Button>
                               {invoice.status !== "paid" && (
                                 <Button variant="hero" size="sm" asChild>
                                   <Link to={`/payment?invoice=${invoice.id}`}>
-                                    Pay Now
+                                    {t("dashboard.payNow")}
                                   </Link>
                                 </Button>
                               )}
