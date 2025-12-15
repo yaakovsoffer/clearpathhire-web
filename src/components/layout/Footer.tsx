@@ -15,10 +15,11 @@ const footerLinks = {
     { name: "Payroll Management", path: "/services" },
     { name: "Background Checks", path: "/services" },
   ],
-  careers: [
+  resources: [
     { name: "Apply for Jobs", path: "/apply" },
-    { name: "Current Openings", path: "/apply" },
-    { name: "Career Resources", path: "/apply" },
+    { name: "Client Portal", path: "/client-login" },
+    { name: "Make a Payment", path: "/payment" },
+    { name: "Google Business Guide", path: "/google-business-guide" },
   ],
 };
 
@@ -75,12 +76,12 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Services Links */}
+          {/* Resources Links */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Services</h4>
+            <h4 className="font-semibold text-lg mb-4">Resources</h4>
             <ul className="space-y-3">
-              {footerLinks.services.map((link, index) => (
-                <li key={link.path + index}>
+              {footerLinks.resources.map((link) => (
+                <li key={link.path + link.name}>
                   <Link
                     to={link.path}
                     className="text-navy-foreground/70 hover:text-secondary transition-colors"
