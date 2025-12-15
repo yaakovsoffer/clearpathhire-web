@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook } from "lucide-react";
-import logo from "@/assets/cph-logo.png";
+import logo from "@/assets/clearpath-logo.png";
 
 const footerLinks = {
   company: [
