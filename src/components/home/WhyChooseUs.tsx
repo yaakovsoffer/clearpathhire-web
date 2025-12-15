@@ -1,30 +1,33 @@
 import { motion } from "framer-motion";
 import { TrendingUp, Clock, BadgeDollarSign, UserCheck } from "lucide-react";
-
-const benefits = [
-  {
-    icon: TrendingUp,
-    title: "Scale Faster",
-    description: "We source top remote talent that are the right fit for your open roles in under 21 days with a 97% placement rate.",
-  },
-  {
-    icon: BadgeDollarSign,
-    title: "Reduce Costs",
-    description: "Hiring highly-skilled global talent unlocks cost savings of 30%-70% compared to comparable US-based professionals.",
-  },
-  {
-    icon: UserCheck,
-    title: "Treat Them As Your Own",
-    description: "Since COVID proved work can be done remotely, your global team works just like local employees — dedicated and integrated.",
-  },
-  {
-    icon: Clock,
-    title: "Zero Hassle",
-    description: "We handle all the complexities — hiring, HR, compliance, payroll, and taxes — so you can focus on growing your business.",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const WhyChooseUs = () => {
+  const { t } = useLanguage();
+
+  const benefits = [
+    {
+      icon: TrendingUp,
+      title: t("whyChooseUs.benefits.vetted.title"),
+      description: t("whyChooseUs.benefits.vetted.description"),
+    },
+    {
+      icon: BadgeDollarSign,
+      title: t("whyChooseUs.benefits.compliance.title"),
+      description: t("whyChooseUs.benefits.compliance.description"),
+    },
+    {
+      icon: UserCheck,
+      title: t("whyChooseUs.benefits.support.title"),
+      description: t("whyChooseUs.benefits.support.description"),
+    },
+    {
+      icon: Clock,
+      title: t("whyChooseUs.benefits.flexible.title"),
+      description: t("whyChooseUs.benefits.flexible.description"),
+    },
+  ];
+
   return (
     <section className="py-20 lg:py-32 bg-background relative overflow-hidden">
       {/* Background Pattern */}
@@ -42,24 +45,20 @@ export const WhyChooseUs = () => {
             viewport={{ once: true }}
           >
             <span className="text-sm font-semibold text-accent uppercase tracking-wider mb-4 block">
-              Why Clear Path Hire
+              {t("whyChooseUs.title")}
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-              How We Help You{" "}
-              <span className="text-gradient">Grow</span>
+              {t("whyChooseUs.subtitle")}
             </h2>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              We provide everything you need to build and manage a world-class remote team. No complexity, no risk — just results.
-            </p>
 
             <div className="grid grid-cols-2 gap-8">
               <div className="text-center">
                 <div className="text-4xl md:text-5xl font-bold text-primary mb-2">70%</div>
-                <div className="text-sm text-muted-foreground">Cost Savings</div>
+                <div className="text-sm text-muted-foreground">{t("whyChooseUs.stats.savings")}</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl md:text-5xl font-bold text-primary mb-2">97%</div>
-                <div className="text-sm text-muted-foreground">Placement Rate</div>
+                <div className="text-sm text-muted-foreground">{t("whyChooseUs.stats.placement")}</div>
               </div>
             </div>
           </motion.div>
@@ -76,7 +75,7 @@ export const WhyChooseUs = () => {
                 className="bg-card rounded-2xl p-6 shadow-sm border border-border hover:shadow-brand transition-shadow"
               >
                 <div className="w-12 h-12 rounded-xl bg-gradient-hero flex items-center justify-center mb-4">
-                  <benefit.icon size={24} className="text-primary-foreground" />
+                  <benefit.icon size={24} className="text-primary-foreground" aria-hidden="true" />
                 </div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">
                   {benefit.title}

@@ -2,20 +2,23 @@ import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle, Globe, Users, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-
-const stats = [
-  { value: "500+", label: "Professionals Placed" },
-  { value: "70%", label: "Cost Savings" },
-  { value: "21", label: "Days to Hire" },
-];
-
-const highlights = [
-  "Background-checked professionals",
-  "Full HR & compliance handled",
-  "Work in your timezone",
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const HeroSection = () => {
+  const { t } = useLanguage();
+
+  const stats = [
+    { value: "500+", label: t("hero.stats.placed") },
+    { value: "70%", label: t("hero.stats.savings") },
+    { value: "21", label: t("hero.stats.days") },
+  ];
+
+  const highlights = [
+    t("hero.highlights.vetted"),
+    t("hero.highlights.payroll"),
+    t("hero.highlights.risk"),
+  ];
+
   return (
     <section className="relative overflow-hidden bg-background py-20 lg:py-32">
       {/* Background Decoration */}
@@ -31,17 +34,17 @@ export const HeroSection = () => {
             transition={{ duration: 0.6 }}
           >
             <div className="inline-flex items-center gap-2 bg-secondary/20 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-              <Globe size={16} />
-              Global Talent, Local Excellence
+              <Globe size={16} aria-hidden="true" />
+              {t("hero.badge")}
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-              Build High-Performing Remote Teams for{" "}
-              <span className="text-gradient">70% Less</span>
+              {t("hero.title")}{" "}
+              <span className="text-gradient">{t("hero.titleHighlight")}</span>
             </h1>
 
             <p className="text-lg text-muted-foreground mb-8 max-w-lg leading-relaxed">
-              Your direct route to the right talent. We handle hiring, background checks, HR, compliance, and payroll — so you can treat them like your own employees.
+              {t("hero.description")}
             </p>
 
             <div className="flex flex-wrap gap-4 mb-10">
@@ -53,7 +56,7 @@ export const HeroSection = () => {
                   transition={{ delay: 0.3 + index * 0.1 }}
                   className="flex items-center gap-2 text-sm text-foreground"
                 >
-                  <CheckCircle size={18} className="text-accent" />
+                  <CheckCircle size={18} className="text-accent" aria-hidden="true" />
                   {item}
                 </motion.div>
               ))}
@@ -62,11 +65,11 @@ export const HeroSection = () => {
             <div className="flex flex-wrap gap-4">
               <Button variant="hero" size="lg" asChild>
                 <Link to="/contact">
-                  Start Hiring <ArrowRight size={18} />
+                  {t("hero.cta.primary")} <ArrowRight size={18} aria-hidden="true" />
                 </Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
-                <Link to="/services">Learn More</Link>
+                <Link to="/services">{t("hero.cta.secondary")}</Link>
               </Button>
             </div>
           </motion.div>
@@ -108,12 +111,12 @@ export const HeroSection = () => {
                   className="flex items-center gap-4 bg-background rounded-xl p-4"
                 >
                   <div className="w-12 h-12 rounded-full bg-secondary/30 flex items-center justify-center">
-                    <Users className="text-primary" size={24} />
+                    <Users className="text-primary" size={24} aria-hidden="true" />
                   </div>
                   <div>
-                    <div className="font-semibold text-foreground">Dedicated Teams</div>
+                    <div className="font-semibold text-foreground">{t("hero.features.teams")}</div>
                     <div className="text-sm text-muted-foreground">
-                      Work exclusively for you
+                      {t("hero.features.teamsDesc")}
                     </div>
                   </div>
                 </motion.div>
@@ -125,12 +128,12 @@ export const HeroSection = () => {
                   className="flex items-center gap-4 bg-background rounded-xl p-4"
                 >
                   <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center">
-                    <Shield className="text-accent" size={24} />
+                    <Shield className="text-accent" size={24} aria-hidden="true" />
                   </div>
                   <div>
-                    <div className="font-semibold text-foreground">Full Compliance</div>
+                    <div className="font-semibold text-foreground">{t("hero.features.compliance")}</div>
                     <div className="text-sm text-muted-foreground">
-                      HR, payroll & taxes handled
+                      {t("hero.features.complianceDesc")}
                     </div>
                   </div>
                 </motion.div>
@@ -143,7 +146,7 @@ export const HeroSection = () => {
                 transition={{ delay: 0.8, type: "spring" }}
                 className="absolute -top-4 -right-4 bg-accent text-accent-foreground px-4 py-2 rounded-full font-semibold text-sm shadow-lg"
               >
-                Zero Risk Hiring
+                {t("hero.badge2")}
               </motion.div>
             </div>
           </motion.div>
