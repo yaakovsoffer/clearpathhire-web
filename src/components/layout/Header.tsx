@@ -45,6 +45,9 @@ export const Header = () => {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-3 lg:gap-4">
+            <Button variant="ghost" size="sm" asChild className="lg:size-default">
+              <Link to="/client-login">Client Login</Link>
+            </Button>
             <Button variant="outline" size="sm" asChild className="lg:size-default">
               <Link to="/apply">Apply for Jobs</Link>
             </Button>
@@ -89,6 +92,11 @@ export const Header = () => {
                 </Link>
               ))}
               <div className="flex flex-col gap-3 pt-4 border-t border-border">
+                <Button variant="ghost" asChild className="w-full">
+                  <Link to="/client-login" onClick={() => setIsOpen(false)}>
+                    Client Login
+                  </Link>
+                </Button>
                 <Button variant="outline" asChild className="w-full">
                   <Link to="/apply" onClick={() => setIsOpen(false)}>
                     Apply for Jobs
