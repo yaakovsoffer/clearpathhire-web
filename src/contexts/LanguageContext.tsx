@@ -94,6 +94,30 @@ const translations: Record<Language, Record<string, any>> = {
       title: "Our Services",
       subtitle: "Comprehensive staffing and HR solutions tailored to your business needs",
       cta: "Explore All Services",
+      staffing: {
+        title: "Staffing Solutions",
+        description: "We source and help you onboard top, English-speaking talent in under 21 days.",
+      },
+      background: {
+        title: "Background Checks",
+        description: "Comprehensive vetting including criminal records, employment history, and education verification.",
+      },
+      payroll: {
+        title: "Payroll Management",
+        description: "We handle everything from tax compliance to salary disbursements globally.",
+      },
+      hr: {
+        title: "HR & Compliance",
+        description: "Navigate local labor laws and maintain compliance for all employment types.",
+      },
+      support: {
+        title: "Ongoing Support",
+        description: "Dedicated account management and continuous support for you and your team.",
+      },
+      infrastructure: {
+        title: "Secure Infrastructure",
+        description: "Enterprise-grade security and tools for seamless remote collaboration.",
+      },
       items: {
         staffing: {
           title: "Staffing Solutions",
@@ -431,6 +455,30 @@ const translations: Record<Language, Record<string, any>> = {
       title: "Nuestros Servicios",
       subtitle: "Soluciones integrales de personal y RR.HH. adaptadas a las necesidades de tu negocio",
       cta: "Explorar Todos los Servicios",
+      staffing: {
+        title: "Soluciones de Personal",
+        description: "Reclutamos y te ayudamos a incorporar talento de habla inglesa en menos de 21 días.",
+      },
+      background: {
+        title: "Verificación de Antecedentes",
+        description: "Verificación integral incluyendo antecedentes penales, historial laboral y educación.",
+      },
+      payroll: {
+        title: "Gestión de Nómina",
+        description: "Manejamos todo, desde cumplimiento fiscal hasta desembolsos de salarios globalmente.",
+      },
+      hr: {
+        title: "RR.HH. y Cumplimiento",
+        description: "Navega las leyes laborales locales y mantén el cumplimiento para todos los tipos de empleo.",
+      },
+      support: {
+        title: "Soporte Continuo",
+        description: "Gestión de cuenta dedicada y soporte continuo para ti y tu equipo.",
+      },
+      infrastructure: {
+        title: "Infraestructura Segura",
+        description: "Seguridad de nivel empresarial y herramientas para colaboración remota sin problemas.",
+      },
       items: {
         staffing: {
           title: "Soluciones de Personal",

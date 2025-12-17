@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
   Users,
   FileCheck,
@@ -13,94 +14,96 @@ import {
   CheckCircle,
 } from "lucide-react";
 
-const services = [
-  {
-    icon: Users,
-    title: "Staffing Solutions",
-    description: "We source and help you onboard top, English-speaking talent in under 21 days. Leverage our expertise to find remote talent that aligns with your culture and works in your time zone.",
-    features: [
-      "Access to pre-vetted talent pool",
-      "Culture-fit assessment",
-      "Skills verification",
-      "Fast 21-day placement",
-    ],
-  },
-  {
-    icon: FileCheck,
-    title: "Background Checks",
-    description: "Comprehensive vetting including criminal records, employment history, education verification, and professional references to ensure you hire with confidence.",
-    features: [
-      "Criminal background screening",
-      "Employment history verification",
-      "Education credentials check",
-      "Professional reference calls",
-    ],
-  },
-  {
-    icon: DollarSign,
-    title: "Payroll Management",
-    description: "We handle everything from tax compliance to salary disbursements, ensuring your team is paid accurately and on time, regardless of their location.",
-    features: [
-      "Multi-currency payments",
-      "Tax compliance handling",
-      "Timely disbursements",
-      "Detailed reporting",
-    ],
-  },
-  {
-    icon: Shield,
-    title: "HR & Compliance",
-    description: "Our experts help you navigate local labor laws and maintain compliance for all employment types, from contractors to full-time staff.",
-    features: [
-      "Local labor law compliance",
-      "Contract management",
-      "Employment documentation",
-      "Risk mitigation",
-    ],
-  },
-  {
-    icon: HeadphonesIcon,
-    title: "Ongoing Support",
-    description: "Dedicated account management and continuous support for both you and your remote team members, ensuring smooth operations.",
-    features: [
-      "Dedicated account manager",
-      "Performance monitoring",
-      "Conflict resolution",
-      "Team retention strategies",
-    ],
-  },
-  {
-    icon: Building2,
-    title: "Secure Infrastructure",
-    description: "Enterprise-grade security and tools to ensure seamless remote collaboration, data protection, and efficient team communication.",
-    features: [
-      "Secure communication tools",
-      "Data protection protocols",
-      "Collaboration platforms",
-      "IT support access",
-    ],
-  },
-];
-
-const roles = [
-  "Executive Assistants",
-  "Accountants & Bookkeepers",
-  "Customer Support",
-  "Sales Representatives",
-  "Marketing Specialists",
-  "Software Developers",
-  "Data Analysts",
-  "Project Managers",
-  "HR Specialists",
-  "Legal Assistants",
-];
-
 const Services = () => {
+  const { t } = useLanguage();
+
+  const services = [
+    {
+      icon: Users,
+      title: t("services.staffing.title"),
+      description: t("services.staffing.description"),
+      features: [
+        "Access to pre-vetted talent pool",
+        "Culture-fit assessment",
+        "Skills verification",
+        "Fast 21-day placement",
+      ],
+    },
+    {
+      icon: FileCheck,
+      title: t("services.background.title"),
+      description: t("services.background.description"),
+      features: [
+        "Criminal background screening",
+        "Employment history verification",
+        "Education credentials check",
+        "Professional reference calls",
+      ],
+    },
+    {
+      icon: DollarSign,
+      title: t("services.payroll.title"),
+      description: t("services.payroll.description"),
+      features: [
+        "Multi-currency payments",
+        "Tax compliance handling",
+        "Timely disbursements",
+        "Detailed reporting",
+      ],
+    },
+    {
+      icon: Shield,
+      title: t("services.hr.title"),
+      description: t("services.hr.description"),
+      features: [
+        "Local labor law compliance",
+        "Contract management",
+        "Employment documentation",
+        "Risk mitigation",
+      ],
+    },
+    {
+      icon: HeadphonesIcon,
+      title: t("services.support.title"),
+      description: t("services.support.description"),
+      features: [
+        "Dedicated account manager",
+        "Performance monitoring",
+        "Conflict resolution",
+        "Team retention strategies",
+      ],
+    },
+    {
+      icon: Building2,
+      title: t("services.infrastructure.title"),
+      description: t("services.infrastructure.description"),
+      features: [
+        "Secure communication tools",
+        "Data protection protocols",
+        "Collaboration platforms",
+        "IT support access",
+      ],
+    },
+  ];
+
+  const roles = [
+    "Executive Assistants",
+    "Accountants & Bookkeepers",
+    "Customer Support",
+    "Sales Representatives",
+    "Marketing Specialists",
+    "Software Developers",
+    "Data Analysts",
+    "Project Managers",
+    "HR Specialists",
+    "Legal Assistants",
+  ];
+
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="py-20 lg:py-32 bg-background relative overflow-hidden">
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/20 rounded-full blur-3xl pointer-events-none" />
+      <section className="py-20 lg:py-28 bg-navy text-navy-foreground relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-secondary/20 via-transparent to-transparent" />
         
         <div className="container mx-auto px-4 relative">
           <motion.div
@@ -108,60 +111,94 @@ const Services = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <span className="text-sm font-semibold text-accent uppercase tracking-wider mb-4 block">
-              Our Services
+            <span className="inline-block text-sm font-semibold text-secondary uppercase tracking-wider mb-4 px-4 py-2 bg-secondary/10 rounded-full">
+              {t("nav.services")}
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               A Complete Outsourcing{" "}
-              <span className="text-gradient">Solution</span>
+              <span className="text-secondary">Solution</span>
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
+            <p className="text-xl text-navy-foreground/80 leading-relaxed max-w-2xl mx-auto">
               Everything you need to build and manage a world-class remote team. We handle the complexity so you can focus on growth.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Services Detail */}
-      <section className="py-20 bg-card">
+      {/* Services Grid */}
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="space-y-20">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <motion.div
                 key={service.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className={`grid lg:grid-cols-2 gap-12 items-center ${
-                  index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                }`}
+                transition={{ delay: index * 0.1 }}
+                className="group bg-card rounded-2xl p-8 border border-border hover:border-primary/30 hover:shadow-brand transition-all duration-300"
               >
-                <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-hero flex items-center justify-center mb-6">
-                    <service.icon className="text-primary-foreground" size={32} />
-                  </div>
-                  <h2 className="text-3xl font-bold text-foreground mb-4">
-                    {service.title}
-                  </h2>
-                  <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                    {service.description}
-                  </p>
-                  <ul className="space-y-3">
-                    {service.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-3">
-                        <CheckCircle className="text-accent flex-shrink-0" size={20} />
-                        <span className="text-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                  <service.icon className="text-primary" size={28} />
                 </div>
-                <div className={`${index % 2 === 1 ? "lg:order-1" : ""}`}>
-                  <div className="bg-background rounded-3xl p-8 shadow-brand border border-border">
-                    <div className="aspect-video bg-gradient-to-br from-primary/10 to-secondary/30 rounded-2xl flex items-center justify-center">
-                      <service.icon className="text-primary" size={80} />
-                    </div>
-                  </div>
-                </div>
+                <h3 className="text-xl font-bold text-foreground mb-3">
+                  {service.title}
+                </h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  {service.description}
+                </p>
+                <ul className="space-y-2">
+                  {service.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2 text-sm">
+                      <CheckCircle className="text-accent flex-shrink-0 mt-0.5" size={16} />
+                      <span className="text-foreground/80">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="py-20 bg-card">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center max-w-2xl mx-auto mb-16"
+          >
+            <span className="text-sm font-semibold text-accent uppercase tracking-wider mb-4 block">
+              Our Process
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+              How It Works
+            </h2>
+            <p className="text-muted-foreground">
+              A simple, streamlined process to get you the talent you need.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-4 gap-8">
+            {[
+              { step: "01", title: "Consultation", desc: "Tell us about your needs and ideal candidate profile" },
+              { step: "02", title: "Sourcing", desc: "We search our network for pre-vetted candidates" },
+              { step: "03", title: "Selection", desc: "Review candidates and conduct interviews" },
+              { step: "04", title: "Onboarding", desc: "We handle all paperwork and get them started" },
+            ].map((item, index) => (
+              <motion.div
+                key={item.step}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-5xl font-bold text-primary/20 mb-4">{item.step}</div>
+                <h3 className="text-lg font-semibold text-foreground mb-2">{item.title}</h3>
+                <p className="text-sm text-muted-foreground">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -175,7 +212,7 @@ const Services = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center max-w-2xl mx-auto mb-16"
+            className="text-center max-w-2xl mx-auto mb-12"
           >
             <span className="text-sm font-semibold text-accent uppercase tracking-wider mb-4 block">
               Positions We Fill
@@ -184,21 +221,21 @@ const Services = () => {
               Find the Perfect Fit for Every Role
             </h2>
             <p className="text-muted-foreground">
-              We source and place talent for any role that can be done remotely. Here are some of the most common positions we help fill.
+              We source and place talent for any role that can be done remotely.
             </p>
           </motion.div>
 
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-wrap justify-center gap-3">
             {roles.map((role, index) => (
               <motion.div
                 key={role}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="bg-card rounded-full px-6 py-3 border border-border hover:border-primary hover:bg-primary/5 transition-colors cursor-default"
+                transition={{ delay: index * 0.03 }}
+                className="bg-card rounded-full px-5 py-2.5 border border-border hover:border-primary hover:bg-primary/5 transition-colors"
               >
-                <span className="font-medium text-foreground">{role}</span>
+                <span className="text-sm font-medium text-foreground">{role}</span>
               </motion.div>
             ))}
           </div>
@@ -222,7 +259,7 @@ const Services = () => {
             </p>
             <Button variant="hero" size="lg" asChild>
               <Link to="/contact">
-                Start Hiring <ArrowRight size={18} />
+                {t("nav.startHiring")} <ArrowRight size={18} />
               </Link>
             </Button>
           </motion.div>
