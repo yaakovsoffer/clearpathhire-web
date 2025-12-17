@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import logo from "@/assets/clearpath-logo.png";
+import logoWhite from "@/assets/cph-logo-white.png";
 
 export const Footer = () => {
   const { t } = useLanguage();
@@ -27,7 +27,7 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <img src={logo} alt="Clear Path Hire" className="h-12 w-auto mb-6 brightness-0 invert" />
+            <img src={logoWhite} alt="Clear Path Hire" className="h-14 w-auto mb-6" />
             <p className="text-navy-foreground/80 mb-6 max-w-sm leading-relaxed">
               {t("footer.description")}
             </p>
