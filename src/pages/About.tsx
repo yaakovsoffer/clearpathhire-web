@@ -110,39 +110,61 @@ const About = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-8">
+            {/* Mission Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-navy rounded-3xl p-10"
+              className="bg-navy rounded-3xl overflow-hidden"
             >
-              <div className="w-14 h-14 rounded-xl bg-secondary/30 flex items-center justify-center mb-6">
-                <Target className="text-secondary" size={28} />
+              <div className="relative h-48">
+                <img 
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop"
+                  alt="Team collaboration"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy to-transparent" />
               </div>
-              <h3 className="text-2xl font-bold text-navy-foreground mb-4">
-                Our Mission
-              </h3>
-              <p className="text-navy-foreground/80 leading-relaxed">
-                To remove the barriers between businesses and global talent, providing a seamless path to building high-performing remote teams while handling all the complexities of international employment.
-              </p>
+              <div className="p-10">
+                <div className="w-14 h-14 rounded-xl bg-secondary/30 flex items-center justify-center mb-6">
+                  <Target className="text-secondary" size={28} />
+                </div>
+                <h3 className="text-2xl font-bold text-navy-foreground mb-4">
+                  Our Mission
+                </h3>
+                <p className="text-navy-foreground/80 leading-relaxed">
+                  To remove the barriers between businesses and global talent, providing a seamless path to building high-performing remote teams while handling all the complexities of international employment.
+                </p>
+              </div>
             </motion.div>
 
+            {/* Vision Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="bg-primary rounded-3xl p-10"
+              className="bg-primary rounded-3xl overflow-hidden"
             >
-              <div className="w-14 h-14 rounded-xl bg-secondary/30 flex items-center justify-center mb-6">
-                <Eye className="text-secondary" size={28} />
+              <div className="relative h-48">
+                <img 
+                  src="https://images.unsplash.com/photo-1531973576160-7125cd663d86?q=80&w=800&auto=format&fit=crop"
+                  alt="Global connectivity"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary to-transparent" />
               </div>
-              <h3 className="text-2xl font-bold text-primary-foreground mb-4">
-                Our Vision
-              </h3>
-              <p className="text-primary-foreground/80 leading-relaxed">
-                A world where every business, regardless of size, can access exceptional talent globally, and every skilled professional can find meaningful work opportunities without geographical limitations.
-              </p>
+              <div className="p-10">
+                <div className="w-14 h-14 rounded-xl bg-secondary/30 flex items-center justify-center mb-6">
+                  <Eye className="text-secondary" size={28} />
+                </div>
+                <h3 className="text-2xl font-bold text-primary-foreground mb-4">
+                  Our Vision
+                </h3>
+                <p className="text-primary-foreground/80 leading-relaxed">
+                  A world where every business, regardless of size, can access exceptional talent globally, and every skilled professional can find meaningful work opportunities without geographical limitations.
+                </p>
+              </div>
             </motion.div>
           </div>
         </div>
