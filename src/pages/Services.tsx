@@ -5,14 +5,11 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
   Users,
-  FileCheck,
-  DollarSign,
   Shield,
-  HeadphonesIcon,
-  Building2,
+  DollarSign,
   ArrowRight,
-  CheckCircle,
-  Handshake,
+  UserCheck,
+  HeadphonesIcon,
   TrendingUp,
 } from "lucide-react";
 
@@ -22,51 +19,44 @@ const Services = () => {
   const services = [
     {
       icon: Users,
-      title: t("services.staffing.title"),
-      description: t("services.staffing.description"),
-    },
-    {
-      icon: FileCheck,
-      title: t("services.background.title"),
-      description: t("services.background.description"),
-    },
-    {
-      icon: DollarSign,
-      title: t("services.payroll.title"),
-      description: t("services.payroll.description"),
+      title: "Staffing Solutions",
+      description: "Find the perfect candidates for your team with our comprehensive recruitment services.",
+      image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=600&auto=format&fit=crop",
     },
     {
       icon: Shield,
-      title: t("services.hr.title"),
-      description: t("services.hr.description"),
+      title: "HR & Compliance",
+      description: "Stay compliant with employment laws and regulations across all jurisdictions.",
+      image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format&fit=crop",
     },
     {
-      icon: HeadphonesIcon,
-      title: t("services.support.title"),
-      description: t("services.support.description"),
-    },
-    {
-      icon: Building2,
-      title: t("services.infrastructure.title"),
-      description: t("services.infrastructure.description"),
+      icon: DollarSign,
+      title: "Payroll Management",
+      description: "Streamlined payroll processing and benefits administration for your global team.",
+      image: "https://images.unsplash.com/photo-1554224154-26032ffc0d07?q=80&w=600&auto=format&fit=crop",
     },
   ];
 
-  const processSteps = [
+  const benefits = [
     {
-      number: "1",
-      title: "Discovery Session",
-      description: "Share your hiring goals and we'll guide you on roles, markets, and comp. Then align on how to hire and what to offer.",
+      icon: UserCheck,
+      title: "Pre-Vetted Talent",
+      description: "Every candidate undergoes rigorous screening including skills assessment, background checks, and cultural fit evaluation.",
     },
     {
-      number: "2",
-      title: "Kick-Off Call",
-      description: "Meet your recruiter to finalize the role and build your hiring plan. We'll align on profile, process, and timeline.",
+      icon: HeadphonesIcon,
+      title: "Dedicated Support",
+      description: "Your dedicated account manager ensures smooth onboarding and ongoing success for every placement.",
     },
     {
-      number: "3",
-      title: "Interviews & Hiring",
-      description: "Review 3+ top candidates in under 5 days. Interview, choose your hire, and we'll handle the rest.",
+      icon: Shield,
+      title: "Full Compliance",
+      description: "We handle all legal, tax, and employment compliance so you can focus on growing your business.",
+    },
+    {
+      icon: TrendingUp,
+      title: "Flexible Scaling",
+      description: "Easily scale your team up or down based on your business needs without long-term commitments.",
     },
   ];
 
@@ -85,58 +75,37 @@ const Services = () => {
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="py-20 lg:py-28 bg-background relative overflow-hidden">
-        <div className="container mx-auto px-4 relative">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center max-w-4xl mx-auto"
+      {/* Hero Section with Image */}
+      <section className="relative overflow-hidden">
+        <div className="relative min-h-[400px] lg:min-h-[500px]">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop')`,
+            }}
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
-              A 360 Solution{" "}
-              <span className="text-primary">Beyond Staffing</span>
-            </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-              Your full-service partner to streamline talent acquisition, hiring, onboarding, payroll, retention, and compliance.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+            <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/70 to-navy/50" />
+          </div>
 
-      {/* Services Grid */}
-      <section className="py-16 bg-card">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                    <service.icon className="text-primary" size={24} />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-foreground mb-2">
-                      {service.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      {service.description}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+          <div className="container mx-auto px-4 relative z-10 py-20 lg:py-28">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center max-w-4xl mx-auto"
+            >
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                Custom Staffing &{" "}
+                <span className="text-secondary">HR Solutions</span>
+              </h1>
+              <p className="text-xl text-white/80 leading-relaxed max-w-3xl mx-auto">
+                Your full-service partner to streamline talent acquisition, hiring, onboarding, payroll, retention, and compliance.
+              </p>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* How It Works - Process Section */}
+      {/* Services Grid with Images */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <motion.div
@@ -145,138 +114,108 @@ const Services = () => {
             viewport={{ once: true }}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
-              How Our Proven Hiring<br />Process Works
+            <span className="text-sm font-semibold text-primary uppercase tracking-wider mb-4 block">
+              Our Services
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+              Everything You Need to Build Your Remote Team
             </h2>
           </motion.div>
 
-          {/* Process Steps */}
-          <div className="max-w-5xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-8 mb-8">
-              {processSteps.map((step, index) => (
-                <motion.div
-                  key={step.number}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.15 }}
-                  className="relative"
-                >
-                  <div className="border-l-2 border-border pl-6 py-2">
-                    <span className="text-sm font-semibold text-muted-foreground mb-2 block">
-                      {step.number}. {step.title}
-                    </span>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {step.description}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Progress Bar */}
-            <div className="relative h-2 bg-muted rounded-full overflow-hidden mb-4">
+          <div className="grid md:grid-cols-3 gap-8">
+            {services.map((service, index) => (
               <motion.div
-                initial={{ width: 0 }}
-                whileInView={{ width: "100%" }}
+                key={service.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
-                className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary via-secondary to-accent rounded-full"
-              />
-            </div>
-
-            {/* Timeline Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
-              className="flex justify-center"
-            >
-              <span className="inline-block bg-accent text-accent-foreground text-sm font-semibold px-4 py-2 rounded-full">
-                THE RIGHT HIRE IN 3 WEEKS
-              </span>
-            </motion.div>
+                transition={{ delay: index * 0.1 }}
+                className="group bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-brand transition-all duration-300 border border-border"
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src={service.image} 
+                    alt={service.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent" />
+                  <div className="absolute bottom-4 left-4">
+                    <div className="w-12 h-12 rounded-xl bg-white/90 flex items-center justify-center">
+                      <service.icon className="text-primary" size={24} />
+                    </div>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-foreground mb-3">
+                    {service.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {service.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* After You Hire Section */}
+      {/* Why Choose Us Section */}
       <section className="py-20 bg-card">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center max-w-3xl mx-auto mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              After You Hire
+            <span className="text-sm font-semibold text-accent uppercase tracking-wider mb-4 block">
+              Why Choose Clear Path Hire?
+            </span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+              Your Strategic Partner for{" "}
+              <span className="text-primary">Remote Excellence.</span>
             </h2>
           </motion.div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              {/* Left Card */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {benefits.map((benefit, index) => (
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                key={benefit.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="bg-background rounded-2xl p-8 border border-border"
+                transition={{ delay: index * 0.1 }}
+                className="bg-background rounded-2xl p-6 border border-border hover:shadow-brand transition-all duration-300"
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <Handshake className="text-primary" size={24} />
-                  <h3 className="text-xl font-bold text-foreground">Onboard, Pay, Retain</h3>
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
+                  <benefit.icon size={28} className="text-primary" aria-hidden="true" />
                 </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  We support onboarding, payroll, and compliance, so your new hire integrates fast and sticks long term.
+                <h3 className="text-lg font-semibold text-foreground mb-3">
+                  {benefit.title}
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {benefit.description}
                 </p>
               </motion.div>
-
-              {/* Arrow */}
-              <div className="hidden md:flex justify-center items-center relative">
-                <motion.svg
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 }}
-                  width="120"
-                  height="40"
-                  viewBox="0 0 120 40"
-                  className="text-accent absolute left-0 top-1/2 -translate-y-1/2"
-                >
-                  <path
-                    d="M0 20 Q60 20 80 20 Q100 20 110 25"
-                    stroke="currentColor"
-                    strokeWidth="3"
-                    fill="none"
-                    strokeLinecap="round"
-                  />
-                  <polygon
-                    points="105,20 115,25 105,30"
-                    fill="currentColor"
-                  />
-                </motion.svg>
-              </div>
-
-              {/* Right Card */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="bg-background rounded-2xl p-8 border border-border md:col-start-2"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <TrendingUp className="text-primary" size={24} />
-                  <h3 className="text-xl font-bold text-foreground">Ongoing Support & Team Expansion</h3>
-                </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  Keep hiring with the same speed and quality whenever you need. Your recruiter stays close to support future hires, backfills, or scaling your team.
-                </p>
-              </motion.div>
-            </div>
+            ))}
           </div>
+
+          {/* Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-wrap justify-center gap-16 mt-16"
+          >
+            <div className="text-center">
+              <div className="text-5xl md:text-6xl font-bold text-primary mb-2">70%</div>
+              <div className="text-muted-foreground">Average Cost Savings</div>
+            </div>
+            <div className="text-center">
+              <div className="text-5xl md:text-6xl font-bold text-primary mb-2">97%</div>
+              <div className="text-muted-foreground">Placement Success Rate</div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -321,17 +260,31 @@ const Services = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center max-w-2xl mx-auto"
+            className="text-center max-w-3xl mx-auto"
           >
-            <Button variant="hero" size="lg" asChild className="mb-6">
-              <Link to="/contact">
-                Start Hiring <ArrowRight size={18} />
-              </Link>
-            </Button>
-            
-            <div className="flex items-center justify-center gap-2 text-navy-foreground/70">
-              <Shield size={16} />
-              <span className="text-sm">Zero-risk hiring. If you don't make a hire, you don't pay anything.</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+              Ready to Transform Your{" "}
+              <span className="text-secondary">Workforce?</span>
+            </h2>
+            <p className="text-lg text-white/80 mb-10 leading-relaxed">
+              Join hundreds of companies that have already discovered the power of 
+              global talent. Start building your dream team today with zero risk.
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-4">
+              <Button variant="hero" size="lg" asChild>
+                <Link to="/contact">
+                  Start Hiring Today <ArrowRight size={18} />
+                </Link>
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-white/30 text-white hover:bg-white hover:text-navy"
+                asChild
+              >
+                <Link to="/contact">Contact Us</Link>
+              </Button>
             </div>
           </motion.div>
         </div>
