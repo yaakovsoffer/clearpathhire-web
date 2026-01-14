@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle, Globe, Users, Shield } from "lucide-react";
+import { ArrowRight, Users, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -8,148 +8,130 @@ export const HeroSection = () => {
   const { t } = useLanguage();
 
   const stats = [
-    { value: "500+", label: t("hero.stats.placed") },
-    { value: "70%", label: t("hero.stats.savings") },
-    { value: "21", label: t("hero.stats.days") },
+    { value: "500+", label: "Professionals Placed" },
+    { value: "70%", label: "Cost Savings" },
+    { value: "21", label: "Days to Hire" },
+    { value: "15+", label: "Countries Served" },
   ];
 
-  const highlights = [
-    t("hero.highlights.vetted"),
-    t("hero.highlights.payroll"),
-    t("hero.highlights.risk"),
+  const features = [
+    {
+      icon: Users,
+      title: "Dedicated Teams",
+      description: "Full-time professionals committed to your success",
+    },
+    {
+      icon: Shield,
+      title: "Full Compliance",
+      description: "We handle all legal and tax requirements",
+    },
   ];
 
   return (
-    <section className="relative overflow-hidden bg-background py-20 lg:py-32">
-      {/* Background Decoration */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-sky/30 to-transparent pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/20 rounded-full blur-3xl pointer-events-none" />
+    <section className="relative overflow-hidden">
+      {/* Hero Image Background */}
+      <div className="relative min-h-[600px] lg:min-h-[700px]">
+        {/* Background Image with Overlay */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')`,
+          }}
+        >
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-sky/90 via-sky/70 to-transparent" />
+        </div>
 
-      <div className="container mx-auto px-4 relative">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="inline-flex items-center gap-2 bg-secondary/20 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-              <Globe size={16} aria-hidden="true" />
-              {t("hero.badge")}
-            </div>
+        {/* Content */}
+        <div className="container mx-auto px-4 relative z-10 py-20 lg:py-28">
+          <div className="max-w-2xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-navy leading-tight mb-6">
+                Build Your Dream Team{" "}
+                <span className="block">with Top Remote Talent</span>
+              </h1>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-              {t("hero.title")}{" "}
-              <span className="text-gradient">{t("hero.titleHighlight")}</span>
-            </h1>
+              <p className="text-lg text-navy/80 mb-8 max-w-lg leading-relaxed">
+                We connect you with pre-vetted professionals from around the world. 
+                Save up to 70% on staffing costs while getting dedicated team members 
+                who integrate seamlessly with your business.
+              </p>
 
-            <p className="text-lg text-muted-foreground mb-8 max-w-lg leading-relaxed">
-              {t("hero.description")}
-            </p>
-
-            <div className="flex flex-wrap gap-4 mb-10">
-              {highlights.map((item, index) => (
-                <motion.div
-                  key={item}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 + index * 0.1 }}
-                  className="flex items-center gap-2 text-sm text-foreground"
+              <div className="flex flex-wrap gap-4">
+                <Button variant="hero" size="lg" asChild>
+                  <Link to="/contact">
+                    Start Hiring <ArrowRight size={18} aria-hidden="true" />
+                  </Link>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  asChild
+                  className="bg-white/90 border-navy/20 text-navy hover:bg-white"
                 >
-                  <CheckCircle size={18} className="text-accent" aria-hidden="true" />
-                  {item}
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="flex flex-wrap gap-4">
-              <Button variant="hero" size="lg" asChild>
-                <Link to="/contact">
-                  {t("hero.cta.primary")} <ArrowRight size={18} aria-hidden="true" />
-                </Link>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
-                <Link to="/services">{t("hero.cta.secondary")}</Link>
-              </Button>
-            </div>
-          </motion.div>
-
-          {/* Right Content - Visual */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative"
-          >
-            <div className="relative bg-card rounded-3xl p-8 shadow-brand">
-              {/* Stats Grid */}
-              <div className="grid grid-cols-3 gap-6 mb-8">
-                {stats.map((stat, index) => (
-                  <motion.div
-                    key={stat.label}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 + index * 0.1 }}
-                    className="text-center"
-                  >
-                    <div className="text-3xl md:text-4xl font-bold text-primary mb-1">
-                      {stat.value}
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      {stat.label}
-                    </div>
-                  </motion.div>
-                ))}
+                  <Link to="/services">Learn More</Link>
+                </Button>
               </div>
+            </motion.div>
+          </div>
+        </div>
 
-              {/* Feature Cards */}
-              <div className="space-y-4">
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="flex items-center gap-4 bg-background rounded-xl p-4"
-                >
-                  <div className="w-12 h-12 rounded-full bg-secondary/30 flex items-center justify-center">
-                    <Users className="text-primary" size={24} aria-hidden="true" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-foreground">{t("hero.features.teams")}</div>
-                    <div className="text-sm text-muted-foreground">
-                      {t("hero.features.teamsDesc")}
-                    </div>
-                  </div>
-                </motion.div>
+        {/* Zero Risk Hiring Banner */}
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="absolute bottom-8 right-0 lg:right-8"
+        >
+          <div className="bg-secondary text-navy font-semibold px-8 py-4 rounded-l-full lg:rounded-full shadow-lg text-lg">
+            Zero Risk Hiring
+          </div>
+        </motion.div>
+      </div>
 
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.7 }}
-                  className="flex items-center gap-4 bg-background rounded-xl p-4"
-                >
-                  <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center">
-                    <Shield className="text-accent" size={24} aria-hidden="true" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-foreground">{t("hero.features.compliance")}</div>
-                    <div className="text-sm text-muted-foreground">
-                      {t("hero.features.complianceDesc")}
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Floating Badge */}
+      {/* Stats & Features Section */}
+      <div className="bg-background py-16">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 items-start">
+            {/* Features */}
+            {features.map((feature, index) => (
               <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.8, type: "spring" }}
-                className="absolute -top-4 -right-4 bg-accent text-accent-foreground px-4 py-2 rounded-full font-semibold text-sm shadow-lg"
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 + index * 0.1 }}
+                className="text-center"
               >
-                {t("hero.badge2")}
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+                  <feature.icon className="text-primary" size={28} aria-hidden="true" />
+                </div>
+                <h3 className="font-semibold text-foreground mb-1">{feature.title}</h3>
+                <p className="text-sm text-muted-foreground">{feature.description}</p>
               </motion.div>
-            </div>
-          </motion.div>
+            ))}
+
+            {/* Stats */}
+            {stats.map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 + index * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
