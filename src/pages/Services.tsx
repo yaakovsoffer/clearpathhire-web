@@ -51,33 +51,40 @@ const Services = () => {
 
   return (
     <Layout>
-      {/* Hero Section with Image */}
-      <section className="relative overflow-hidden">
-        <div className="relative min-h-[400px] lg:min-h-[500px]">
-          <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop')`,
-            }}
+      {/* Hero Section */}
+      <section className="py-16 lg:py-24 bg-muted">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="relative overflow-hidden rounded-[120px]"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/70 to-navy/50" />
-          </div>
-
-          <div className="container mx-auto px-4 relative z-10 py-20 lg:py-28">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center max-w-4xl mx-auto"
+            {/* Background Image */}
+            <div 
+              className="relative min-h-[400px] lg:min-h-[500px] bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')`,
+              }}
             >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                Custom Staffing &{" "}
-                <span className="text-secondary">HR Solutions</span>
-              </h1>
-              <p className="text-xl text-white/80 leading-relaxed max-w-3xl mx-auto">
-                Your full-service partner to streamline talent acquisition, hiring, onboarding, payroll, retention, and compliance.
-              </p>
-            </motion.div>
-          </div>
+              <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/70 to-transparent" />
+              
+              {/* Content */}
+              <div className="relative z-10 flex items-center h-full min-h-[400px] lg:min-h-[500px] px-12 lg:px-20">
+                <div className="max-w-2xl">
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.3] mb-8">
+                    Custom
+                    <br />
+                    Staffing &
+                    <br />
+                    HR Solutions
+                  </h1>
+                  <p className="text-lg text-white/80 leading-relaxed max-w-xl">
+                    Your full-service partner to streamline talent acquisition, hiring, onboarding, payroll, retention, and compliance.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
