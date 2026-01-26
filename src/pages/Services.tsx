@@ -10,6 +10,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import professionalWoman from "@/assets/professional-woman.png";
+import outsourcingSolutionImg from "@/assets/outsourcing-solution.png";
 
 const Services = () => {
   const { t } = useLanguage();
@@ -63,7 +64,7 @@ const Services = () => {
             <div 
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{
-                backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')`,
+                backgroundImage: `url(${outsourcingSolutionImg})`,
               }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/70 to-transparent" />
