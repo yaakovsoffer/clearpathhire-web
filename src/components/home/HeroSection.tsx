@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Users, Shield } from "lucide-react";
+import { ArrowRight, UsersRound, ShieldCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -16,12 +16,12 @@ export const HeroSection = () => {
 
   const features = [
     {
-      icon: Users,
+      icon: UsersRound,
       title: "Dedicated Teams",
       description: "Full-time professionals committed to your success",
     },
     {
-      icon: Shield,
+      icon: ShieldCheck,
       title: "Full Compliance",
       description: "We handle all legal and tax requirements",
     },
@@ -112,8 +112,8 @@ export const HeroSection = () => {
                 transition={{ delay: 0.4 + index * 0.1 }}
                 className="text-center"
               >
-                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-muted flex items-center justify-center">
-                  <feature.icon className="text-navy" size={36} aria-hidden="true" />
+                <div className="flex justify-center mb-4">
+                  <feature.icon className="text-navy" size={56} strokeWidth={1.5} aria-hidden="true" />
                 </div>
                 <h3 className="font-semibold text-navy text-lg mb-2">{feature.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
