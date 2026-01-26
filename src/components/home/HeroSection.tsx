@@ -35,14 +35,11 @@ export const HeroSection = () => {
         <div className="relative min-h-[520px] lg:min-h-[580px] rounded-[3rem] lg:rounded-[4rem] overflow-visible">
           {/* Background Image with Overlay */}
           <div 
-            className="absolute inset-0 bg-contain bg-right bg-no-repeat rounded-[3rem] lg:rounded-[4rem] overflow-hidden"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat rounded-[3rem] lg:rounded-[4rem] overflow-hidden"
             style={{
               backgroundImage: `url('${heroBuilding}')`,
             }}
-          >
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-navy/85 via-navy/60 to-navy/30" />
-          </div>
+          />
 
           {/* Content */}
           <div className="relative z-10 p-8 lg:p-16 flex flex-col justify-center h-full min-h-[520px] lg:min-h-[580px]">
