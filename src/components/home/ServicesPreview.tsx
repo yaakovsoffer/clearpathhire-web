@@ -70,13 +70,8 @@ export const ServicesPreview = () => {
                   transition={{ delay: index * 0.1 }}
                   className="group"
                 >
-                  {/* Custom Masked Image Container */}
-                  <div 
-                    className="relative h-64 lg:h-80 mb-5 overflow-hidden"
-                    style={{
-                      borderRadius: '2.5rem 0.5rem 2.5rem 0.5rem',
-                    }}
-                  >
+                  {/* Rounded Image Container */}
+                  <div className="relative h-64 lg:h-80 mb-5 overflow-hidden rounded-3xl">
                     <img 
                       src={service.image}
                       alt={service.title}
