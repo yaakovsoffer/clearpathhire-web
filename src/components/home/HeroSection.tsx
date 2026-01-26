@@ -56,7 +56,7 @@ export const HeroSection = () => {
               exit={{ opacity: 0 }}
               transition={{ 
                 opacity: { duration: 2, ease: "easeInOut" },
-                scale: { duration: 11, ease: "linear" }
+                scale: { duration: 18, ease: "linear" }
               }}
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{
