@@ -51,9 +51,9 @@ export const HeroSection = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 drop-shadow-lg">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6 drop-shadow-lg">
                   <span className="whitespace-nowrap">Build Your Dream Team</span>
-                  <span className="block mt-6 md:mt-8 whitespace-nowrap">with Top Remote Talent</span>
+                  <span className="block mt-2 whitespace-nowrap">with <span className="text-accent">Top Remote Talent</span></span>
                 </h1>
 
                 <p className="text-base md:text-lg text-white/90 mb-8 max-w-lg leading-relaxed drop-shadow-md">
