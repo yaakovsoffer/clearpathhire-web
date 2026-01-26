@@ -8,9 +8,6 @@ import {
   Shield,
   DollarSign,
   ArrowRight,
-  UserCheck,
-  HeadphonesIcon,
-  TrendingUp,
 } from "lucide-react";
 
 const Services = () => {
@@ -37,28 +34,6 @@ const Services = () => {
     },
   ];
 
-  const benefits = [
-    {
-      icon: UserCheck,
-      title: "Pre-Vetted Talent",
-      description: "Every candidate undergoes rigorous screening including skills assessment, background checks, and cultural fit evaluation.",
-    },
-    {
-      icon: HeadphonesIcon,
-      title: "Dedicated Support",
-      description: "Your dedicated account manager ensures smooth onboarding and ongoing success for every placement.",
-    },
-    {
-      icon: Shield,
-      title: "Full Compliance",
-      description: "We handle all legal, tax, and employment compliance so you can focus on growing your business.",
-    },
-    {
-      icon: TrendingUp,
-      title: "Flexible Scaling",
-      description: "Easily scale your team up or down based on your business needs without long-term commitments.",
-    },
-  ];
 
   const roles = [
     "Executive Assistants",
@@ -159,65 +134,6 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="py-20 bg-card">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center max-w-3xl mx-auto mb-16"
-          >
-            <span className="text-sm font-semibold text-accent uppercase tracking-wider mb-4 block">
-              Why Choose Clear Path Hire?
-            </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
-              Your Strategic Partner for{" "}
-              <span className="text-primary">Remote Excellence.</span>
-            </h2>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefits.map((benefit, index) => (
-              <motion.div
-                key={benefit.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-background rounded-2xl p-6 border border-border hover:shadow-brand transition-all duration-300"
-              >
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
-                  <benefit.icon size={28} className="text-primary" aria-hidden="true" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-3">
-                  {benefit.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {benefit.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-16 mt-16"
-          >
-            <div className="text-center">
-              <div className="text-5xl md:text-6xl font-bold text-primary mb-2">70%</div>
-              <div className="text-muted-foreground">Average Cost Savings</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl md:text-6xl font-bold text-primary mb-2">97%</div>
-              <div className="text-muted-foreground">Placement Success Rate</div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
       {/* Roles Section */}
       <section className="py-20 bg-background">
