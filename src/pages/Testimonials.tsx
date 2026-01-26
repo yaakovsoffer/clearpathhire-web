@@ -89,8 +89,8 @@ const Testimonials = () => {
                   transition={{ duration: 0.6 }}
                 >
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 drop-shadow-lg">
-                    <span className="block">Success Stories</span>
-                    <span className="block mt-2">From Our Clients</span>
+                    <span className="block">Trusted by Growing</span>
+                    <span className="block mt-2">Businesses</span>
                   </h1>
 
                   <p className="text-base md:text-lg text-white/90 mb-8 max-w-lg leading-relaxed drop-shadow-md">
