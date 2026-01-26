@@ -404,7 +404,7 @@ const Services = () => {
               <img
                 src={professionalWoman}
                 alt="Professional woman in business attire"
-                className="w-[350px] md:w-[500px] lg:w-[550px] h-auto object-contain"
+                className="w-[350px] md:w-[500px] lg:w-[700px] h-auto object-contain"
               />
             </motion.div>
 
