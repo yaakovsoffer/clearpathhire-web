@@ -183,7 +183,7 @@ const About = () => {
               />
               <div className="absolute inset-0 bg-navy/80" />
               <div className="relative z-10 p-10 flex flex-col justify-end h-full">
-                <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-sky via-accent to-secondary bg-clip-text text-transparent">
+                <h3 className="text-2xl font-bold mb-4 text-accent">
                   Our Mission
                 </h3>
                 <p className="text-white/90 leading-relaxed">
@@ -207,7 +207,7 @@ const About = () => {
               />
               <div className="absolute inset-0 bg-navy/80" />
               <div className="relative z-10 p-10 flex flex-col justify-end h-full">
-                <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-sky via-accent to-secondary bg-clip-text text-transparent">
+                <h3 className="text-2xl font-bold mb-4 text-accent">
                   Our Vision
                 </h3>
                 <p className="text-white/90 leading-relaxed">
