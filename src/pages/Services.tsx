@@ -445,8 +445,8 @@ const Services = () => {
                     className={`
                       rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 cursor-pointer
                       ${role.featured 
-                        ? 'bg-navy text-white shadow-md' 
-                        : 'bg-background text-foreground border border-border hover:border-navy/30'
+                        ? 'bg-navy text-white shadow-md hover:bg-accent hover:text-white' 
+                        : 'bg-background text-foreground border border-border hover:bg-navy hover:text-white hover:border-navy'
                       }
                     `}
                   >
