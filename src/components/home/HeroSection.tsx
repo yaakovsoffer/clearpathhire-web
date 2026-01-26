@@ -53,7 +53,7 @@ export const HeroSection = () => {
               >
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 drop-shadow-lg">
                   <span className="whitespace-nowrap">Build Your Dream Team</span>
-                  <span className="block mt-6 md:mt-8">with Top Remote Talent</span>
+                  <span className="block mt-6 md:mt-8 whitespace-nowrap">with Top Remote Talent</span>
                 </h1>
 
                 <p className="text-base md:text-lg text-white/90 mb-8 max-w-lg leading-relaxed drop-shadow-md">
