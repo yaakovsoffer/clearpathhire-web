@@ -36,26 +36,52 @@ const About = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="py-20 lg:py-32 bg-background relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-sky/20 to-transparent pointer-events-none" />
-        
-        <div className="container mx-auto px-4 relative">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="max-w-3xl"
-          >
-            <span className="text-sm font-semibold text-accent uppercase tracking-wider mb-4 block">
-              About Us
-            </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-              Your Direct Route to the{" "}
-              <span className="text-gradient">Right Talent</span>
-            </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              Clear Path Hire was founded on a simple belief: great talent exists everywhere, and businesses deserve access to it without the complexity of international hiring.
-            </p>
-          </motion.div>
+      <section className="py-16 lg:py-24 bg-muted">
+        <div className="container mx-auto px-4">
+          <div className="relative">
+            {/* Main Hero Container with Asymmetrical Mask */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="relative overflow-hidden"
+              style={{ 
+                borderRadius: '3rem 1rem 3rem 1rem',
+                minHeight: '500px'
+              }}
+            >
+              {/* Background Image */}
+              <img 
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1920&auto=format&fit=crop"
+                alt="Modern blue glass office building"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              
+              {/* Dark Overlay for Text Readability */}
+              <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/70 to-transparent" />
+              
+              {/* Content */}
+              <div className="relative z-10 p-10 lg:p-16 flex flex-col justify-center min-h-[500px] max-w-2xl">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.3] mb-8">
+                    Your
+                    <br />
+                    Direct Route
+                    <br />
+                    to the
+                    <br />
+                    <span className="text-secondary">Right Talent</span>
+                  </h1>
+                  <p className="text-lg text-muted-foreground max-w-md leading-relaxed">
+                    Clear Path Hire was founded on a simple belief: great talent exists everywhere, and businesses deserve access to it without the complexity of international hiring.
+                  </p>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
