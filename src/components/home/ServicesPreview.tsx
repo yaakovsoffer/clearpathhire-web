@@ -49,7 +49,7 @@ export const ServicesPreview = () => {
             <span className="text-sm font-bold text-accent uppercase tracking-wider mb-4 block">
               {t("services.title")}
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-navy leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary leading-tight">
               Custom
               <br />
               Staffing &
