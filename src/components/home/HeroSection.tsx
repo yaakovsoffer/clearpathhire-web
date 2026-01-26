@@ -35,7 +35,7 @@ export const HeroSection = () => {
         <div className="relative min-h-[520px] lg:min-h-[580px] rounded-[3rem] lg:rounded-[4rem] overflow-visible">
           {/* Background Image with Overlay */}
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat rounded-[3rem] lg:rounded-[4rem] overflow-hidden"
+            className="absolute inset-0 bg-contain bg-center bg-no-repeat rounded-[3rem] lg:rounded-[4rem] overflow-hidden"
             style={{
               backgroundImage: `url('${heroBuilding}')`,
             }}
