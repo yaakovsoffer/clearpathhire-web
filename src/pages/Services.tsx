@@ -97,7 +97,7 @@ const Services = () => {
             <span className="text-sm font-semibold text-primary uppercase tracking-wider mb-4 block">
               Our Services
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground whitespace-nowrap">
               Everything You Need to Build Your Remote Team
             </h2>
           </motion.div>
