@@ -110,12 +110,12 @@ export const HeroSection = () => {
             </div>
           </div>
 
-          {/* Zero Risk Hiring Banner - Overlapping */}
+          {/* Zero Risk Hiring Banner - Outside the box */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="absolute -bottom-4 right-8 lg:right-16 z-20"
+            className="absolute -bottom-6 right-8 lg:right-16 z-20 translate-y-1/2"
           >
             <div className="bg-sky text-navy font-bold px-10 py-4 rounded-full shadow-xl text-lg tracking-wide">
               Zero Risk Hiring
