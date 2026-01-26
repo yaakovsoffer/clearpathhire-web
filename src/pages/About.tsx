@@ -35,7 +35,7 @@ const About = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="py-16 lg:py-24 bg-muted">
+      <section className="py-16 lg:py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="relative">
             {/* Main Hero Container with Asymmetrical Mask */}
