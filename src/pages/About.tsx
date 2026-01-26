@@ -67,15 +67,11 @@ const About = () => {
                   transition={{ delay: 0.2 }}
                 >
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.3] mb-8">
-                    Your
-                    <br />
-                    Direct Route
-                    <br />
-                    to the
+                    Your Direct Route to the
                     <br />
                     <span className="text-secondary">Right Talent</span>
                   </h1>
-                  <p className="text-lg text-muted-foreground max-w-md leading-relaxed">
+                  <p className="text-lg text-white/90 max-w-md leading-relaxed">
                     Clear Path Hire was founded on a simple belief: great talent exists everywhere, and businesses deserve access to it without the complexity of international hiring.
                   </p>
                 </motion.div>
