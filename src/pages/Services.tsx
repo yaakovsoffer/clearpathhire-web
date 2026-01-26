@@ -37,7 +37,7 @@ const Services = () => {
 
 
   const roles = [
-    { name: "Executive Assistants", featured: true },
+    { name: "Executive Assistants", featured: false },
     { name: "Accountants & Bookkeepers", featured: false },
     { name: "Customer Support", featured: false },
     { name: "Sales Representatives", featured: false },
