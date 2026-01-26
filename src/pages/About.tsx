@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Heart, Users, Globe, Award } from "lucide-react";
 import aboutHeroImg from "@/assets/about-hero.png";
+import ourStoryImg from "@/assets/our-story.png";
 
 const values = [
   {
@@ -92,8 +93,8 @@ const About = () => {
               className="overflow-hidden rounded-3xl"
             >
               <img 
-                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop"
-                alt="Modern office building"
+                src={ourStoryImg}
+                alt="Clear Path Hire logo"
                 className="w-full h-[400px] lg:h-[480px] object-cover"
               />
             </motion.div>
