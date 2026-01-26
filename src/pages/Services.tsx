@@ -389,7 +389,7 @@ const Services = () => {
 
 
       {/* Positions We Fill Section */}
-      <section className="py-20 lg:py-28 bg-muted">
+      <section className="pt-20 lg:pt-28 pb-0 bg-muted overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-end">
             {/* Left Side - Professional Image with built-in blob */}
@@ -397,14 +397,14 @@ const Services = () => {
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.03 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="flex justify-center lg:justify-start cursor-pointer"
+              className="flex justify-center lg:justify-start cursor-pointer self-end"
             >
               <img
                 src={professionalWoman}
                 alt="Professional woman in business attire"
-                className="w-80 md:w-[420px] lg:w-[480px] h-auto object-contain"
+                className="w-[350px] md:w-[500px] lg:w-[550px] h-auto object-contain"
               />
             </motion.div>
 
