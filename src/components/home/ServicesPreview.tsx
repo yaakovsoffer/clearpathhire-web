@@ -94,7 +94,7 @@ export const ServicesPreview = () => {
             <div className="flex justify-end gap-3 mt-8">
               <button
                 onClick={handlePrev}
-                className="w-12 h-12 rounded-full bg-navy text-white flex items-center justify-center hover:bg-navy/90 transition-colors"
+                className="w-12 h-12 rounded-full border-2 border-navy text-navy flex items-center justify-center hover:bg-navy hover:text-white transition-colors"
                 aria-label="Previous service"
               >
                 <ChevronLeft size={24} />
