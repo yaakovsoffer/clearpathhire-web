@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useState } from "react";
+import staffingSolutionsImg from "@/assets/staffing-solutions.png";
 
 export const ServicesPreview = () => {
   const { t } = useLanguage();
@@ -13,7 +14,7 @@ export const ServicesPreview = () => {
     {
       title: "Staffing Solutions",
       description: "Find the perfect candidates for your team with our comprehensive recruitment services.",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop",
+      image: staffingSolutionsImg,
     },
     {
       title: "HR & Compliance",
