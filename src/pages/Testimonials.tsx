@@ -34,9 +34,7 @@ const Testimonials = () => {
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 drop-shadow-lg">
                     <span className="block">
                       Trusted by{" "}
-                      <span className="bg-gradient-to-r from-primary to-sky bg-clip-text text-transparent">
-                        Growing
-                      </span>
+                      <span className="text-accent">Growing</span>
                     </span>
                     <span className="block mt-2">Businesses</span>
                   </h1>
