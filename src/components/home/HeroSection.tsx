@@ -28,42 +28,46 @@ export const HeroSection = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden">
-      {/* Hero Image Background */}
-      <div className="container mx-auto px-4 py-6">
-        <div className="relative min-h-[500px] lg:min-h-[600px] rounded-3xl overflow-hidden">
+    <section className="relative overflow-visible bg-background">
+      {/* Hero Container */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="relative min-h-[520px] lg:min-h-[580px] rounded-[3rem] lg:rounded-[4rem] overflow-visible">
           {/* Background Image with Overlay */}
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat rounded-[3rem] lg:rounded-[4rem] overflow-hidden"
             style={{
               backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')`,
             }}
           >
             {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/70 to-navy/40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-navy/85 via-navy/60 to-navy/30" />
           </div>
 
           {/* Content */}
-          <div className="relative z-10 p-8 lg:p-16 flex flex-col justify-center h-full min-h-[500px] lg:min-h-[600px]">
+          <div className="relative z-10 p-8 lg:p-16 flex flex-col justify-center h-full min-h-[520px] lg:min-h-[580px]">
             <div className="max-w-xl">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 drop-shadow-lg">
                   Build Your Dream Team{" "}
                   <span className="block">with Top Remote Talent</span>
                 </h1>
 
-                <p className="text-base md:text-lg text-white mb-8 max-w-lg leading-relaxed">
+                <p className="text-base md:text-lg text-white/90 mb-8 max-w-lg leading-relaxed drop-shadow-md">
                   We connect you with pre-vetted professionals from around the world. 
                   Save up to 70% on staffing costs while getting dedicated team members 
                   who integrate seamlessly with your business.
                 </p>
 
                 <div className="flex flex-wrap gap-4">
-                  <Button variant="hero" size="lg" asChild className="rounded-full">
+                  <Button 
+                    size="lg" 
+                    asChild 
+                    className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full font-bold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                  >
                     <Link to="/contact">
                       Start Hiring
                     </Link>
@@ -72,7 +76,7 @@ export const HeroSection = () => {
                     variant="outline" 
                     size="lg" 
                     asChild
-                    className="bg-white border-navy/20 text-navy hover:bg-white/90 rounded-full"
+                    className="bg-transparent border-2 border-white text-white hover:bg-white/10 rounded-full font-semibold"
                   >
                     <Link to="/services">Learn More</Link>
                   </Button>
@@ -81,14 +85,14 @@ export const HeroSection = () => {
             </div>
           </div>
 
-          {/* Zero Risk Hiring Banner */}
+          {/* Zero Risk Hiring Banner - Overlapping */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="absolute bottom-6 right-6 lg:bottom-8 lg:right-8"
+            className="absolute -bottom-4 right-8 lg:right-16 z-20"
           >
-            <div className="bg-sky text-white font-semibold px-8 py-4 rounded-full shadow-lg text-lg">
+            <div className="bg-sky text-white font-bold px-10 py-4 rounded-full shadow-xl text-lg tracking-wide">
               Zero Risk Hiring
             </div>
           </motion.div>
