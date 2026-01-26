@@ -102,8 +102,8 @@ export const HeroSection = () => {
       {/* Stats & Features Section */}
       <div className="bg-background py-16">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 items-start">
-            {/* Features */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 items-start">
+            {/* Features - Left Side */}
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
@@ -112,31 +112,33 @@ export const HeroSection = () => {
                 transition={{ delay: 0.4 + index * 0.1 }}
                 className="text-center"
               >
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                  <feature.icon className="text-primary" size={28} aria-hidden="true" />
+                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-muted flex items-center justify-center">
+                  <feature.icon className="text-navy" size={36} aria-hidden="true" />
                 </div>
-                <h3 className="font-semibold text-foreground mb-1">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.description}</p>
+                <h3 className="font-semibold text-navy text-lg mb-2">{feature.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
               </motion.div>
             ))}
 
-            {/* Stats */}
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 + index * 0.1 }}
-                className="text-center"
-              >
-                <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
+            {/* Stats - Right Side in 2x2 Grid */}
+            <div className="col-span-2 grid grid-cols-2 gap-6">
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 + index * 0.1 }}
+                  className="text-center lg:text-left"
+                >
+                  <div className="text-4xl md:text-5xl font-bold text-navy mb-1">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    {stat.label}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
