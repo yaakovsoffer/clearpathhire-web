@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
+import contactHeroImg from "@/assets/contact-hero.png";
 
 const contactInfo = [
   {
@@ -79,7 +80,15 @@ const Contact = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="py-20 lg:py-32 bg-background relative overflow-hidden">
+      <section className="py-20 lg:py-32 relative overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${contactHeroImg})` }}
+        >
+          <div className="absolute inset-0 bg-navy/85" />
+        </div>
+        
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
         
         <div className="container mx-auto px-4 relative">
@@ -91,11 +100,11 @@ const Contact = () => {
             <span className="text-sm font-semibold text-accent uppercase tracking-wider mb-4 block">
               Contact Us
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               Let's Build Your{" "}
-              <span className="text-gradient">Dream Team</span>
+              <span className="text-accent">Dream Team</span>
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
+            <p className="text-xl text-white/80 leading-relaxed">
               Ready to scale with global talent? Get in touch and we'll help you find the perfect fit for your business.
             </p>
           </motion.div>
