@@ -52,7 +52,7 @@ export const HeroSection = () => {
                 transition={{ duration: 0.6 }}
               >
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 drop-shadow-lg">
-                  Build Your Dream Team
+                  <span className="whitespace-nowrap">Build Your Dream Team</span>
                   <span className="block mt-6 md:mt-8">with Top Remote Talent</span>
                 </h1>
 
