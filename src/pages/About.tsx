@@ -25,13 +25,6 @@ const values = [
   },
 ];
 
-const stats = [
-  { value: "500+", label: "Placements Made" },
-  { value: "98%", label: "Client Satisfaction" },
-  { value: "21", label: "Days Average to Hire" },
-  { value: "15+", label: "Countries Served" },
-];
-
 const About = () => {
   return (
     <Layout>
@@ -82,18 +75,34 @@ const About = () => {
       </section>
 
       {/* Story Section */}
-      <section className="py-20 bg-card">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Two Column Layout */}
+          <div className="grid lg:grid-cols-2 gap-12 items-start mb-16">
+            {/* Left - Image */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              className="overflow-hidden rounded-3xl"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+              <img 
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop"
+                alt="Modern office building"
+                className="w-full h-[400px] lg:h-[480px] object-cover"
+              />
+            </motion.div>
+
+            {/* Right - Content */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-navy mb-8">
                 Our Story
               </h2>
-              <div className="space-y-4 text-muted-foreground leading-relaxed">
+              <div className="space-y-6 text-muted-foreground leading-relaxed">
                 <p>
                   Since COVID-19 transformed the workplace, businesses discovered a powerful truth: anything that can be done from home can be done from anywhere. This revelation opened doors to a global talent pool of skilled professionals ready to work remotely.
                 </p>
@@ -105,26 +114,50 @@ const About = () => {
                 </p>
               </div>
             </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="grid grid-cols-2 gap-6"
-            >
-              {stats.map((stat, index) => (
-                <div
-                  key={stat.label}
-                  className="bg-background rounded-2xl p-6 text-center shadow-sm border border-border"
-                >
-                  <div className="text-4xl font-bold text-primary mb-2">
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </div>
-              ))}
-            </motion.div>
           </div>
+
+          {/* Stats Cards */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-muted rounded-3xl p-6 lg:p-8"
+          >
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* First Card - Navy */}
+              <div className="bg-navy rounded-3xl p-6 lg:p-8 relative overflow-hidden">
+                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-sky/30" />
+                <div className="text-4xl lg:text-5xl font-bold text-white mb-2">
+                  500+
+                </div>
+                <div className="text-sm text-white/80 font-medium">Placements Made</div>
+              </div>
+
+              {/* Second Card - White */}
+              <div className="bg-background rounded-3xl p-6 lg:p-8 border border-border">
+                <div className="text-4xl lg:text-5xl font-bold text-navy mb-2">
+                  98%
+                </div>
+                <div className="text-sm text-muted-foreground">Client Satisfaction</div>
+              </div>
+
+              {/* Third Card - White */}
+              <div className="bg-background rounded-3xl p-6 lg:p-8 border border-border">
+                <div className="text-4xl lg:text-5xl font-bold text-navy mb-2">
+                  21
+                </div>
+                <div className="text-sm text-muted-foreground">Days Average to Hire</div>
+              </div>
+
+              {/* Fourth Card - White */}
+              <div className="bg-background rounded-3xl p-6 lg:p-8 border border-border">
+                <div className="text-4xl lg:text-5xl font-bold text-navy mb-2">
+                  15+
+                </div>
+                <div className="text-sm text-muted-foreground">Countries Served</div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
