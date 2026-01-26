@@ -69,7 +69,7 @@ const About = () => {
                   <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.3] mb-8">
                     <span className="whitespace-nowrap">Your Direct Route to the</span>
                     <br />
-                    <span className="text-secondary">Right Talent</span>
+                    <span className="text-accent">Right Talent</span>
                   </h1>
                   <p className="text-lg text-white/90 max-w-md leading-relaxed">
                     Clear Path Hire was founded on a simple belief: great talent exists everywhere, and businesses deserve access to it without the complexity of international hiring.
