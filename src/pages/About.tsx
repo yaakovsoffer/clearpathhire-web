@@ -66,8 +66,8 @@ const About = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.3] mb-8">
-                    Your Direct Route to the
+                  <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.3] mb-8">
+                    <span className="whitespace-nowrap">Your Direct Route to the</span>
                     <br />
                     <span className="text-secondary">Right Talent</span>
                   </h1>
