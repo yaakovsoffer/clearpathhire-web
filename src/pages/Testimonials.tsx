@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import TestimonialCarousel from "@/components/testimonials/TestimonialCarousel";
+import testimonialsHeroImg from "@/assets/testimonials-hero.png";
 
 const Testimonials = () => {
   return (
@@ -16,7 +17,7 @@ const Testimonials = () => {
             <div 
               className="absolute inset-0 bg-cover bg-center bg-no-repeat rounded-[3rem] lg:rounded-[4rem] overflow-hidden"
               style={{
-                backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')`,
+                backgroundImage: `url(${testimonialsHeroImg})`,
               }}
             >
               {/* Gradient Overlay */}
