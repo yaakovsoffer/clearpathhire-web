@@ -119,7 +119,7 @@ export const HeroSection = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex justify-end mt-6 pr-8 lg:pr-16"
         >
-          <div className="bg-sky text-navy font-bold px-10 py-4 rounded-full shadow-xl text-lg tracking-wide">
+          <div className="bg-sky text-navy font-bold px-10 py-4 rounded-full text-lg tracking-wide">
             Zero Risk Hiring
           </div>
         </motion.div>
