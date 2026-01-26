@@ -17,7 +17,7 @@ export const HeroSection = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
-    }, 6000);
+    }, 12000);
 
     return () => clearInterval(interval);
   }, []);
@@ -48,13 +48,13 @@ export const HeroSection = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="relative min-h-[520px] lg:min-h-[580px] rounded-[3rem] lg:rounded-[4rem] overflow-hidden">
           {/* Background Image Slideshow */}
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="sync">
             <motion.div
               key={currentImageIndex}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1, ease: "easeInOut" }}
+              initial={{ opacity: 0, scale: 1.1 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 4, ease: "easeInOut" }}
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{
                 backgroundImage: `url('${heroImages[currentImageIndex]}')`,
