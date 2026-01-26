@@ -31,10 +31,10 @@ export const HeroSection = () => {
     <section className="relative overflow-visible bg-background">
       {/* Hero Container */}
       <div className="container mx-auto px-4 py-8">
-        <div className="relative min-h-[520px] lg:min-h-[580px] rounded-tl-[4rem] rounded-br-[4rem] lg:rounded-tl-[6rem] lg:rounded-br-[6rem] rounded-tr-none rounded-bl-none overflow-visible">
+        <div className="relative min-h-[520px] lg:min-h-[580px] rounded-[3rem] lg:rounded-[4rem] overflow-visible">
           {/* Background Image with Overlay */}
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat rounded-tl-[4rem] rounded-br-[4rem] lg:rounded-tl-[6rem] lg:rounded-br-[6rem] rounded-tr-none rounded-bl-none overflow-hidden"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat rounded-[3rem] lg:rounded-[4rem] overflow-hidden"
             style={{
               backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')`,
             }}
