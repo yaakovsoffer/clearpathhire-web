@@ -36,16 +36,16 @@ const Services = () => {
 
 
   const roles = [
-    "Executive Assistants",
-    "Accountants & Bookkeepers",
-    "Customer Support",
-    "Sales Representatives",
-    "Marketing Specialists",
-    "Software Developers",
-    "Data Analysts",
-    "Project Managers",
-    "HR Specialists",
-    "Legal Assistants",
+    { name: "Executive Assistants", featured: true },
+    { name: "Accountants & Bookkeepers", featured: false },
+    { name: "Customer Support", featured: false },
+    { name: "Sales Representatives", featured: false },
+    { name: "Marketing Specialists", featured: false },
+    { name: "Software Developers", featured: false },
+    { name: "Data Analysts", featured: false },
+    { name: "Project Managers", featured: false },
+    { name: "HR Specialists", featured: false },
+    { name: "Legal Assistants", featured: false },
   ];
 
   return (
@@ -387,36 +387,87 @@ const Services = () => {
       </section>
 
 
-      {/* Roles Section */}
-      <section className="py-20 bg-background">
+      {/* Positions We Fill Section */}
+      <section className="py-20 lg:py-28 bg-muted">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center max-w-2xl mx-auto mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Roles We Fill
-            </h2>
-            <p className="text-muted-foreground">
-              We source and place talent for any role that can be done remotely.
-            </p>
-          </motion.div>
-
-          <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
-            {roles.map((role, index) => (
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Left Side - Image with Orange Blob */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative flex justify-center lg:justify-start"
+            >
+              {/* Organic Orange Blob */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <svg
+                  viewBox="0 0 400 500"
+                  className="w-[280px] md:w-[350px] lg:w-[400px] h-auto"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M50,100 Q20,200 60,300 Q100,400 180,450 Q280,500 340,420 Q400,340 380,220 Q360,100 280,50 Q200,0 120,40 Q60,60 50,100 Z"
+                    className="fill-accent"
+                  />
+                </svg>
+              </div>
+              
+              {/* Professional Image */}
               <motion.div
-                key={role}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.03 }}
-                className="bg-card rounded-full px-5 py-2.5 border border-border hover:border-primary hover:bg-primary/5 transition-colors cursor-default"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="relative z-10 cursor-pointer"
               >
-                <span className="text-sm font-medium text-foreground">{role}</span>
+                <img
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=500&auto=format&fit=crop"
+                  alt="Professional woman in business attire"
+                  className="w-64 md:w-80 h-auto object-cover rounded-3xl shadow-lg hover:shadow-2xl transition-shadow duration-300"
+                />
               </motion.div>
-            ))}
+            </motion.div>
+
+            {/* Right Side - Content */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <span className="text-sm font-bold text-accent uppercase tracking-wider mb-4 block">
+                Positions We Fill
+              </span>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-navy mb-6 leading-tight">
+                Find the Perfect Fit<br />for Every Role
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-8 max-w-lg">
+                We source and help you onboard top, English-speaking talent in under 21 days. Leverage our expertise to find remote talent that aligns with your culture and works in your time zone.
+              </p>
+
+              {/* Staggered Pill Buttons */}
+              <div className="flex flex-wrap gap-3 max-w-md">
+                {roles.map((role, index) => (
+                  <motion.button
+                    key={role.name}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.05 }}
+                    whileHover={{ 
+                      scale: 1.08, 
+                      boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.15)" 
+                    }}
+                    className={`
+                      rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 cursor-pointer
+                      ${role.featured 
+                        ? 'bg-navy text-white shadow-md' 
+                        : 'bg-background text-foreground border border-border hover:border-navy/30'
+                      }
+                    `}
+                  >
+                    {role.name}
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
