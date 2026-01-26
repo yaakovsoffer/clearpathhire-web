@@ -9,6 +9,7 @@ import {
   DollarSign,
   ArrowRight,
 } from "lucide-react";
+import professionalWoman from "@/assets/professional-woman.png";
 
 const Services = () => {
   const { t } = useLanguage();
@@ -391,39 +392,20 @@ const Services = () => {
       <section className="py-20 lg:py-28 bg-muted">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            {/* Left Side - Image with Orange Blob */}
+            {/* Left Side - Professional Image with built-in blob */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="relative flex justify-center lg:justify-start"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="flex justify-center lg:justify-start cursor-pointer"
             >
-              {/* Organic Orange Blob */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <svg
-                  viewBox="0 0 400 500"
-                  className="w-[280px] md:w-[350px] lg:w-[400px] h-auto"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M50,100 Q20,200 60,300 Q100,400 180,450 Q280,500 340,420 Q400,340 380,220 Q360,100 280,50 Q200,0 120,40 Q60,60 50,100 Z"
-                    className="fill-accent"
-                  />
-                </svg>
-              </div>
-              
-              {/* Professional Image */}
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="relative z-10 cursor-pointer"
-              >
-                <img
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=500&auto=format&fit=crop"
-                  alt="Professional woman in business attire"
-                  className="w-64 md:w-80 h-auto object-cover rounded-3xl shadow-lg hover:shadow-2xl transition-shadow duration-300"
-                />
-              </motion.div>
+              <img
+                src={professionalWoman}
+                alt="Professional woman in business attire"
+                className="w-72 md:w-96 h-auto object-contain"
+              />
             </motion.div>
 
             {/* Right Side - Content */}
