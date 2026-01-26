@@ -413,6 +413,7 @@ const Services = () => {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              className="self-center"
             >
               <span className="text-sm font-bold text-accent uppercase tracking-wider mb-4 block">
                 Positions We Fill
