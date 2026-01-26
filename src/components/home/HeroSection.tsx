@@ -30,67 +30,69 @@ export const HeroSection = () => {
   return (
     <section className="relative overflow-hidden">
       {/* Hero Image Background */}
-      <div className="relative min-h-[600px] lg:min-h-[700px]">
-        {/* Background Image with Overlay */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')`,
-          }}
-        >
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-sky/90 via-sky/70 to-transparent" />
-        </div>
-
-        {/* Content */}
-        <div className="container mx-auto px-4 relative z-10 py-20 lg:py-28">
-          <div className="max-w-2xl">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-navy leading-tight mb-6">
-                Build Your Dream Team{" "}
-                <span className="block">with Top Remote Talent</span>
-              </h1>
-
-              <p className="text-lg text-navy/80 mb-8 max-w-lg leading-relaxed">
-                We connect you with pre-vetted professionals from around the world. 
-                Save up to 70% on staffing costs while getting dedicated team members 
-                who integrate seamlessly with your business.
-              </p>
-
-              <div className="flex flex-wrap gap-4">
-                <Button variant="hero" size="lg" asChild>
-                  <Link to="/contact">
-                    Start Hiring <ArrowRight size={18} aria-hidden="true" />
-                  </Link>
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  asChild
-                  className="bg-white/90 border-navy/20 text-navy hover:bg-white"
-                >
-                  <Link to="/services">Learn More</Link>
-                </Button>
-              </div>
-            </motion.div>
+      <div className="container mx-auto px-4 py-6">
+        <div className="relative min-h-[500px] lg:min-h-[600px] rounded-3xl overflow-hidden">
+          {/* Background Image with Overlay */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')`,
+            }}
+          >
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-sky/95 via-sky/60 to-transparent" />
           </div>
-        </div>
 
-        {/* Zero Risk Hiring Banner */}
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="absolute bottom-8 right-0 lg:right-8"
-        >
-          <div className="bg-secondary text-navy font-semibold px-8 py-4 rounded-l-full lg:rounded-full shadow-lg text-lg">
-            Zero Risk Hiring
+          {/* Content */}
+          <div className="relative z-10 p-8 lg:p-16 flex flex-col justify-center h-full min-h-[500px] lg:min-h-[600px]">
+            <div className="max-w-xl">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-navy leading-tight mb-6">
+                  Build Your Dream Team{" "}
+                  <span className="block">with Top Remote Talent</span>
+                </h1>
+
+                <p className="text-base md:text-lg text-navy/80 mb-8 max-w-lg leading-relaxed">
+                  We connect you with pre-vetted professionals from around the world. 
+                  Save up to 70% on staffing costs while getting dedicated team members 
+                  who integrate seamlessly with your business.
+                </p>
+
+                <div className="flex flex-wrap gap-4">
+                  <Button variant="hero" size="lg" asChild className="rounded-full">
+                    <Link to="/contact">
+                      Start Hiring
+                    </Link>
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="lg" 
+                    asChild
+                    className="bg-white border-navy/20 text-navy hover:bg-white/90 rounded-full"
+                  >
+                    <Link to="/services">Learn More</Link>
+                  </Button>
+                </div>
+              </motion.div>
+            </div>
           </div>
-        </motion.div>
+
+          {/* Zero Risk Hiring Banner */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="absolute bottom-6 right-6 lg:bottom-8 lg:right-8"
+          >
+            <div className="bg-sky text-white font-semibold px-8 py-4 rounded-full shadow-lg text-lg">
+              Zero Risk Hiring
+            </div>
+          </motion.div>
+        </div>
       </div>
 
       {/* Stats & Features Section */}
