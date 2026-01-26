@@ -391,7 +391,7 @@ const Services = () => {
       {/* Positions We Fill Section */}
       <section className="py-20 lg:py-28 bg-muted">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-end">
             {/* Left Side - Professional Image with built-in blob */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -404,7 +404,7 @@ const Services = () => {
               <img
                 src={professionalWoman}
                 alt="Professional woman in business attire"
-                className="w-72 md:w-96 h-auto object-contain"
+                className="w-80 md:w-[420px] lg:w-[480px] h-auto object-contain"
               />
             </motion.div>
 
