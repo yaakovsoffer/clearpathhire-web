@@ -7,21 +7,25 @@ const values = [
     icon: Heart,
     title: "People First",
     description: "We believe in building genuine relationships with both our clients and the professionals we place.",
+    isDark: false,
   },
   {
     icon: Globe,
     title: "Global Excellence",
     description: "We connect you with top talent worldwide, breaking geographical barriers to find the perfect fit.",
+    isDark: true,
   },
   {
     icon: Award,
     title: "Quality Commitment",
     description: "Every candidate goes through rigorous vetting to ensure they meet our high standards.",
+    isDark: false,
   },
   {
     icon: Users,
     title: "Partnership Approach",
     description: "We work as an extension of your team, understanding your culture and goals deeply.",
+    isDark: true,
   },
 ];
 
@@ -226,7 +230,7 @@ const About = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-20 bg-card">
+      <section className="py-20 bg-muted">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -235,9 +239,9 @@ const About = () => {
             className="text-center max-w-2xl mx-auto mb-16"
           >
             <span className="text-sm font-semibold text-accent uppercase tracking-wider mb-4 block">
-              Our Values
+              WHY CHOOSE CLEAR PATH HIRE?
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+            <h2 className="text-3xl md:text-4xl font-bold text-navy">
               What Drives Us Forward
             </h2>
           </motion.div>
@@ -259,17 +263,35 @@ const About = () => {
                   stiffness: 300,
                   damping: 20
                 }}
-                className="bg-background rounded-2xl p-8 text-center shadow-sm border border-border cursor-pointer"
+                className={`rounded-3xl p-8 relative cursor-pointer min-h-[220px] ${
+                  value.isDark 
+                    ? 'bg-navy text-white' 
+                    : 'bg-background text-navy border border-border'
+                }`}
               >
-                <div className="w-14 h-14 rounded-xl bg-gradient-hero flex items-center justify-center mx-auto mb-6">
-                  <value.icon className="text-primary-foreground" size={28} />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-3">
+                <h3 className={`text-xl font-bold mb-4 ${
+                  value.isDark ? 'text-white' : 'text-navy'
+                }`}>
                   {value.title}
                 </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className={`text-sm leading-relaxed ${
+                  value.isDark ? 'text-white/80' : 'text-muted-foreground'
+                }`}>
                   {value.description}
                 </p>
+                
+                {/* Circular Icon at bottom right */}
+                <div className={`absolute bottom-6 right-6 w-12 h-12 rounded-full flex items-center justify-center ${
+                  value.isDark 
+                    ? 'bg-white/20' 
+                    : 'bg-navy'
+                }`}>
+                  <value.icon 
+                    size={20} 
+                    className={value.isDark ? 'text-white' : 'text-white'} 
+                    aria-hidden="true" 
+                  />
+                </div>
               </motion.div>
             ))}
           </div>
