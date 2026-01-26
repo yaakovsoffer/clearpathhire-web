@@ -248,9 +248,18 @@ const About = () => {
                 key={value.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.15)"
+                }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-background rounded-2xl p-8 text-center shadow-sm border border-border hover:shadow-brand transition-shadow"
+                transition={{ 
+                  delay: index * 0.1,
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 20
+                }}
+                className="bg-background rounded-2xl p-8 text-center shadow-sm border border-border cursor-pointer"
               >
                 <div className="w-14 h-14 rounded-xl bg-gradient-hero flex items-center justify-center mx-auto mb-6">
                   <value.icon className="text-primary-foreground" size={28} />
