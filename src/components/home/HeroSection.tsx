@@ -51,10 +51,13 @@ export const HeroSection = () => {
           <AnimatePresence mode="sync">
             <motion.div
               key={currentImageIndex}
-              initial={{ opacity: 0, scale: 1.1 }}
+              initial={{ opacity: 0, scale: 1.2 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 4, ease: "easeInOut" }}
+              exit={{ opacity: 0 }}
+              transition={{ 
+                opacity: { duration: 2, ease: "easeInOut" },
+                scale: { duration: 12, ease: "linear" }
+              }}
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{
                 backgroundImage: `url('${heroImages[currentImageIndex]}')`,
