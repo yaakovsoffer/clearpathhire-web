@@ -64,9 +64,13 @@ export const WhyChooseUs = () => {
               key={benefit.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ 
+                y: -10,
+                boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.15)"
+              }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className={`rounded-3xl p-8 relative transition-all duration-300 ${
+              transition={{ delay: index * 0.1, type: "spring", stiffness: 300, damping: 20 }}
+              className={`rounded-3xl p-8 relative cursor-pointer ${
                 benefit.isDark 
                   ? 'bg-navy text-white' 
                   : 'bg-muted text-navy'
