@@ -230,8 +230,8 @@ const Contact = () => {
                     className="bg-card rounded-2xl p-6 border border-border"
                   >
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-hero flex items-center justify-center flex-shrink-0">
-                        <item.icon className="text-primary-foreground" size={22} />
+                      <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
+                        <item.icon className="text-navy" size={28} aria-hidden="true" />
                       </div>
                       <div>
                         <h3 className="font-semibold text-foreground mb-1">
