@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useState } from "react";
 import staffingSolutionsImg from "@/assets/staffing-solutions.png";
+import hrComplianceImg from "@/assets/hr-compliance.png";
 
 export const ServicesPreview = () => {
   const { t } = useLanguage();
@@ -19,7 +20,7 @@ export const ServicesPreview = () => {
     {
       title: "HR & Compliance",
       description: "Stay compliant with employment laws and regulations across all jurisdictions.",
-      image: "https://images.unsplash.com/photo-1554469384-e58fac16e23a?q=80&w=2070&auto=format&fit=crop",
+      image: hrComplianceImg,
     },
     {
       title: "Payroll Management",
