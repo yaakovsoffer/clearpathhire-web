@@ -5,13 +5,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import TestimonialCarousel from "@/components/testimonials/TestimonialCarousel";
 
-const stats = [
-  { value: "500+", label: "Professionals Placed" },
-  { value: "98%", label: "Client Satisfaction" },
-  { value: "70%", label: "Average Cost Savings" },
-  { value: "97%", label: "Placement Success Rate" },
-];
-
 const Testimonials = () => {
   return (
     <Layout>
@@ -49,40 +42,6 @@ const Testimonials = () => {
                 </motion.div>
               </div>
             </div>
-
-            {/* Overlapping Banner */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="absolute -bottom-4 right-8 lg:right-16 z-20"
-            >
-              <div className="bg-sky text-white font-bold px-10 py-4 rounded-full shadow-xl text-lg tracking-wide">
-                500+ Placements
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-12 bg-navy">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center"
-              >
-                <div className="text-3xl md:text-4xl font-bold text-secondary mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-navy-foreground/70">{stat.label}</div>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>

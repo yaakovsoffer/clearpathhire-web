@@ -75,7 +75,7 @@ const TestimonialCarousel = () => {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
-          <p className="text-secondary font-semibold uppercase tracking-wider mb-3">
+          <p className="text-accent font-semibold uppercase tracking-wider mb-3">
             WHY CHOOSE CLEAR PATH HIRE?
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
