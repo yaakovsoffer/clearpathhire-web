@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Heart, Users, Globe, Award } from "lucide-react";
+import aboutHeroImg from "@/assets/about-hero.png";
 
 const values = [
   {
@@ -48,7 +49,7 @@ const About = () => {
             >
               {/* Background Image */}
               <img 
-                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1920&auto=format&fit=crop"
+                src={aboutHeroImg}
                 alt="Modern blue glass office building"
                 className="absolute inset-0 w-full h-full object-cover"
               />
