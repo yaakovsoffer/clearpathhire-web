@@ -74,7 +74,7 @@ const Services = () => {
               <div className="max-w-2xl">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-8">
                   <span className="block">A Complete</span>
-                  <span className="block mt-2">Outsourcing Solution</span>
+                  <span className="block mt-2 text-accent">Outsourcing Solution</span>
                 </h1>
                 <p className="text-lg text-white/80 leading-relaxed max-w-xl">
                   Your full-service partner to streamline talent acquisition, hiring, onboarding, payroll, retention, and compliance.
