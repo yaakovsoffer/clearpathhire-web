@@ -66,26 +66,52 @@ const Testimonials = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="py-20 lg:py-32 bg-background relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-1/3 h-full bg-gradient-to-r from-secondary/10 to-transparent pointer-events-none" />
-        
-        <div className="container mx-auto px-4 relative">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <span className="text-sm font-semibold text-accent uppercase tracking-wider mb-4 block">
-              Success Stories
-            </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-              Trusted by Growing{" "}
-              <span className="text-gradient">Businesses</span>
-            </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              See how companies like yours have transformed their workforce and achieved remarkable results with Clear Path Hire.
-            </p>
-          </motion.div>
+      <section className="relative overflow-visible bg-background">
+        <div className="container mx-auto px-4 py-8">
+          <div className="relative min-h-[520px] lg:min-h-[580px] rounded-[3rem] lg:rounded-[4rem] overflow-visible">
+            {/* Background Image with Overlay */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat rounded-[3rem] lg:rounded-[4rem] overflow-hidden"
+              style={{
+                backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')`,
+              }}
+            >
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-navy/85 via-navy/60 to-navy/30" />
+            </div>
+
+            {/* Content */}
+            <div className="relative z-10 p-8 lg:p-16 flex flex-col justify-center h-full min-h-[520px] lg:min-h-[580px]">
+              <div className="max-w-2xl">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 drop-shadow-lg">
+                    <span className="block">Success Stories</span>
+                    <span className="block mt-2">From Our Clients</span>
+                  </h1>
+
+                  <p className="text-base md:text-lg text-white/90 mb-8 max-w-lg leading-relaxed drop-shadow-md">
+                    See how companies like yours have transformed their workforce and achieved remarkable results with Clear Path Hire.
+                  </p>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Overlapping Banner */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="absolute -bottom-4 right-8 lg:right-16 z-20"
+            >
+              <div className="bg-sky text-white font-bold px-10 py-4 rounded-full shadow-xl text-lg tracking-wide">
+                500+ Placements
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
