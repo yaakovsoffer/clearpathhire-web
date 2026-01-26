@@ -92,7 +92,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="absolute -bottom-4 right-8 lg:right-16 z-20"
           >
-            <div className="bg-sky text-white font-bold px-10 py-4 rounded-full shadow-xl text-lg tracking-wide">
+            <div className="bg-sky text-navy font-bold px-10 py-4 rounded-full shadow-xl text-lg tracking-wide">
               Zero Risk Hiring
             </div>
           </motion.div>
