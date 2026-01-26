@@ -6,6 +6,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useState } from "react";
 import staffingSolutionsImg from "@/assets/staffing-solutions.png";
 import hrComplianceImg from "@/assets/hr-compliance.png";
+import payrollManagementImg from "@/assets/payroll-management.png";
 
 export const ServicesPreview = () => {
   const { t } = useLanguage();
@@ -25,7 +26,7 @@ export const ServicesPreview = () => {
     {
       title: "Payroll Management",
       description: "Streamlined payroll processing and benefits administration for your global team.",
-      image: "https://images.unsplash.com/photo-1577985043696-8bd54d9f093f?q=80&w=2070&auto=format&fit=crop",
+      image: payrollManagementImg,
     },
   ];
 
