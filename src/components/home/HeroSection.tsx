@@ -31,39 +31,32 @@ export const HeroSection = () => {
     <section className="relative overflow-visible bg-background">
       {/* Hero Container */}
       <div className="container mx-auto px-4 py-8">
-        <div className="relative aspect-[16/9] max-h-[600px] overflow-visible">
-          {/* Main Image Container with Custom Corners */}
+        <div className="relative min-h-[520px] lg:min-h-[580px] rounded-tl-[4rem] rounded-br-[4rem] lg:rounded-tl-[6rem] lg:rounded-br-[6rem] rounded-tr-none rounded-bl-none overflow-visible">
+          {/* Background Image with Overlay */}
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat rounded-tl-[4rem] rounded-br-[4rem] lg:rounded-tl-[6rem] lg:rounded-br-[6rem] rounded-tr-none rounded-bl-none overflow-hidden"
             style={{
               backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')`,
-              borderRadius: '100px 0 100px 0',
             }}
           >
             {/* Gradient Overlay */}
-            <div 
-              className="absolute inset-0 bg-gradient-to-r from-navy/85 via-navy/60 to-navy/30"
-              style={{ borderRadius: '100px 0 100px 0' }}
-            />
+            <div className="absolute inset-0 bg-gradient-to-r from-navy/85 via-navy/60 to-navy/30" />
           </div>
 
           {/* Content */}
-          <div 
-            className="relative z-10 p-8 lg:p-16 flex flex-col justify-center h-full"
-            style={{ borderRadius: '100px 0 100px 0' }}
-          >
+          <div className="relative z-10 p-8 lg:p-16 flex flex-col justify-center h-full min-h-[520px] lg:min-h-[580px]">
             <div className="max-w-xl">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-6 drop-shadow-lg">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 drop-shadow-lg">
                   Build Your Dream Team{" "}
                   <span className="block">with Top Remote Talent</span>
                 </h1>
 
-                <p className="text-sm md:text-base lg:text-lg text-white/90 mb-8 max-w-lg leading-relaxed drop-shadow-md">
+                <p className="text-base md:text-lg text-white/90 mb-8 max-w-lg leading-relaxed drop-shadow-md">
                   We connect you with pre-vetted professionals from around the world. 
                   Save up to 70% on staffing costs while getting dedicated team members 
                   who integrate seamlessly with your business.
@@ -92,14 +85,14 @@ export const HeroSection = () => {
             </div>
           </div>
 
-          {/* Zero Risk Hiring Banner - Overlapping bottom-right */}
+          {/* Zero Risk Hiring Banner - Overlapping */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="absolute -bottom-5 right-4 lg:right-12 z-20"
+            className="absolute -bottom-4 right-8 lg:right-16 z-20"
           >
-            <div className="bg-sky text-white font-bold px-8 lg:px-12 py-3 lg:py-4 rounded-full shadow-xl text-base lg:text-lg tracking-wide">
+            <div className="bg-sky text-white font-bold px-10 py-4 rounded-full shadow-xl text-lg tracking-wide">
               Zero Risk Hiring
             </div>
           </motion.div>
