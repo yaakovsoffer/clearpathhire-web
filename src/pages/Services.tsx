@@ -73,9 +73,8 @@ const Services = () => {
             <div className="relative z-10 flex items-center h-full min-h-[520px] lg:min-h-[580px] p-8 lg:p-16">
               <div className="max-w-2xl">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-8">
-                  <span className="block">Custom</span>
-                  <span className="block mt-2">Staffing &</span>
-                  <span className="block mt-2">HR Solutions</span>
+                  <span className="block">A Complete</span>
+                  <span className="block mt-2">Outsourcing Solution</span>
                 </h1>
                 <p className="text-lg text-white/80 leading-relaxed max-w-xl">
                   Your full-service partner to streamline talent acquisition, hiring, onboarding, payroll, retention, and compliance.
