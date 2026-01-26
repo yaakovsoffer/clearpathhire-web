@@ -52,36 +52,34 @@ const Services = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="py-16 lg:py-24 bg-muted">
-        <div className="container mx-auto px-4">
+      <section className="bg-background">
+        <div className="container mx-auto px-4 py-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="relative overflow-hidden rounded-[120px]"
+            className="relative min-h-[520px] lg:min-h-[580px] rounded-[3rem] lg:rounded-[4rem] overflow-hidden"
           >
             {/* Background Image */}
             <div 
-              className="relative min-h-[400px] lg:min-h-[500px] bg-cover bg-center bg-no-repeat"
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{
                 backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')`,
               }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/70 to-transparent" />
+            </div>
               
-              {/* Content */}
-              <div className="relative z-10 flex items-center h-full min-h-[400px] lg:min-h-[500px] px-12 lg:px-20">
-                <div className="max-w-2xl">
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.3] mb-8">
-                    Custom
-                    <br />
-                    Staffing &
-                    <br />
-                    HR Solutions
-                  </h1>
-                  <p className="text-lg text-white/80 leading-relaxed max-w-xl">
-                    Your full-service partner to streamline talent acquisition, hiring, onboarding, payroll, retention, and compliance.
-                  </p>
-                </div>
+            {/* Content */}
+            <div className="relative z-10 flex items-center h-full min-h-[520px] lg:min-h-[580px] p-8 lg:p-16">
+              <div className="max-w-2xl">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-8">
+                  <span className="block">Custom</span>
+                  <span className="block mt-2">Staffing &</span>
+                  <span className="block mt-2">HR Solutions</span>
+                </h1>
+                <p className="text-lg text-white/80 leading-relaxed max-w-xl">
+                  Your full-service partner to streamline talent acquisition, hiring, onboarding, payroll, retention, and compliance.
+                </p>
               </div>
             </div>
           </motion.div>
