@@ -40,7 +40,7 @@ export const HeroSection = () => {
             }}
           >
             {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-sky/95 via-sky/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/70 to-navy/40" />
           </div>
 
           {/* Content */}
@@ -56,7 +56,7 @@ export const HeroSection = () => {
                   <span className="block">with Top Remote Talent</span>
                 </h1>
 
-                <p className="text-base md:text-lg text-navy/80 mb-8 max-w-lg leading-relaxed">
+                <p className="text-base md:text-lg text-white mb-8 max-w-lg leading-relaxed">
                   We connect you with pre-vetted professionals from around the world. 
                   Save up to 70% on staffing costs while getting dedicated team members 
                   who integrate seamlessly with your business.
