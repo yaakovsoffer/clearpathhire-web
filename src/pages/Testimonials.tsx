@@ -2,58 +2,8 @@ import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Star, Quote, ArrowRight } from "lucide-react";
-
-const testimonials = [
-  {
-    name: "Sarah Johnson",
-    role: "CEO",
-    company: "TechFlow Solutions",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
-    content: "Clear Path Hire transformed how we build teams. Within 3 weeks, we had 5 exceptional developers who felt like part of our company from day one. The cost savings allowed us to invest more in product development.",
-    rating: 5,
-  },
-  {
-    name: "Michael Chen",
-    role: "Founder",
-    company: "GrowthLab Marketing",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-    content: "The compliance and payroll management alone are worth it. We used to spend hours on international payments and tax compliance. Now it just happens seamlessly while we focus on scaling our agency.",
-    rating: 5,
-  },
-  {
-    name: "Emily Rodriguez",
-    role: "Operations Director",
-    company: "Sterling Legal Partners",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face",
-    content: "We doubled our caseload with the legal assistants Clear Path Hire placed with us. The thorough background checks gave us complete confidence in our new team members handling sensitive client information.",
-    rating: 5,
-  },
-  {
-    name: "David Park",
-    role: "CFO",
-    company: "Horizon Accounting",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-    content: "Tax season used to be a nightmare for staffing. Clear Path Hire solved that in just 3 weeks. Our remote accountants are exceptional — skilled, reliable, and they work our exact hours.",
-    rating: 5,
-  },
-  {
-    name: "Lisa Thompson",
-    role: "VP of Sales",
-    company: "CloudFirst Technologies",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&crop=face",
-    content: "Our SDR team from Clear Path Hire added $15M in pipeline within the first year. The quality of talent and the ongoing support have been game-changers for our sales organization.",
-    rating: 5,
-  },
-  {
-    name: "James Wilson",
-    role: "CEO",
-    company: "Nexus E-Commerce",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
-    content: "From customer support to data analysis, Clear Path Hire has helped us build a 20-person remote team that operates like they are all in the same office. The cultural fit screening really works.",
-    rating: 5,
-  },
-];
+import { ArrowRight } from "lucide-react";
+import TestimonialCarousel from "@/components/testimonials/TestimonialCarousel";
 
 const stats = [
   { value: "500+", label: "Professionals Placed" },
@@ -137,51 +87,8 @@ const Testimonials = () => {
         </div>
       </section>
 
-      {/* Testimonials Grid */}
-      <section className="py-20 bg-card">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-background rounded-3xl p-8 shadow-sm border border-border hover:shadow-brand transition-shadow relative"
-              >
-                <Quote className="absolute top-6 right-6 text-secondary/30" size={40} />
-                
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="text-accent fill-accent" size={18} />
-                  ))}
-                </div>
-
-                <p className="text-foreground mb-6 leading-relaxed relative z-10">
-                  "{testimonial.content}"
-                </p>
-
-                <div className="flex items-center gap-4">
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
-                  <div>
-                    <div className="font-semibold text-foreground">
-                      {testimonial.name}
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      {testimonial.role}, {testimonial.company}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Testimonial Carousel */}
+      <TestimonialCarousel />
 
       {/* CTA Section */}
       <section className="py-20 bg-background">
