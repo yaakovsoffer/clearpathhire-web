@@ -50,7 +50,7 @@ export const WhyChooseUs = () => {
           <span className="text-sm font-bold text-accent uppercase tracking-wider mb-4 block">
             {t("whyChooseUs.title")}
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-navy">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
             Your Strategic Partner for
             <br />
             Remote Excellence.
