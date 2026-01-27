@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useState } from "react";
-import staffingSolutionsImg from "@/assets/staffing-solutions-blue.png";
+import staffingSolutionsImg from "@/assets/staffing-solutions.png";
 import hrComplianceImg from "@/assets/hr-compliance.png";
 import payrollManagementImg from "@/assets/payroll-management.png";
 
