@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import professionalWoman from "@/assets/professional-woman.png";
 import outsourcingSolutionImg from "@/assets/outsourcing-solution.png";
-
+import payrollDocsImg from "@/assets/payroll-docs.png";
 const Services = () => {
   const { t } = useLanguage();
 
@@ -239,10 +239,12 @@ const Services = () => {
               >
                 <div className="relative overflow-hidden rounded-tl-[3rem] rounded-br-[3rem] rounded-tr-lg rounded-bl-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
                   <img 
-                    src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?q=80&w=600&auto=format&fit=crop"
-                    alt="Modern office building"
+                    src={payrollDocsImg}
+                    alt="Professional reviewing payroll documents"
                     className="w-full h-64 md:h-80 object-cover"
                   />
+                  {/* Bluish gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-secondary/20 to-transparent mix-blend-overlay" />
                 </div>
               </motion.div>
             </motion.div>
