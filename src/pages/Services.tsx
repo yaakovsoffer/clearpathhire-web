@@ -120,19 +120,19 @@ const Services = () => {
                 </p>
                 <ul className="space-y-2 text-foreground">
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Access to pre-vetted talent pool
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Culture-fit assessment
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Skills verification
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Fast 21-day placement
                   </li>
                 </ul>
@@ -180,19 +180,19 @@ const Services = () => {
                 </p>
                 <ul className="space-y-2 text-foreground">
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Criminal background screening
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Employment history verification
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Education credentials check
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Professional reference calls
                   </li>
                 </ul>
@@ -215,19 +215,19 @@ const Services = () => {
                 </p>
                 <ul className="space-y-2 text-foreground">
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Multi-currency payments
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Tax compliance handling
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Benefits administration
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Automated payroll processing
                   </li>
                 </ul>
@@ -275,19 +275,19 @@ const Services = () => {
                 </p>
                 <ul className="space-y-2 text-foreground">
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Local labor law compliance
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Employment contract management
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Regulatory updates monitoring
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Risk mitigation strategies
                   </li>
                 </ul>
@@ -310,19 +310,19 @@ const Services = () => {
                 </p>
                 <ul className="space-y-2 text-foreground">
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Dedicated account manager
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Performance monitoring
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Issue resolution support
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Team optimization consulting
                   </li>
                 </ul>
@@ -370,19 +370,19 @@ const Services = () => {
                 </p>
                 <ul className="space-y-2 text-foreground">
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     End-to-end encryption
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Secure data storage
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Regular security audits
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     99.9% uptime guarantee
                   </li>
                 </ul>
