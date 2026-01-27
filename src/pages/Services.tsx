@@ -13,6 +13,7 @@ import professionalWoman from "@/assets/professional-woman.png";
 import outsourcingSolutionImg from "@/assets/outsourcing-solution.png";
 import payrollDocsImg from "@/assets/payroll-docs.png";
 import staffingVideoCallImg from "@/assets/staffing-video-call.png";
+import secureInfrastructureImg from "@/assets/secure-infrastructure.png";
 const Services = () => {
   const { t } = useLanguage();
 
@@ -360,10 +361,12 @@ const Services = () => {
               >
                 <div className="relative overflow-hidden rounded-tl-[3rem] rounded-br-[3rem] rounded-tr-lg rounded-bl-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
                   <img 
-                    src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=600&auto=format&fit=crop"
-                    alt="Secure data infrastructure"
+                    src={secureInfrastructureImg}
+                    alt="Professional monitoring secure data systems"
                     className="w-full h-64 md:h-80 object-cover"
                   />
+                  {/* Bluish gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-secondary/20 to-transparent mix-blend-overlay" />
                 </div>
               </motion.div>
               <div>
