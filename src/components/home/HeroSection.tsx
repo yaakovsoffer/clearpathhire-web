@@ -139,7 +139,7 @@ export const HeroSection = () => {
                 className="text-center"
               >
                 <div className="flex justify-center mb-4">
-                  <feature.icon className="text-navy" size={56} strokeWidth={1.5} aria-hidden="true" />
+                  <feature.icon className="text-accent" size={56} strokeWidth={1.5} aria-hidden="true" />
                 </div>
                 <h3 className="font-semibold text-navy text-lg mb-2">{feature.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
