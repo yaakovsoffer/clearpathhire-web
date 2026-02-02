@@ -132,7 +132,7 @@ const About = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="rounded-3xl overflow-hidden relative min-h-[500px]"
+            className="rounded-3xl overflow-hidden relative"
           >
             <img 
               src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop"
@@ -140,7 +140,7 @@ const About = () => {
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-navy/80" />
-            <div className="relative z-10 p-10 lg:p-16 flex flex-col justify-center h-full">
+            <div className="relative z-10 p-8 lg:p-12">
               <div className="grid md:grid-cols-2 gap-12 lg:gap-16">
                 {/* Mission */}
                 <div>
