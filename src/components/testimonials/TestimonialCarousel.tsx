@@ -105,7 +105,7 @@ const TestimonialCarousel = () => {
                 <div className="flex items-center gap-3">
                   {/* Avatar with Initials */}
                   <div
-                    className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-sm ${getAvatarColor(testimonial.name)}`}
+                    className={`w-12 h-12 rounded-full flex items-center justify-center text-navy font-bold text-sm ${getAvatarColor(testimonial.name)}`}
                   >
                     {getInitials(testimonial.name)}
                   </div>
