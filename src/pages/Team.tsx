@@ -2,7 +2,11 @@ import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Linkedin, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import jacobSofferImg from "@/assets/team/jacob-soffer.png";
+import jacobSofferImg from "@/assets/team/jacob-soffer-ai.png";
+import jarredTeodoroImg from "@/assets/team/jarred-teodoro.png";
+import johnReyJacobeImg from "@/assets/team/john-rey-jacobe.png";
+import jemStrellaImg from "@/assets/team/jem-strella.png";
+import janMattImg from "@/assets/team/jan-matt.png";
 
 const teamMembers = [
   {
@@ -14,25 +18,25 @@ const teamMembers = [
   {
     name: "Jarred Teodoro",
     role: "team.roles.directorOps",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
+    image: jarredTeodoroImg,
     linkedin: "#",
   },
   {
     name: "John Rey Jacobe",
     role: "team.roles.directorTalent",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop",
+    image: johnReyJacobeImg,
     linkedin: "#",
   },
   {
     name: "Jem Strella",
     role: "team.roles.accountingDirector",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop",
+    image: jemStrellaImg,
     linkedin: "#",
   },
   {
     name: "Jan Matt",
     role: "team.roles.marketingDirector",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop",
+    image: janMattImg,
     linkedin: "#",
   },
 ];
