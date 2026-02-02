@@ -6,6 +6,7 @@ import jacobSofferImg from "@/assets/team/jacob-soffer-enhanced.jpg";
 import jarredTeodoroImg from "@/assets/team/jarred-teodoro-gray.jpg";
 import johnReyJacobeImg from "@/assets/team/john-rey-enhanced.jpg";
 import janMattImg from "@/assets/team/jan-matt-gray.jpg";
+import outsourcingSolutionImg from "@/assets/outsourcing-solution.png";
 
 const teamMembers = [
   {
@@ -46,22 +47,37 @@ const Team = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="py-16 lg:py-24 bg-background">
-        <div className="container mx-auto px-4">
+      <section className="bg-background">
+        <div className="container mx-auto px-4 py-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center max-w-3xl mx-auto"
+            className="relative min-h-[520px] lg:min-h-[580px] rounded-[3rem] lg:rounded-[4rem] overflow-hidden"
           >
-            <span className="text-sm font-semibold text-accent uppercase tracking-wider mb-4 block">
-              {t("team.badge")}
-            </span>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-navy mb-6">
-              {t("team.title")}
-            </h1>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              {t("team.subtitle")}
-            </p>
+            {/* Background Image */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: `url(${outsourcingSolutionImg})`,
+              }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/70 to-transparent" />
+            </div>
+              
+            {/* Content */}
+            <div className="relative z-10 flex items-center h-full min-h-[520px] lg:min-h-[580px] p-8 lg:p-16">
+              <div className="max-w-2xl">
+                <span className="text-sm font-semibold text-accent uppercase tracking-wider mb-4 block">
+                  {t("team.badge")}
+                </span>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-8">
+                  <span className="block">{t("team.title")}</span>
+                </h1>
+                <p className="text-lg text-white/80 leading-relaxed max-w-xl">
+                  {t("team.subtitle")}
+                </p>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
