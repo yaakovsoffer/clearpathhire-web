@@ -35,48 +35,37 @@ const About = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="py-16 lg:py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="relative">
-            {/* Main Hero Container with Asymmetrical Mask */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="relative overflow-hidden"
-              style={{ 
-                borderRadius: '3rem 1rem 3rem 1rem',
-                minHeight: '500px'
-              }}
-            >
-              {/* Background Image */}
-              <img 
-                src={aboutHeroImg}
-                alt="Modern blue glass office building"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              
-              {/* Dark Overlay for Text Readability */}
-              <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/70 to-transparent" />
-              
-              {/* Content */}
-              <div className="relative z-10 p-10 lg:p-16 flex flex-col justify-center min-h-[500px] max-w-2xl">
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.3] mb-8">
-                    <span className="whitespace-nowrap">Your Direct Route to the</span>
-                    <br />
-                    <span className="text-accent">Right Talent</span>
-                  </h1>
-                  <p className="text-lg text-white/90 max-w-md leading-relaxed">
-                    Clear Path Hire was founded on a simple belief: great talent exists everywhere, and businesses deserve access to it without the complexity of international hiring.
-                  </p>
-                </motion.div>
+      <section className="bg-background">
+        <div className="container mx-auto px-4 py-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="relative min-h-[520px] lg:min-h-[580px] rounded-[3rem] lg:rounded-[4rem] overflow-hidden"
+          >
+            {/* Background Image */}
+            <img 
+              src={aboutHeroImg}
+              alt="Modern blue glass office building"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            
+            {/* Dark Overlay for Text Readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/70 to-transparent" />
+            
+            {/* Content */}
+            <div className="relative z-10 flex items-center h-full min-h-[520px] lg:min-h-[580px] p-8 lg:p-16">
+              <div className="max-w-2xl">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.3] mb-8">
+                  <span className="whitespace-nowrap">Your Direct Route to the</span>
+                  <br />
+                  <span className="text-accent">Right Talent</span>
+                </h1>
+                <p className="text-lg text-white/90 max-w-md leading-relaxed">
+                  Clear Path Hire was founded on a simple belief: great talent exists everywhere, and businesses deserve access to it without the complexity of international hiring.
+                </p>
               </div>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
