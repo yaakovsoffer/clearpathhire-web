@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { contactFormSchema, type ContactFormData } from "@/lib/formValidation";
+import { FormSuccessMessage } from "@/components/forms/FormSuccessMessage";
 import contactHeroImg from "@/assets/contact-hero.png";
 
 const contactInfo = [
@@ -40,6 +41,7 @@ const contactInfo = [
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
@@ -48,6 +50,17 @@ const Contact = () => {
     phone: "",
     message: "",
   });
+
+  const handleReset = () => {
+    setIsSubmitted(false);
+    setFormData({
+      name: "",
+      email: "",
+      company: "",
+      phone: "",
+      message: "",
+    });
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -98,18 +111,7 @@ const Contact = () => {
       if (error) throw error;
       if (!data?.success) throw new Error(data?.error || "Failed to send message");
 
-      toast({
-        title: "Message Sent!",
-        description: "We'll get back to you within 24 hours.",
-      });
-
-      setFormData({
-        name: "",
-        email: "",
-        company: "",
-        phone: "",
-        message: "",
-      });
+      setIsSubmitted(true);
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
@@ -162,6 +164,9 @@ const Contact = () => {
               transition={{ delay: 0.2 }}
               className="lg:col-span-3"
             >
+              {isSubmitted ? (
+                <FormSuccessMessage type="contact" onReset={handleReset} />
+              ) : (
               <div className="bg-card rounded-3xl p-8 md:p-10 shadow-brand border border-border">
                 <h2 className="text-2xl font-bold text-foreground mb-6">
                   Start Hiring Today
@@ -286,6 +291,7 @@ const Contact = () => {
                   </Button>
                 </form>
               </div>
+              )}
             </motion.div>
 
             {/* Contact Info */}

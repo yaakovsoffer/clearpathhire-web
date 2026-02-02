@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { applyFormSchema, type ApplyFormData } from "@/lib/formValidation";
+import { FormSuccessMessage } from "@/components/forms/FormSuccessMessage";
 
 const benefits = [
   {
@@ -57,6 +58,7 @@ const openPositions = [
 const Apply = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof ApplyFormData, string>>>({});
   const [formData, setFormData] = useState<ApplyFormData>({
     name: "",
@@ -67,6 +69,19 @@ const Apply = () => {
     linkedin: "",
     about: "",
   });
+
+  const handleReset = () => {
+    setIsSubmitted(false);
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      position: "",
+      experience: "",
+      linkedin: "",
+      about: "",
+    });
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -117,20 +132,7 @@ const Apply = () => {
       if (error) throw error;
       if (!data?.success) throw new Error(data?.error || "Failed to submit application");
 
-      toast({
-        title: "Application Submitted!",
-        description: "We'll review your application and get back to you soon.",
-      });
-
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        position: "",
-        experience: "",
-        linkedin: "",
-        about: "",
-      });
+      setIsSubmitted(true);
     } catch (error) {
       console.error("Error submitting application:", error);
       toast({
@@ -198,6 +200,9 @@ const Apply = () => {
               transition={{ delay: 0.2 }}
               className="lg:col-span-3"
             >
+              {isSubmitted ? (
+                <FormSuccessMessage type="apply" onReset={handleReset} />
+              ) : (
               <div className="bg-card rounded-3xl p-8 md:p-10 shadow-brand border border-border">
                 <h2 className="text-2xl font-bold text-foreground mb-6">
                   Apply Now
@@ -377,6 +382,7 @@ const Apply = () => {
                   </Button>
                 </form>
               </div>
+              )}
             </motion.div>
 
             {/* What We Look For */}
