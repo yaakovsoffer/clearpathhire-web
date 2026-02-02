@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ArrowRight, UsersRound, ShieldCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,43 @@ import heroSlide2 from "@/assets/hero-slide-2.png";
 import heroSlide3 from "@/assets/hero-slide-3.png";
 
 const heroImages = [heroSlide1, heroSlide2, heroSlide3];
+
+// Animated counter component
+const AnimatedCounter = ({ value, suffix = "", duration = 2 }: { value: number; suffix?: string; duration?: number }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    let startTime: number;
+    let animationFrame: number;
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      setCount(Math.floor(easeOutQuart * value));
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, [isInView, value, duration]);
+
+  return (
+    <span ref={ref}>
+      {count}{suffix}
+    </span>
+  );
+};
 
 export const HeroSection = () => {
   const { t } = useLanguage();
@@ -23,8 +60,8 @@ export const HeroSection = () => {
   }, []);
 
   const stats = [
-    { value: "70%", label: "Cost Savings" },
-    { value: "21", label: "Days to Hire" },
+    { value: 70, suffix: "%", label: "Cost Savings" },
+    { value: 21, suffix: "", label: "Days to Hire" },
   ];
 
   const features = [
@@ -149,12 +186,13 @@ export const HeroSection = () => {
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 + index * 0.1 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 + index * 0.1 }}
                 className="text-center"
               >
                 <div className="text-5xl md:text-6xl lg:text-7xl font-bold text-navy mb-2">
-                  {stat.value}
+                  <AnimatedCounter value={stat.value} suffix={stat.suffix} duration={2} />
                 </div>
                 <div className="text-base md:text-lg text-muted-foreground font-medium">
                   {stat.label}
