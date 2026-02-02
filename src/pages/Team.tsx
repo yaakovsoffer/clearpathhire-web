@@ -67,10 +67,11 @@ const Team = () => {
             {/* Content */}
             <div className="relative z-10 flex items-center h-full min-h-[520px] lg:min-h-[580px] p-8 lg:p-16">
               <div className="max-w-2xl">
+                <span className="text-sm font-semibold text-accent uppercase tracking-wider mb-4 block">
+                  {t("team.badge")}
+                </span>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-8">
-                  <span className="block">Meet the</span>
-                  <span className="block mt-2 text-accent">Clear Path Hire</span>
-                  <span className="block mt-2">Team</span>
+                  <span className="block">{t("team.title")}</span>
                 </h1>
                 <p className="text-lg text-white/80 leading-relaxed max-w-xl">
                   {t("team.subtitle")}
