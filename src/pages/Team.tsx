@@ -30,7 +30,7 @@ const teamMembers = [
   {
     name: "Jem Strella",
     role: "team.roles.accountingDirector",
-    image: jemStrellaImg,
+    image: null,
     imagePosition: "center 20%",
   },
   {
@@ -98,14 +98,24 @@ const Team = () => {
               >
                 {/* Image Container */}
                 <div className="relative h-96 overflow-hidden">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    style={{ objectPosition: member.imagePosition }}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  {/* Branded Navy Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-navy/10 to-transparent" />
+                  {member.image ? (
+                    <>
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        style={{ objectPosition: member.imagePosition }}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      {/* Branded Navy Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-navy/10 to-transparent" />
+                    </>
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-b from-muted to-muted-foreground/20 flex items-center justify-center">
+                      <span className="text-6xl font-bold text-muted-foreground/30">
+                        {member.name.split(' ').map(n => n[0]).join('')}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 
                 {/* Content */}
