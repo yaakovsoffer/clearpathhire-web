@@ -45,21 +45,22 @@ const Team = () => {
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="py-16 lg:py-24 bg-background">
+      {/* Header Section - Services Page Style */}
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center max-w-3xl mx-auto"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center max-w-3xl mx-auto mb-16"
           >
-            <span className="text-sm font-semibold text-accent uppercase tracking-wider mb-4 block">
+            <span className="text-sm font-semibold text-primary uppercase tracking-wider mb-4 block">
               {t("team.badge")}
             </span>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-navy mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
               {t("team.title")}
-            </h1>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed mt-4">
               {t("team.subtitle")}
             </p>
           </motion.div>
