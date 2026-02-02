@@ -16,18 +16,6 @@ const teamMembers = [
     imagePosition: "center 10%",
   },
   {
-    name: "Jem Strella",
-    role: "team.roles.accountingDirector",
-    image: null,
-    imagePosition: "center 20%",
-  },
-  {
-    name: "Jan Matt",
-    role: "team.roles.marketingDirector",
-    image: janMattImg,
-    imagePosition: "center 20%",
-  },
-  {
     name: "Jarred Teodoro",
     role: "team.roles.directorOps",
     image: jarredTeodoroImg,
@@ -38,6 +26,18 @@ const teamMembers = [
     role: "team.roles.directorTalent",
     image: johnReyJacobeImg,
     imagePosition: "center 10%",
+  },
+  {
+    name: "Jem Strella",
+    role: "team.roles.accountingDirector",
+    image: null,
+    imagePosition: "center 20%",
+  },
+  {
+    name: "Jan Matt",
+    role: "team.roles.marketingDirector",
+    image: janMattImg,
+    imagePosition: "center 20%",
   },
 ];
 
