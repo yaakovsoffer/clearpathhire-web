@@ -24,7 +24,7 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Location",
-    value: "United States",
+    value: "Miramar, FL",
     description: "Serving clients globally",
   },
   {
