@@ -23,10 +23,8 @@ export const HeroSection = () => {
   }, []);
 
   const stats = [
-    { value: "500+", label: "Professionals Placed" },
     { value: "70%", label: "Cost Savings" },
     { value: "21", label: "Days to Hire" },
-    { value: "15+", label: "Countries Served" },
   ];
 
   const features = [
