@@ -2,11 +2,10 @@ import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
 import jacobSofferImg from "@/assets/team/jacob-soffer-enhanced.jpg";
-import jarredTeodoroImg from "@/assets/team/jarred-teodoro-enhanced.jpg";
+import jarredTeodoroImg from "@/assets/team/jarred-teodoro.png";
 import johnReyJacobeImg from "@/assets/team/john-rey-enhanced.jpg";
 import jemStrellaImg from "@/assets/team/jem-strella.png";
 import janMattImg from "@/assets/team/jan-matt-enhanced.jpg";
-import aboutHeroImg from "@/assets/about-hero.png";
 
 const teamMembers = [
   {
@@ -14,18 +13,6 @@ const teamMembers = [
     role: "team.roles.founder",
     image: jacobSofferImg,
     imagePosition: "center 10%",
-  },
-  {
-    name: "Jem Strella",
-    role: "team.roles.accountingDirector",
-    image: null,
-    imagePosition: "center 20%",
-  },
-  {
-    name: "Jan Matt",
-    role: "team.roles.marketingDirector",
-    image: janMattImg,
-    imagePosition: "center 20%",
   },
   {
     name: "Jarred Teodoro",
@@ -39,6 +26,18 @@ const teamMembers = [
     image: johnReyJacobeImg,
     imagePosition: "center 10%",
   },
+  {
+    name: "Jem Strella",
+    role: "team.roles.accountingDirector",
+    image: jemStrellaImg,
+    imagePosition: "center 20%",
+  },
+  {
+    name: "Jan Matt",
+    role: "team.roles.marketingDirector",
+    image: janMattImg,
+    imagePosition: "center 20%",
+  },
 ];
 
 const Team = () => {
@@ -46,35 +45,23 @@ const Team = () => {
 
   return (
     <Layout>
-      {/* Hero Section - Services Page Style */}
-      <section className="bg-background">
-        <div className="container mx-auto px-4 py-8">
+      {/* Hero Section */}
+      <section className="py-16 lg:py-24 bg-background">
+        <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="relative min-h-[520px] lg:min-h-[580px] rounded-[3rem] lg:rounded-[4rem] overflow-hidden"
+            className="text-center max-w-3xl mx-auto"
           >
-            {/* Background Image */}
-            <div 
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-              style={{
-                backgroundImage: `url(${aboutHeroImg})`,
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/70 to-transparent" />
-            </div>
-              
-            {/* Content */}
-            <div className="relative z-10 flex items-center h-full min-h-[520px] lg:min-h-[580px] p-8 lg:p-16">
-              <div className="max-w-3xl">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-8">
-                  Meet the People Behind <span className="text-accent">Clear Path Hire</span>
-                </h1>
-                <p className="text-lg text-white/80 leading-relaxed max-w-xl">
-                  {t("team.subtitle")}
-                </p>
-              </div>
-            </div>
+            <span className="text-sm font-semibold text-accent uppercase tracking-wider mb-4 block">
+              {t("team.badge")}
+            </span>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-navy mb-6">
+              {t("team.title")}
+            </h1>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              {t("team.subtitle")}
+            </p>
           </motion.div>
         </div>
       </section>
@@ -98,24 +85,14 @@ const Team = () => {
               >
                 {/* Image Container */}
                 <div className="relative h-96 overflow-hidden">
-                  {member.image ? (
-                    <>
-                      <img
-                        src={member.image}
-                        alt={member.name}
-                        style={{ objectPosition: member.imagePosition }}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      {/* Branded Navy Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-navy/10 to-transparent" />
-                    </>
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-b from-muted to-muted-foreground/20 flex items-center justify-center">
-                      <span className="text-6xl font-bold text-muted-foreground/30">
-                        {member.name.split(' ').map(n => n[0]).join('')}
-                      </span>
-                    </div>
-                  )}
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    style={{ objectPosition: member.imagePosition }}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  {/* Branded Navy Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-navy/10 to-transparent" />
                 </div>
                 
                 {/* Content */}
