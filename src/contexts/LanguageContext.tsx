@@ -56,6 +56,7 @@ const translations: Record<Language, Record<string, any>> = {
     nav: {
       home: "Home",
       about: "About",
+      team: "Team",
       services: "Services",
       testimonials: "Testimonials",
       contact: "Contact",
@@ -412,11 +413,30 @@ const translations: Record<Language, Record<string, any>> = {
       title: "Join Our Talent Network",
       subtitle: "Take the next step in your career. Apply to join our network of skilled professionals and connect with top employers worldwide.",
     },
+    team: {
+      badge: "OUR TEAM",
+      title: "Meet the People Behind Clear Path Hire",
+      subtitle: "Our dedicated team of experts works tirelessly to connect businesses with exceptional global talent.",
+      roles: {
+        ceo: "CEO & Founder",
+        coo: "Chief Operating Officer",
+        headTalent: "Head of Talent Acquisition",
+        headOperations: "Head of Operations",
+        headHR: "Head of HR & Compliance",
+        headCompliance: "Head of Legal & Compliance",
+      },
+      cta: {
+        title: "Want to Join Our Team?",
+        description: "We're always looking for talented individuals who share our passion for connecting businesses with exceptional global talent.",
+        button: "View Open Positions",
+      },
+    },
   },
   es: {
     nav: {
       home: "Inicio",
       about: "Nosotros",
+      team: "Equipo",
       services: "Servicios",
       testimonials: "Testimonios",
       contact: "Contacto",
@@ -772,6 +792,24 @@ const translations: Record<Language, Record<string, any>> = {
     apply: {
       title: "Únete a Nuestra Red de Talento",
       subtitle: "Da el siguiente paso en tu carrera. Aplica para unirte a nuestra red de profesionales capacitados y conéctate con los mejores empleadores en todo el mundo.",
+    },
+    team: {
+      badge: "NUESTRO EQUIPO",
+      title: "Conoce a las Personas Detrás de Clear Path Hire",
+      subtitle: "Nuestro dedicado equipo de expertos trabaja incansablemente para conectar empresas con talento global excepcional.",
+      roles: {
+        ceo: "CEO y Fundadora",
+        coo: "Director de Operaciones",
+        headTalent: "Jefe de Adquisición de Talento",
+        headOperations: "Jefe de Operaciones",
+        headHR: "Jefe de RR.HH. y Cumplimiento",
+        headCompliance: "Jefe Legal y Cumplimiento",
+      },
+      cta: {
+        title: "¿Quieres Unirte a Nuestro Equipo?",
+        description: "Siempre estamos buscando personas talentosas que compartan nuestra pasión por conectar empresas con talento global excepcional.",
+        button: "Ver Posiciones Abiertas",
+      },
     },
   },
 };

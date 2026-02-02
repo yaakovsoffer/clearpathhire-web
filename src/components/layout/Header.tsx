@@ -15,6 +15,7 @@ export const Header = () => {
   const navLinks = [
     { name: t("nav.home"), path: "/" },
     { name: t("nav.about"), path: "/about" },
+    { name: t("nav.team"), path: "/team" },
     { name: t("nav.services"), path: "/services" },
     { name: t("nav.testimonials"), path: "/testimonials" },
     { name: t("nav.contact"), path: "/contact" },
