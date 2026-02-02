@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
 import jacobSofferImg from "@/assets/team/jacob-soffer-enhanced.jpg";
-import jarredTeodoroImg from "@/assets/team/jarred-teodoro.png";
+import jarredTeodoroImg from "@/assets/team/jarred-teodoro-enhanced.jpg";
 import johnReyJacobeImg from "@/assets/team/john-rey-enhanced.jpg";
 import jemStrellaImg from "@/assets/team/jem-strella.png";
 import janMattImg from "@/assets/team/jan-matt-enhanced.jpg";
