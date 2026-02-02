@@ -6,7 +6,7 @@ import jacobSofferImg from "@/assets/team/jacob-soffer-ai.png";
 import jarredTeodoroImg from "@/assets/team/jarred-teodoro.png";
 import johnReyJacobeImg from "@/assets/team/john-rey-jacobe.png";
 import jemStrellaImg from "@/assets/team/jem-strella.png";
-import janMattImg from "@/assets/team/jan-matt.png";
+import janMattImg from "@/assets/team/jan-matt-real.jpg";
 
 const teamMembers = [
   {
