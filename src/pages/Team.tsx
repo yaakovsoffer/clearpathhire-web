@@ -2,13 +2,14 @@ import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Linkedin, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import jacobSofferImg from "@/assets/team/jacob-soffer.png";
 
 const teamMembers = [
   {
     name: "Jacob Soffer",
     role: "team.roles.founder",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop",
-    linkedin: "#",
+    image: jacobSofferImg,
+    linkedin: "https://www.linkedin.com/in/jacobsoffersalud/",
   },
   {
     name: "Jarred Teodoro",
