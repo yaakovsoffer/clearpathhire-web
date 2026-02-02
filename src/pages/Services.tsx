@@ -133,10 +133,6 @@ const Services = () => {
                     <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
                     Skills verification
                   </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2.5 flex-shrink-0" />
-                    Fast 21-day placement
-                  </li>
                 </ul>
               </div>
               <motion.div 
