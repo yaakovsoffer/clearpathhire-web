@@ -93,23 +93,6 @@ export const ServicesPreview = () => {
               ))}
             </div>
 
-            {/* Navigation Arrows - Bottom Right */}
-            <div className="flex justify-end gap-3 mt-8">
-              <button
-                onClick={handlePrev}
-                className="w-12 h-12 rounded-full border-2 border-navy text-navy flex items-center justify-center hover:bg-navy hover:text-white transition-colors"
-                aria-label="Previous service"
-              >
-                <ChevronLeft size={24} />
-              </button>
-              <button
-                onClick={handleNext}
-                className="w-12 h-12 rounded-full border-2 border-navy text-navy flex items-center justify-center hover:bg-navy hover:text-white transition-colors"
-                aria-label="Next service"
-              >
-                <ChevronRight size={24} />
-              </button>
-            </div>
           </div>
         </div>
 
