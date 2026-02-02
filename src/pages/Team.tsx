@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Linkedin, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import jacobSofferImg from "@/assets/team/jacob-soffer-ai.png";
+import jacobSofferImg from "@/assets/team/jacob-soffer-enhanced.jpg";
 import jarredTeodoroImg from "@/assets/team/jarred-teodoro.png";
 import johnReyJacobeImg from "@/assets/team/john-rey-jacobe.png";
 import jemStrellaImg from "@/assets/team/jem-strella.png";
