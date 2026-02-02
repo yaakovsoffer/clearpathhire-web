@@ -100,7 +100,7 @@ export const Footer = () => {
               </li>
               <li className="flex items-start gap-3">
                 <Phone size={18} className="text-secondary mt-1 flex-shrink-0" aria-hidden="true" />
-                <span className="text-navy-foreground/70">+1 (555) 123-4567</span>
+                <span className="text-navy-foreground/70">(954) 736-5736</span>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="text-secondary mt-1 flex-shrink-0" aria-hidden="true" />
