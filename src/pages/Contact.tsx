@@ -18,8 +18,8 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Call Us",
-    value: "+1 (555) 123-4567",
-    description: "Mon-Fri, 9am-6pm EST",
+    value: "(954) 736-5736",
+    description: "",
   },
   {
     icon: MapPin,
