@@ -4,7 +4,6 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import jacobSofferImg from "@/assets/team/jacob-soffer-enhanced.jpg";
 import jarredTeodoroImg from "@/assets/team/jarred-teodoro-enhanced.jpg";
 import johnReyJacobeImg from "@/assets/team/john-rey-enhanced.jpg";
-import jemStrellaImg from "@/assets/team/jem-strella.png";
 import janMattImg from "@/assets/team/jan-matt-enhanced.jpg";
 import aboutHeroImg from "@/assets/about-hero.png";
 
@@ -26,12 +25,6 @@ const teamMembers = [
     role: "team.roles.directorTalent",
     image: johnReyJacobeImg,
     imagePosition: "center 10%",
-  },
-  {
-    name: "Jem Strella",
-    role: "team.roles.accountingDirector",
-    image: jemStrellaImg,
-    imagePosition: "center 20%",
   },
   {
     name: "Jan Matt",
