@@ -12,26 +12,31 @@ const teamMembers = [
     name: "Jacob Soffer",
     role: "team.roles.founder",
     image: jacobSofferImg,
+    imagePosition: "center 10%",
   },
   {
     name: "Jarred Teodoro",
     role: "team.roles.directorOps",
     image: jarredTeodoroImg,
+    imagePosition: "center 20%",
   },
   {
     name: "John Rey Jacobe",
     role: "team.roles.directorTalent",
     image: johnReyJacobeImg,
+    imagePosition: "center 10%",
   },
   {
     name: "Jem Strella",
     role: "team.roles.accountingDirector",
     image: jemStrellaImg,
+    imagePosition: "center 20%",
   },
   {
     name: "Jan Matt",
     role: "team.roles.marketingDirector",
     image: janMattImg,
+    imagePosition: "center 20%",
   },
 ];
 
@@ -83,7 +88,8 @@ const Team = () => {
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-full object-cover object-[center_20%] transition-transform duration-500 group-hover:scale-105"
+                    style={{ objectPosition: member.imagePosition }}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   {/* Branded Navy Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-navy/10 to-transparent" />
