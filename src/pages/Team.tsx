@@ -86,7 +86,7 @@ const Team = () => {
                     className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   />
                   {/* Branded Navy Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/40 to-navy/20" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-navy/10 to-transparent" />
                 </div>
                 
                 {/* Content */}
