@@ -122,59 +122,6 @@ const About = () => {
             </motion.div>
           </div>
 
-          {/* Stats Cards */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-muted rounded-3xl p-6 lg:p-8"
-          >
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {/* First Card */}
-              <motion.div 
-                whileHover={{ scale: 1.05 }}
-                className="bg-background rounded-3xl p-6 lg:p-8 border border-border cursor-pointer transition-colors duration-300 hover:bg-navy hover:border-navy group"
-              >
-                <div className="text-4xl lg:text-5xl font-bold text-navy mb-2 group-hover:text-white transition-colors duration-300">
-                  500+
-                </div>
-                <div className="text-sm text-muted-foreground group-hover:text-white/80 transition-colors duration-300">Placements Made</div>
-              </motion.div>
-
-              {/* Second Card */}
-              <motion.div 
-                whileHover={{ scale: 1.05 }}
-                className="bg-background rounded-3xl p-6 lg:p-8 border border-border cursor-pointer transition-colors duration-300 hover:bg-navy hover:border-navy group"
-              >
-                <div className="text-4xl lg:text-5xl font-bold text-navy mb-2 group-hover:text-white transition-colors duration-300">
-                  98%
-                </div>
-                <div className="text-sm text-muted-foreground group-hover:text-white/80 transition-colors duration-300">Client Satisfaction</div>
-              </motion.div>
-
-              {/* Third Card */}
-              <motion.div 
-                whileHover={{ scale: 1.05 }}
-                className="bg-background rounded-3xl p-6 lg:p-8 border border-border cursor-pointer transition-colors duration-300 hover:bg-navy hover:border-navy group"
-              >
-                <div className="text-4xl lg:text-5xl font-bold text-navy mb-2 group-hover:text-white transition-colors duration-300">
-                  21
-                </div>
-                <div className="text-sm text-muted-foreground group-hover:text-white/80 transition-colors duration-300">Days Average to Hire</div>
-              </motion.div>
-
-              {/* Fourth Card */}
-              <motion.div 
-                whileHover={{ scale: 1.05 }}
-                className="bg-background rounded-3xl p-6 lg:p-8 border border-border cursor-pointer transition-colors duration-300 hover:bg-navy hover:border-navy group"
-              >
-                <div className="text-4xl lg:text-5xl font-bold text-navy mb-2 group-hover:text-white transition-colors duration-300">
-                  15+
-                </div>
-                <div className="text-sm text-muted-foreground group-hover:text-white/80 transition-colors duration-300">Countries Served</div>
-              </motion.div>
-            </div>
-          </motion.div>
         </div>
       </section>
 
