@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { contactFormSchema, type ContactFormData } from "@/lib/formValidation";
 import contactHeroImg from "@/assets/contact-hero.png";
 
 const contactInfo = [
@@ -38,7 +40,8 @@ const contactInfo = [
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
+  const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
+  const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
     company: "",
@@ -49,32 +52,74 @@ const Contact = () => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
+    // Clear error when user starts typing
+    if (errors[name as keyof ContactFormData]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
+    
+    // Validate form data
+    const result = contactFormSchema.safeParse(formData);
+    if (!result.success) {
+      const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
+      result.error.errors.forEach((err) => {
+        if (err.path[0]) {
+          fieldErrors[err.path[0] as keyof ContactFormData] = err.message;
+        }
+      });
+      setErrors(fieldErrors);
+      toast({
+        title: "Validation Error",
+        description: "Please check the form for errors.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const { data, error } = await supabase.functions.invoke("send-form-email", {
+        body: {
+          formType: "contact",
+          ...result.data,
+        },
+      });
 
-    toast({
-      title: "Message Sent!",
-      description: "We'll get back to you within 24 hours.",
-    });
+      if (error) throw error;
+      if (!data?.success) throw new Error(data?.error || "Failed to send message");
 
-    setFormData({
-      name: "",
-      email: "",
-      company: "",
-      phone: "",
-      message: "",
-    });
-    setIsSubmitting(false);
+      toast({
+        title: "Message Sent!",
+        description: "We'll get back to you within 24 hours.",
+      });
+
+      setFormData({
+        name: "",
+        email: "",
+        company: "",
+        phone: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send your message. Please try again or email us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -121,7 +166,7 @@ const Contact = () => {
                 <h2 className="text-2xl font-bold text-foreground mb-6">
                   Start Hiring Today
                 </h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6" noValidate>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
@@ -133,8 +178,14 @@ const Contact = () => {
                         onChange={handleChange}
                         placeholder="John Smith"
                         required
-                        className="h-12"
+                        maxLength={100}
+                        className={`h-12 ${errors.name ? "border-destructive" : ""}`}
+                        aria-invalid={!!errors.name}
+                        aria-describedby={errors.name ? "name-error" : undefined}
                       />
+                      {errors.name && (
+                        <p id="name-error" className="text-sm text-destructive mt-1">{errors.name}</p>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
@@ -147,8 +198,14 @@ const Contact = () => {
                         onChange={handleChange}
                         placeholder="john@company.com"
                         required
-                        className="h-12"
+                        maxLength={255}
+                        className={`h-12 ${errors.email ? "border-destructive" : ""}`}
+                        aria-invalid={!!errors.email}
+                        aria-describedby={errors.email ? "email-error" : undefined}
                       />
+                      {errors.email && (
+                        <p id="email-error" className="text-sm text-destructive mt-1">{errors.email}</p>
+                      )}
                     </div>
                   </div>
 
@@ -162,8 +219,12 @@ const Contact = () => {
                         value={formData.company}
                         onChange={handleChange}
                         placeholder="Your Company"
-                        className="h-12"
+                        maxLength={100}
+                        className={`h-12 ${errors.company ? "border-destructive" : ""}`}
                       />
+                      {errors.company && (
+                        <p className="text-sm text-destructive mt-1">{errors.company}</p>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
@@ -175,8 +236,12 @@ const Contact = () => {
                         value={formData.phone}
                         onChange={handleChange}
                         placeholder="+1 (555) 000-0000"
-                        className="h-12"
+                        maxLength={30}
+                        className={`h-12 ${errors.phone ? "border-destructive" : ""}`}
                       />
+                      {errors.phone && (
+                        <p className="text-sm text-destructive mt-1">{errors.phone}</p>
+                      )}
                     </div>
                   </div>
 
@@ -190,8 +255,18 @@ const Contact = () => {
                       onChange={handleChange}
                       placeholder="What positions are you looking to fill? What skills are most important?"
                       required
+                      maxLength={2000}
                       rows={5}
+                      className={errors.message ? "border-destructive" : ""}
+                      aria-invalid={!!errors.message}
+                      aria-describedby={errors.message ? "message-error" : undefined}
                     />
+                    {errors.message && (
+                      <p id="message-error" className="text-sm text-destructive mt-1">{errors.message}</p>
+                    )}
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {formData.message.length}/2000 characters
+                    </p>
                   </div>
 
                   <Button

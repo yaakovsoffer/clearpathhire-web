@@ -13,6 +13,8 @@ import {
   Send,
   CheckCircle,
 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { applyFormSchema, type ApplyFormData } from "@/lib/formValidation";
 
 const benefits = [
   {
@@ -55,7 +57,8 @@ const openPositions = [
 const Apply = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
+  const [errors, setErrors] = useState<Partial<Record<keyof ApplyFormData, string>>>({});
+  const [formData, setFormData] = useState<ApplyFormData>({
     name: "",
     email: "",
     phone: "",
@@ -68,34 +71,76 @@ const Apply = () => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
+    // Clear error when user starts typing
+    if (errors[name as keyof ApplyFormData]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
+
+    // Validate form data
+    const result = applyFormSchema.safeParse(formData);
+    if (!result.success) {
+      const fieldErrors: Partial<Record<keyof ApplyFormData, string>> = {};
+      result.error.errors.forEach((err) => {
+        if (err.path[0]) {
+          fieldErrors[err.path[0] as keyof ApplyFormData] = err.message;
+        }
+      });
+      setErrors(fieldErrors);
+      toast({
+        title: "Validation Error",
+        description: "Please check the form for errors.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const { data, error } = await supabase.functions.invoke("send-form-email", {
+        body: {
+          formType: "apply",
+          ...result.data,
+        },
+      });
 
-    toast({
-      title: "Application Submitted!",
-      description: "We'll review your application and get back to you soon.",
-    });
+      if (error) throw error;
+      if (!data?.success) throw new Error(data?.error || "Failed to submit application");
 
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      position: "",
-      experience: "",
-      linkedin: "",
-      about: "",
-    });
-    setIsSubmitting(false);
+      toast({
+        title: "Application Submitted!",
+        description: "We'll review your application and get back to you soon.",
+      });
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        position: "",
+        experience: "",
+        linkedin: "",
+        about: "",
+      });
+    } catch (error) {
+      console.error("Error submitting application:", error);
+      toast({
+        title: "Error",
+        description: "Failed to submit your application. Please try again or email us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -157,7 +202,7 @@ const Apply = () => {
                 <h2 className="text-2xl font-bold text-foreground mb-6">
                   Apply Now
                 </h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6" noValidate>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
@@ -169,8 +214,14 @@ const Apply = () => {
                         onChange={handleChange}
                         placeholder="Your full name"
                         required
-                        className="h-12"
+                        maxLength={100}
+                        className={`h-12 ${errors.name ? "border-destructive" : ""}`}
+                        aria-invalid={!!errors.name}
+                        aria-describedby={errors.name ? "name-error" : undefined}
                       />
+                      {errors.name && (
+                        <p id="name-error" className="text-sm text-destructive mt-1">{errors.name}</p>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
@@ -183,8 +234,14 @@ const Apply = () => {
                         onChange={handleChange}
                         placeholder="your@email.com"
                         required
-                        className="h-12"
+                        maxLength={255}
+                        className={`h-12 ${errors.email ? "border-destructive" : ""}`}
+                        aria-invalid={!!errors.email}
+                        aria-describedby={errors.email ? "email-error" : undefined}
                       />
+                      {errors.email && (
+                        <p id="email-error" className="text-sm text-destructive mt-1">{errors.email}</p>
+                      )}
                     </div>
                   </div>
 
@@ -200,8 +257,14 @@ const Apply = () => {
                         onChange={handleChange}
                         placeholder="+1 (555) 000-0000"
                         required
-                        className="h-12"
+                        maxLength={30}
+                        className={`h-12 ${errors.phone ? "border-destructive" : ""}`}
+                        aria-invalid={!!errors.phone}
+                        aria-describedby={errors.phone ? "phone-error" : undefined}
                       />
+                      {errors.phone && (
+                        <p id="phone-error" className="text-sm text-destructive mt-1">{errors.phone}</p>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
@@ -212,7 +275,9 @@ const Apply = () => {
                         value={formData.position}
                         onChange={handleChange}
                         required
-                        className="flex h-12 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        className={`flex h-12 w-full rounded-lg border bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${errors.position ? "border-destructive" : "border-input"}`}
+                        aria-invalid={!!errors.position}
+                        aria-describedby={errors.position ? "position-error" : undefined}
                       >
                         <option value="">Select a position</option>
                         {openPositions.map((pos) => (
@@ -221,6 +286,9 @@ const Apply = () => {
                           </option>
                         ))}
                       </select>
+                      {errors.position && (
+                        <p id="position-error" className="text-sm text-destructive mt-1">{errors.position}</p>
+                      )}
                     </div>
                   </div>
 
@@ -234,7 +302,9 @@ const Apply = () => {
                         value={formData.experience}
                         onChange={handleChange}
                         required
-                        className="flex h-12 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        className={`flex h-12 w-full rounded-lg border bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${errors.experience ? "border-destructive" : "border-input"}`}
+                        aria-invalid={!!errors.experience}
+                        aria-describedby={errors.experience ? "experience-error" : undefined}
                       >
                         <option value="">Select experience</option>
                         <option value="0-1">0-1 years</option>
@@ -243,6 +313,9 @@ const Apply = () => {
                         <option value="5-10">5-10 years</option>
                         <option value="10+">10+ years</option>
                       </select>
+                      {errors.experience && (
+                        <p id="experience-error" className="text-sm text-destructive mt-1">{errors.experience}</p>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
@@ -254,8 +327,12 @@ const Apply = () => {
                         value={formData.linkedin}
                         onChange={handleChange}
                         placeholder="linkedin.com/in/yourprofile"
-                        className="h-12"
+                        maxLength={200}
+                        className={`h-12 ${errors.linkedin ? "border-destructive" : ""}`}
                       />
+                      {errors.linkedin && (
+                        <p className="text-sm text-destructive mt-1">{errors.linkedin}</p>
+                      )}
                     </div>
                   </div>
 
@@ -269,8 +346,18 @@ const Apply = () => {
                       onChange={handleChange}
                       placeholder="Share your relevant experience, skills, and why you're interested in working with US companies remotely."
                       required
+                      maxLength={2000}
                       rows={5}
+                      className={errors.about ? "border-destructive" : ""}
+                      aria-invalid={!!errors.about}
+                      aria-describedby={errors.about ? "about-error" : undefined}
                     />
+                    {errors.about && (
+                      <p id="about-error" className="text-sm text-destructive mt-1">{errors.about}</p>
+                    )}
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {formData.about.length}/2000 characters
+                    </p>
                   </div>
 
                   <Button
