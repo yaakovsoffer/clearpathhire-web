@@ -127,7 +127,7 @@ export const HeroSection = () => {
       <div className="bg-background py-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 items-start">
-            {/* Features - Left Side */}
+            {/* Features */}
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
@@ -144,25 +144,23 @@ export const HeroSection = () => {
               </motion.div>
             ))}
 
-            {/* Stats - Right Side in 2x2 Grid */}
-            <div className="col-span-2 grid grid-cols-2 gap-6">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 + index * 0.1 }}
-                  className="text-center lg:text-left"
-                >
-                  <div className="text-4xl md:text-5xl font-bold text-navy mb-1">
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    {stat.label}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+            {/* Stats */}
+            {stats.map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 + index * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-5xl md:text-6xl lg:text-7xl font-bold text-navy mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-base md:text-lg text-muted-foreground font-medium">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
