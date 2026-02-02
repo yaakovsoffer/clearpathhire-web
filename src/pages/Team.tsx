@@ -5,39 +5,33 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const teamMembers = [
   {
-    name: "Sarah Mitchell",
-    role: "team.roles.ceo",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop",
-    linkedin: "#",
-  },
-  {
-    name: "Michael Chen",
-    role: "team.roles.coo",
+    name: "Jacob Soffer",
+    role: "team.roles.founder",
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop",
     linkedin: "#",
   },
   {
-    name: "Emily Rodriguez",
-    role: "team.roles.headTalent",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&auto=format&fit=crop",
-    linkedin: "#",
-  },
-  {
-    name: "David Thompson",
-    role: "team.roles.headOperations",
+    name: "Jarred Teodoro",
+    role: "team.roles.directorOps",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
     linkedin: "#",
   },
   {
-    name: "Jessica Park",
-    role: "team.roles.headHR",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400&auto=format&fit=crop",
+    name: "John Rey Jacobe",
+    role: "team.roles.directorTalent",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop",
     linkedin: "#",
   },
   {
-    name: "Robert Martinez",
-    role: "team.roles.headCompliance",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop",
+    name: "Jem Strella",
+    role: "team.roles.accountingDirector",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop",
+    linkedin: "#",
+  },
+  {
+    name: "Jan Matt",
+    role: "team.roles.marketingDirector",
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop",
     linkedin: "#",
   },
 ];
