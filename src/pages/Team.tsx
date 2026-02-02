@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { User } from "lucide-react";
 import jacobSofferImg from "@/assets/team/jacob-soffer-enhanced.jpg";
-import jarredTeodoroImg from "@/assets/team/jarred-teodoro.png";
+import jarredTeodoroImg from "@/assets/team/jarred-teodoro-gray.jpg";
 import johnReyJacobeImg from "@/assets/team/john-rey-enhanced.jpg";
-import jemStrellaImg from "@/assets/team/jem-strella.png";
-import janMattImg from "@/assets/team/jan-matt-enhanced.jpg";
+import janMattImg from "@/assets/team/jan-matt-gray.jpg";
 
 const teamMembers = [
   {
@@ -29,7 +29,7 @@ const teamMembers = [
   {
     name: "Jem Strella",
     role: "team.roles.accountingDirector",
-    image: jemStrellaImg,
+    image: null,
     imagePosition: "center 20%",
   },
   {
@@ -84,15 +84,23 @@ const Team = () => {
                 className="bg-background rounded-3xl overflow-hidden cursor-pointer w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
               >
                 {/* Image Container */}
-                <div className="relative h-96 overflow-hidden">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    style={{ objectPosition: member.imagePosition }}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  {/* Branded Navy Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-navy/10 to-transparent" />
+                <div className="relative h-96 overflow-hidden bg-muted">
+                  {member.image ? (
+                    <>
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        style={{ objectPosition: member.imagePosition }}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      {/* Branded Navy Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-navy/10 to-transparent" />
+                    </>
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-muted">
+                      <User className="w-24 h-24 text-muted-foreground/40" />
+                    </div>
+                  )}
                 </div>
                 
                 {/* Content */}
