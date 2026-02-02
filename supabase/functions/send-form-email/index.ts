@@ -128,7 +128,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log(`Sending ${data.formType} form email from ${sanitizedData.email}`);
 
     const emailResponse = await resend.emails.send({
-      from: "ClearPath Hire <noreply@clearpathhire.com>",
+      from: "ClearPath Hire <noreply@send.clearpathhire.com>",
       to: ["info@clearpathhire.com"],
       reply_to: sanitizedData.email,
       subject: subject,
