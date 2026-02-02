@@ -110,7 +110,7 @@ const TestimonialCarousel = () => {
                     {getInitials(testimonial.name)}
                   </div>
                   <div>
-                    <h3 className="font-semibold text-[#043367]">
+                    <h3 className="font-semibold text-navy">
                       {testimonial.name}
                     </h3>
                     {/* Rating Stars */}
