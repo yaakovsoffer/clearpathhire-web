@@ -69,7 +69,7 @@ const Team = () => {
       {/* Team Grid */}
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="flex flex-wrap justify-center gap-8">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={member.name}
@@ -81,7 +81,7 @@ const Team = () => {
                   scale: 1.02,
                   boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.15)"
                 }}
-                className="bg-background rounded-3xl overflow-hidden cursor-pointer"
+                className="bg-background rounded-3xl overflow-hidden cursor-pointer w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
               >
                 {/* Image Container */}
                 <div className="relative h-96 overflow-hidden">
