@@ -418,7 +418,7 @@ const translations: Record<Language, Record<string, any>> = {
       title: "Meet the People Behind Clear Path Hire",
       subtitle: "Our dedicated team of experts works tirelessly to connect businesses with exceptional global talent.",
       roles: {
-        founder: "Founder/Owner",
+        founder: "Founder",
         directorOps: "Director of Operations",
         directorTalent: "Director of Talent Acquisition",
         accountingDirector: "Accounting Director",
@@ -797,7 +797,7 @@ const translations: Record<Language, Record<string, any>> = {
       title: "Conoce a las Personas Detrás de Clear Path Hire",
       subtitle: "Nuestro dedicado equipo de expertos trabaja incansablemente para conectar empresas con talento global excepcional.",
       roles: {
-        founder: "Fundador/Propietario",
+        founder: "Fundador",
         directorOps: "Director de Operaciones",
         directorTalent: "Director de Adquisición de Talento",
         accountingDirector: "Director de Contabilidad",
