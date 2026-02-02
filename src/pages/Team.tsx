@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
-import { Linkedin, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import jacobSofferImg from "@/assets/team/jacob-soffer-enhanced.jpg";
 import jarredTeodoroImg from "@/assets/team/jarred-teodoro.png";
@@ -13,31 +12,26 @@ const teamMembers = [
     name: "Jacob Soffer",
     role: "team.roles.founder",
     image: jacobSofferImg,
-    linkedin: "https://www.linkedin.com/in/jacobsoffersalud/",
   },
   {
     name: "Jarred Teodoro",
     role: "team.roles.directorOps",
     image: jarredTeodoroImg,
-    linkedin: "#",
   },
   {
     name: "John Rey Jacobe",
     role: "team.roles.directorTalent",
     image: johnReyJacobeImg,
-    linkedin: "#",
   },
   {
     name: "Jem Strella",
     role: "team.roles.accountingDirector",
     image: jemStrellaImg,
-    linkedin: "#",
   },
   {
     name: "Jan Matt",
     role: "team.roles.marketingDirector",
     image: janMattImg,
-    linkedin: "#",
   },
 ];
 
@@ -100,29 +94,9 @@ const Team = () => {
                   <h3 className="text-xl font-bold text-navy mb-1">
                     {member.name}
                   </h3>
-                  <p className="text-accent font-medium mb-4">
+                  <p className="text-accent font-medium">
                     {t(member.role)}
                   </p>
-                  
-                  {/* Social Links */}
-                  <div className="flex gap-3">
-                    <a
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-navy hover:text-white transition-colors"
-                      aria-label={`${member.name}'s LinkedIn`}
-                    >
-                      <Linkedin size={18} />
-                    </a>
-                    <a
-                      href={`mailto:contact@clearpathhire.com`}
-                      className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-navy hover:text-white transition-colors"
-                      aria-label={`Email ${member.name}`}
-                    >
-                      <Mail size={18} />
-                    </a>
-                  </div>
                 </div>
               </motion.div>
             ))}
