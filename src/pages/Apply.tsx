@@ -162,7 +162,8 @@ const Apply = () => {
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
               Your Next{" "}
-              <span className="text-primary">Career Opportunity</span>
+              <span className="text-primary">Career</span>{" "}
+              <span className="text-secondary">Opportunity</span>
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
               Work remotely with leading US companies. Enjoy competitive pay, full benefits, and meaningful career growth.
