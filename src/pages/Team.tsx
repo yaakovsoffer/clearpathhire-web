@@ -30,13 +30,13 @@ const teamMembers = [
   },
   {
     name: "Jem Estrella-Cudiamat",
-    role: "team.roles.accountingDirector",
+    role: "Director of Finance",
     image: jemStrellaImg,
     imagePosition: "center 0%",
   },
   {
     name: "Jan Matt Bondoc",
-    role: "team.roles.marketingDirector",
+    role: "Director of Marketing",
     image: janMattImg,
     imagePosition: "center 20%",
   },
