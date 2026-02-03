@@ -16,7 +16,6 @@ export const Footer = () => {
     resources: [
       { name: t("footer.applyForJobs"), path: "/apply" },
       { name: t("footer.clientPortal"), path: "/client-login" },
-      { name: t("footer.makePayment"), path: "/payment" },
       { name: t("footer.googleGuide"), path: "/google-business-guide" },
     ],
   };
