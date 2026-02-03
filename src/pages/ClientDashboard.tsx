@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { FileText, Download, CreditCard, Calendar, DollarSign, CheckCircle, Clock, AlertCircle } from "lucide-react";
+import { FileText, Download, CreditCard, Calendar, DollarSign, CheckCircle, Clock, AlertCircle, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 
 const mockInvoices = [
   {
@@ -42,9 +45,22 @@ const mockInvoices = [
   },
 ];
 
-const ClientDashboard = () => {
+const ClientDashboardContent = () => {
   const { t } = useLanguage();
+  const { user, signOut } = useAuth();
+  const { toast } = useToast();
   const [filter, setFilter] = useState<"all" | "paid" | "pending" | "overdue">("all");
+
+  const handleSignOut = async () => {
+    const { error } = await signOut();
+    if (error) {
+      toast({
+        title: "Error signing out",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
 
   const statusConfig = {
     paid: { label: t("dashboard.paid"), icon: CheckCircle, className: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" },
@@ -84,14 +100,20 @@ const ClientDashboard = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="mb-8"
+              className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
             >
-              <h1 id="dashboard-heading" className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-                {t("dashboard.welcome")}
-              </h1>
-              <p className="text-muted-foreground">
-                {t("dashboard.subtitle")}
-              </p>
+              <div>
+                <h1 id="dashboard-heading" className="text-3xl md:text-4xl font-bold text-foreground mb-2">
+                  {t("dashboard.welcome")}
+                </h1>
+                <p className="text-muted-foreground">
+                  {user?.email ? `Logged in as ${user.email}` : t("dashboard.subtitle")}
+                </p>
+              </div>
+              <Button variant="outline" onClick={handleSignOut}>
+                <LogOut className="h-4 w-4 mr-2" />
+                Sign Out
+              </Button>
             </motion.div>
 
             <motion.div
@@ -255,6 +277,14 @@ const ClientDashboard = () => {
         </section>
       </main>
     </Layout>
+  );
+};
+
+const ClientDashboard = () => {
+  return (
+    <ProtectedRoute>
+      <ClientDashboardContent />
+    </ProtectedRoute>
   );
 };
 
