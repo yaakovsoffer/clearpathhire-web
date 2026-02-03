@@ -59,6 +59,7 @@ const Apply = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showAllPositions, setShowAllPositions] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof ApplyFormData, string>>>({});
   const [formData, setFormData] = useState<ApplyFormData>({
     name: "",
@@ -422,7 +423,7 @@ const Apply = () => {
                   We're actively hiring for these roles:
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {openPositions.slice(0, 6).map((pos) => (
+                  {(showAllPositions ? openPositions : openPositions.slice(0, 6)).map((pos) => (
                     <span
                       key={pos}
                       className="text-xs bg-secondary/20 text-primary px-3 py-1 rounded-full"
@@ -430,9 +431,14 @@ const Apply = () => {
                       {pos}
                     </span>
                   ))}
-                  <span className="text-xs bg-accent/20 text-accent px-3 py-1 rounded-full">
-                    +{openPositions.length - 6} more
-                  </span>
+                  {!showAllPositions && (
+                    <button
+                      onClick={() => setShowAllPositions(true)}
+                      className="text-xs bg-accent/20 text-accent px-3 py-1 rounded-full hover:bg-accent/30 transition-colors cursor-pointer"
+                    >
+                      +{openPositions.length - 6} more
+                    </button>
+                  )}
                 </div>
               </div>
             </motion.div>
