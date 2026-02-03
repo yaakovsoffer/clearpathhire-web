@@ -5,6 +5,7 @@ import { User } from "lucide-react";
 import jacobSofferImg from "@/assets/team/jacob-soffer-enhanced.jpg";
 import jarredTeodoroImg from "@/assets/team/jarred-teodoro-gray.jpg";
 import johnReyJacobeImg from "@/assets/team/john-rey-enhanced.jpg";
+import jemStrellaImg from "@/assets/team/jem-strella-gray.jpg";
 import janMattImg from "@/assets/team/jan-matt-gray.jpg";
 import outsourcingSolutionImg from "@/assets/outsourcing-solution.png";
 
@@ -30,8 +31,8 @@ const teamMembers = [
   {
     name: "Jem Strella",
     role: "team.roles.accountingDirector",
-    image: null,
-    imagePosition: "center 20%",
+    image: jemStrellaImg,
+    imagePosition: "center 15%",
   },
   {
     name: "Jan Matt",
