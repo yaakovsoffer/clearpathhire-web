@@ -67,8 +67,9 @@ const Team = () => {
             {/* Content */}
             <div className="relative z-10 flex items-center h-full min-h-[520px] lg:min-h-[580px] p-8 lg:p-16">
               <div className="max-w-2xl">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-8">
-                  <span className="block">Meet the People Behind <span className="text-accent">Clear Path Hire</span></span>
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-8">
+                  <span className="block">Meet the People</span>
+                  <span className="block">Behind <span className="text-accent">Clear Path Hire</span></span>
                 </h1>
                 <p className="text-lg text-white/80 leading-relaxed max-w-xl">
                   {t("team.subtitle")}
