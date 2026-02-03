@@ -35,7 +35,7 @@ const teamMembers = [
     imagePosition: "center 0%",
   },
   {
-    name: "Jan Matt",
+    name: "Jan Matt Bondoc",
     role: "team.roles.marketingDirector",
     image: janMattImg,
     imagePosition: "center 20%",
