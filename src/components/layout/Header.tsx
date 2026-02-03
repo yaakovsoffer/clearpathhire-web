@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
 import logo from "@/assets/cph-logo.png";
 
@@ -47,9 +46,8 @@ export const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Buttons & Language Switcher */}
+          {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-2 lg:gap-3">
-            <LanguageSwitcher />
             <Button variant="ghost" size="sm" asChild className="lg:size-default">
               <Link to="/client-login">{t("nav.clientLogin")}</Link>
             </Button>
@@ -63,7 +61,6 @@ export const Header = () => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-2">
-            <LanguageSwitcher />
             <button
               className="p-2 text-foreground"
               onClick={() => setIsOpen(!isOpen)}
