@@ -29,7 +29,7 @@ const teamMembers = [
     imagePosition: "center 10%",
   },
   {
-    name: "Jem Strella",
+    name: "Jem Estrella-Cudiamat",
     role: "team.roles.accountingDirector",
     image: jemStrellaImg,
     imagePosition: "center 0%",
