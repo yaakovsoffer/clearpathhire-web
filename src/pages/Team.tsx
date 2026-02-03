@@ -32,7 +32,7 @@ const teamMembers = [
     name: "Jem Strella",
     role: "team.roles.accountingDirector",
     image: jemStrellaImg,
-    imagePosition: "center 45%",
+    imagePosition: "center 80%",
   },
   {
     name: "Jan Matt",
