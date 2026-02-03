@@ -30,7 +30,7 @@ export const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8" aria-label="Main navigation">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8 ml-8" aria-label="Main navigation">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
