@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import logoWhite from "@/assets/cph-logo-white.png";
 
@@ -32,25 +32,13 @@ export const Footer = () => {
             </p>
             <div className="flex gap-4">
               <a
-                href="#"
+                href="https://www.linkedin.com/company/clear-path-hire"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-navy-foreground/10 flex items-center justify-center hover:bg-secondary transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin size={18} />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-navy-foreground/10 flex items-center justify-center hover:bg-secondary transition-colors"
-                aria-label="Twitter"
-              >
-                <Twitter size={18} />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-navy-foreground/10 flex items-center justify-center hover:bg-secondary transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook size={18} />
               </a>
             </div>
           </div>
