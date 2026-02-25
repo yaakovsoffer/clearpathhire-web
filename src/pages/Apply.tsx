@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,9 @@ import {
   Shield,
   Send,
   CheckCircle,
+  MapPin,
+  Clock,
+  Loader2,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { applyFormSchema, type ApplyFormData } from "@/lib/formValidation";
@@ -40,19 +43,22 @@ const benefits = [
   },
 ];
 
-const openPositions = [
-  "Executive Assistant",
-  "Accountant / Bookkeeper",
-  "Customer Support Specialist",
-  "Sales Development Representative",
-  "Marketing Specialist",
-  "Software Developer",
-  "Data Analyst",
-  "Project Manager",
-  "HR Specialist",
-  "Legal Assistant",
-  "Content Writer",
-  "Graphic Designer",
+interface CRMRole {
+  id: string;
+  title: string;
+  description: string;
+  employment_type: string;
+  location: string;
+  timezone: string;
+  company: string;
+}
+
+const experienceOptions = [
+  { value: "0-1 years", label: "0-1 years" },
+  { value: "1-3 years", label: "1-3 years" },
+  { value: "3-5 years", label: "3-5 years" },
+  { value: "5-10 years", label: "5-10 years" },
+  { value: "10+ years", label: "10+ years" },
 ];
 
 const Apply = () => {
@@ -61,6 +67,9 @@ const Apply = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showAllPositions, setShowAllPositions] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof ApplyFormData, string>>>({});
+  const [crmRoles, setCrmRoles] = useState<CRMRole[]>([]);
+  const [rolesLoading, setRolesLoading] = useState(true);
+  const [selectedRoleId, setSelectedRoleId] = useState<string>("");
   const [formData, setFormData] = useState<ApplyFormData>({
     name: "",
     email: "",
@@ -71,8 +80,37 @@ const Apply = () => {
     about: "",
   });
 
+  // Fetch open roles from CRM
+  useEffect(() => {
+    const fetchRoles = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/crm-proxy?action=get-roles`,
+          {
+            headers: {
+              Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+              apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            },
+          }
+        );
+
+        if (!response.ok) throw new Error("Failed to fetch roles");
+        const rolesData = await response.json();
+        setCrmRoles(rolesData.roles || []);
+      } catch (err) {
+        console.error("Failed to fetch CRM roles:", err);
+        // Silently fail - positions dropdown will use fallback list
+      } finally {
+        setRolesLoading(false);
+      }
+    };
+
+    fetchRoles();
+  }, []);
+
   const handleReset = () => {
     setIsSubmitted(false);
+    setSelectedRoleId("");
     setFormData({
       name: "",
       email: "",
@@ -88,11 +126,17 @@ const Apply = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
+
+    if (name === "position") {
+      // Find the role to set the role_id
+      const role = crmRoles.find((r) => r.title === value);
+      setSelectedRoleId(role?.id || "");
+    }
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
-    // Clear error when user starts typing
     if (errors[name as keyof ApplyFormData]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
@@ -102,7 +146,6 @@ const Apply = () => {
     e.preventDefault();
     setErrors({});
 
-    // Validate form data
     const result = applyFormSchema.safeParse(formData);
     if (!result.success) {
       const fieldErrors: Partial<Record<keyof ApplyFormData, string>> = {};
@@ -123,15 +166,70 @@ const Apply = () => {
     setIsSubmitting(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke("send-form-email", {
+      // Send email notification (existing flow)
+      const emailPromise = supabase.functions.invoke("send-form-email", {
         body: {
           formType: "apply",
           ...result.data,
         },
       });
 
-      if (error) throw error;
-      if (!data?.success) throw new Error(data?.error || "Failed to submit application");
+      // Submit to CRM
+      const crmPayload: Record<string, unknown> = {
+        full_name: result.data.name,
+        email: result.data.email,
+        phone: result.data.phone,
+        years_of_experience: experienceOptions.find(
+          (o) => o.value === result.data.experience || o.label === result.data.experience
+        )?.value || result.data.experience,
+        about: result.data.about || undefined,
+        linkedin_profile: result.data.linkedin || undefined,
+      };
+
+      if (selectedRoleId) {
+        crmPayload.role_id = selectedRoleId;
+      }
+
+      const crmPromise = supabase.functions.invoke("crm-proxy?action=submit-application", {
+        body: crmPayload,
+      });
+
+      // Execute both in parallel
+      const [emailResult, crmResult] = await Promise.allSettled([emailPromise, crmPromise]);
+
+      // Check email result
+      if (emailResult.status === "rejected") {
+        console.error("Email send failed:", emailResult.reason);
+      } else if (emailResult.value.error) {
+        console.error("Email send error:", emailResult.value.error);
+      }
+
+      // Check CRM result
+      if (crmResult.status === "rejected") {
+        console.error("CRM submit failed:", crmResult.reason);
+      } else if (crmResult.value.error) {
+        const crmError = crmResult.value.error;
+        // Handle specific CRM error codes
+        if (typeof crmError === "object" && crmError?.context?.status === 409) {
+          toast({
+            title: "Already Applied",
+            description: "An application with this email already exists in our system.",
+            variant: "destructive",
+          });
+          setIsSubmitting(false);
+          return;
+        }
+        if (typeof crmError === "object" && crmError?.context?.status === 429) {
+          toast({
+            title: "Too Many Requests",
+            description: "Please wait a moment before submitting again.",
+            variant: "destructive",
+          });
+          setIsSubmitting(false);
+          return;
+        }
+        console.error("CRM submit error:", crmError);
+      }
 
       setIsSubmitted(true);
     } catch (error) {
@@ -145,6 +243,23 @@ const Apply = () => {
       setIsSubmitting(false);
     }
   };
+
+  const positionOptions = crmRoles.length > 0
+    ? crmRoles.map((r) => r.title)
+    : [
+        "Executive Assistant",
+        "Accountant / Bookkeeper",
+        "Customer Support Specialist",
+        "Sales Development Representative",
+        "Marketing Specialist",
+        "Software Developer",
+        "Data Analyst",
+        "Project Manager",
+        "HR Specialist",
+        "Legal Assistant",
+        "Content Writer",
+        "Graphic Designer",
+      ];
 
   return (
     <Layout>
@@ -194,7 +309,71 @@ const Apply = () => {
             ))}
           </div>
 
-          <div className="grid lg:grid-cols-5 gap-12">
+          {/* Open Roles from CRM */}
+          {crmRoles.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="mb-16"
+            >
+              <h2 className="text-3xl font-bold text-foreground text-center mb-8">
+                Open Positions
+              </h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {crmRoles.map((role) => (
+                  <motion.div
+                    key={role.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-card rounded-2xl p-6 border border-border hover:shadow-brand transition-shadow"
+                  >
+                    <h3 className="text-lg font-semibold text-foreground mb-2">
+                      {role.title}
+                    </h3>
+                    {role.description && (
+                      <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+                        {role.description}
+                      </p>
+                    )}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {role.employment_type && (
+                        <span className="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full flex items-center gap-1">
+                          <Briefcase size={12} />
+                          {role.employment_type}
+                        </span>
+                      )}
+                      {role.location && (
+                        <span className="text-xs bg-secondary/20 text-secondary-foreground px-3 py-1 rounded-full flex items-center gap-1">
+                          <MapPin size={12} />
+                          {role.location}
+                        </span>
+                      )}
+                      {role.timezone && (
+                        <span className="text-xs bg-accent/20 text-accent px-3 py-1 rounded-full flex items-center gap-1">
+                          <Clock size={12} />
+                          {role.timezone}
+                        </span>
+                      )}
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        setSelectedRoleId(role.id);
+                        setFormData((prev) => ({ ...prev, position: role.title }));
+                        document.getElementById("application-form")?.scrollIntoView({ behavior: "smooth" });
+                      }}
+                    >
+                      Apply for this role
+                    </Button>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          <div id="application-form" className="grid lg:grid-cols-5 gap-12">
             {/* Application Form */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -286,8 +465,10 @@ const Apply = () => {
                         aria-invalid={!!errors.position}
                         aria-describedby={errors.position ? "position-error" : undefined}
                       >
-                        <option value="">Select a position</option>
-                        {openPositions.map((pos) => (
+                        <option value="">
+                          {rolesLoading ? "Loading positions..." : "Select a position"}
+                        </option>
+                        {positionOptions.map((pos) => (
                           <option key={pos} value={pos}>
                             {pos}
                           </option>
@@ -314,11 +495,11 @@ const Apply = () => {
                         aria-describedby={errors.experience ? "experience-error" : undefined}
                       >
                         <option value="">Select experience</option>
-                        <option value="0-1">0-1 years</option>
-                        <option value="1-3">1-3 years</option>
-                        <option value="3-5">3-5 years</option>
-                        <option value="5-10">5-10 years</option>
-                        <option value="10+">10+ years</option>
+                        {experienceOptions.map((opt) => (
+                          <option key={opt.value} value={opt.value}>
+                            {opt.label}
+                          </option>
+                        ))}
                       </select>
                       {errors.experience && (
                         <p id="experience-error" className="text-sm text-destructive mt-1">{errors.experience}</p>
@@ -375,7 +556,10 @@ const Apply = () => {
                     className="w-full"
                   >
                     {isSubmitting ? (
-                      "Submitting..."
+                      <>
+                        <Loader2 className="animate-spin mr-2" size={18} />
+                        Submitting...
+                      </>
                     ) : (
                       <>
                         Submit Application <Send size={18} />
@@ -420,10 +604,10 @@ const Apply = () => {
                   Open Positions
                 </h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  We're actively hiring for these roles:
+                  {rolesLoading ? "Loading open positions..." : `We're actively hiring for ${positionOptions.length} roles:`}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {(showAllPositions ? openPositions : openPositions.slice(0, 6)).map((pos) => (
+                  {(showAllPositions ? positionOptions : positionOptions.slice(0, 6)).map((pos) => (
                     <span
                       key={pos}
                       className="text-xs bg-secondary/20 text-primary px-3 py-1 rounded-full"
@@ -431,12 +615,12 @@ const Apply = () => {
                       {pos}
                     </span>
                   ))}
-                  {!showAllPositions && (
+                  {!showAllPositions && positionOptions.length > 6 && (
                     <button
                       onClick={() => setShowAllPositions(true)}
                       className="text-xs bg-accent/20 text-accent px-3 py-1 rounded-full hover:bg-accent/30 transition-colors cursor-pointer"
                     >
-                      +{openPositions.length - 6} more
+                      +{positionOptions.length - 6} more
                     </button>
                   )}
                 </div>
