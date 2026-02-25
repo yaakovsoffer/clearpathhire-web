@@ -15,6 +15,9 @@ import {
   MapPin,
   Clock,
   Loader2,
+  Upload,
+  FileText,
+  X,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { applyFormSchema, type ApplyFormData } from "@/lib/formValidation";
@@ -70,6 +73,10 @@ const Apply = () => {
   const [crmRoles, setCrmRoles] = useState<CRMRole[]>([]);
   const [rolesLoading, setRolesLoading] = useState(true);
   const [selectedRoleId, setSelectedRoleId] = useState<string>("");
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [resumeUrl, setResumeUrl] = useState<string>("");
+  const [isUploadingResume, setIsUploadingResume] = useState(false);
+  const [resumeError, setResumeError] = useState<string>("");
   const [formData, setFormData] = useState<ApplyFormData>({
     name: "",
     email: "",
@@ -111,6 +118,9 @@ const Apply = () => {
   const handleReset = () => {
     setIsSubmitted(false);
     setSelectedRoleId("");
+    setResumeFile(null);
+    setResumeUrl("");
+    setResumeError("");
     setFormData({
       name: "",
       email: "",
@@ -120,6 +130,85 @@ const Apply = () => {
       linkedin: "",
       about: "",
     });
+  };
+
+  const ALLOWED_FILE_TYPES = [
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  ];
+  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
+  const handleResumeChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    setResumeError("");
+
+    if (!file) return;
+
+    // Client-side validation
+    if (!ALLOWED_FILE_TYPES.includes(file.type)) {
+      setResumeError("Only PDF, DOC, and DOCX files are allowed.");
+      e.target.value = "";
+      return;
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+      setResumeError("File size must be under 5MB.");
+      e.target.value = "";
+      return;
+    }
+
+    if (file.size === 0) {
+      setResumeError("File appears to be empty.");
+      e.target.value = "";
+      return;
+    }
+
+    setResumeFile(file);
+    setIsUploadingResume(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/upload-resume`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+            apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || "Upload failed");
+      }
+
+      setResumeUrl(data.url);
+      toast({
+        title: "Resume Uploaded",
+        description: "Your resume has been uploaded successfully.",
+      });
+    } catch (err) {
+      console.error("Resume upload error:", err);
+      const msg = err instanceof Error ? err.message : "Failed to upload resume";
+      setResumeError(msg);
+      setResumeFile(null);
+      setResumeUrl("");
+    } finally {
+      setIsUploadingResume(false);
+    }
+  };
+
+  const removeResume = () => {
+    setResumeFile(null);
+    setResumeUrl("");
+    setResumeError("");
   };
 
   const handleChange = (
@@ -166,11 +255,12 @@ const Apply = () => {
     setIsSubmitting(true);
 
     try {
-      // Send email notification (existing flow)
+      // Send email notification (existing flow) — include resume link
       const emailPromise = supabase.functions.invoke("send-form-email", {
         body: {
           formType: "apply",
           ...result.data,
+          resumeUrl: resumeUrl || undefined,
         },
       });
 
@@ -184,6 +274,7 @@ const Apply = () => {
         )?.value || result.data.experience,
         about: result.data.about || undefined,
         linkedin_profile: result.data.linkedin || undefined,
+        resume_url: resumeUrl || undefined,
       };
 
       if (selectedRoleId) {
@@ -548,11 +639,68 @@ const Apply = () => {
                     </p>
                   </div>
 
+                  {/* Resume Upload */}
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-2">
+                      Resume / CV
+                    </label>
+                    {!resumeFile ? (
+                      <label
+                        className={`flex items-center justify-center gap-3 h-24 w-full rounded-lg border-2 border-dashed cursor-pointer transition-colors hover:border-primary hover:bg-primary/5 ${
+                          resumeError ? "border-destructive" : "border-input"
+                        }`}
+                      >
+                        <Upload className="text-muted-foreground" size={20} />
+                        <div className="text-center">
+                          <span className="text-sm text-muted-foreground">
+                            Click to upload PDF, DOC, or DOCX
+                          </span>
+                          <p className="text-xs text-muted-foreground mt-1">Max 5MB</p>
+                        </div>
+                        <input
+                          type="file"
+                          accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                          onChange={handleResumeChange}
+                          className="hidden"
+                        />
+                      </label>
+                    ) : (
+                      <div className="flex items-center gap-3 p-3 rounded-lg border border-border bg-muted/30">
+                        <FileText className="text-primary flex-shrink-0" size={20} />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-foreground truncate">
+                            {resumeFile.name}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {(resumeFile.size / 1024).toFixed(0)} KB
+                            {isUploadingResume && " — Uploading..."}
+                            {resumeUrl && " — ✓ Uploaded"}
+                          </p>
+                        </div>
+                        {isUploadingResume ? (
+                          <Loader2 className="animate-spin text-muted-foreground" size={16} />
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={removeResume}
+                            className="text-muted-foreground hover:text-destructive transition-colors"
+                            aria-label="Remove resume"
+                          >
+                            <X size={16} />
+                          </button>
+                        )}
+                      </div>
+                    )}
+                    {resumeError && (
+                      <p className="text-sm text-destructive mt-1">{resumeError}</p>
+                    )}
+                  </div>
+
                   <Button
                     type="submit"
                     variant="hero"
                     size="lg"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || isUploadingResume}
                     className="w-full"
                   >
                     {isSubmitting ? (
