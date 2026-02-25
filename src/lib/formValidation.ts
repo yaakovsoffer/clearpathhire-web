@@ -65,7 +65,11 @@ export const applyFormSchema = z.object({
   experience: z
     .string()
     .trim()
-    .min(1, "Please select your experience level"),
+    .min(1, "Please select your experience level")
+    .refine(
+      (val) => ["0-1 years", "1-3 years", "3-5 years", "5-10 years", "10+ years", "0-1", "1-3", "3-5", "5-10", "10+"].includes(val),
+      "Please select a valid experience level"
+    ),
   linkedin: z
     .string()
     .trim()
