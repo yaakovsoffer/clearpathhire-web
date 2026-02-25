@@ -44,6 +44,7 @@ interface ContactFormData {
   experience?: string;
   linkedin?: string;
   about?: string;
+  resumeUrl?: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -82,6 +83,7 @@ const handler = async (req: Request): Promise<Response> => {
       experience: data.experience ? sanitizeInput(data.experience) : "",
       linkedin: data.linkedin ? sanitizeInput(data.linkedin) : "",
       about: data.about ? sanitizeInput(data.about) : "",
+      resumeUrl: data.resumeUrl ? sanitizeInput(data.resumeUrl) : "",
     };
 
     // Validate message/about length
@@ -119,6 +121,7 @@ const handler = async (req: Request): Promise<Response> => {
           <tr><td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>Position:</strong></td><td style="padding: 10px; border-bottom: 1px solid #eee;">${sanitizedData.position}</td></tr>
           <tr><td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>Experience:</strong></td><td style="padding: 10px; border-bottom: 1px solid #eee;">${sanitizedData.experience}</td></tr>
           ${sanitizedData.linkedin ? `<tr><td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>LinkedIn:</strong></td><td style="padding: 10px; border-bottom: 1px solid #eee;"><a href="${sanitizedData.linkedin}">${sanitizedData.linkedin}</a></td></tr>` : ""}
+          ${sanitizedData.resumeUrl ? `<tr><td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>Resume:</strong></td><td style="padding: 10px; border-bottom: 1px solid #eee;"><a href="${sanitizedData.resumeUrl}">Download Resume</a></td></tr>` : ""}
         </table>
         <h3>About:</h3>
         <p style="white-space: pre-wrap; background: #f9f9f9; padding: 15px; border-radius: 5px;">${sanitizedData.about}</p>
