@@ -440,12 +440,6 @@ const Apply = () => {
                           {role.location}
                         </span>
                       )}
-                      {role.timezone && (
-                        <span className="text-xs bg-accent/20 text-accent px-3 py-1 rounded-full flex items-center gap-1">
-                          <Clock size={12} />
-                          {role.timezone}
-                        </span>
-                      )}
                     </div>
                     <Button
                       variant="outline"
