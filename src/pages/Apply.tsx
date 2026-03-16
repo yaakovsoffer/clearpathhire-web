@@ -273,7 +273,11 @@ const Apply = () => {
           (o) => o.value === result.data.experience || o.label === result.data.experience
         )?.value || result.data.experience,
         about: result.data.about || undefined,
-        linkedin_profile: result.data.linkedin || undefined,
+        linkedin_profile: result.data.linkedin
+          ? (result.data.linkedin.startsWith("http")
+              ? result.data.linkedin
+              : `https://${result.data.linkedin}`)
+          : undefined,
         resume_url: resumeUrl || undefined,
       };
 
