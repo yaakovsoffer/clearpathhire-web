@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import { contactFormSchema, type ContactFormData } from "@/lib/formValidation";
 import { FormSuccessMessage } from "@/components/forms/FormSuccessMessage";
 import contactHeroImg from "@/assets/contact-hero.png";
@@ -101,15 +100,19 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke("send-form-email", {
-        body: {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
           formType: "contact",
           ...result.data,
-        },
+        }),
       });
 
-      if (error) throw error;
-      if (!data?.success) throw new Error(data?.error || "Failed to send message");
+      const data = await response.json();
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || "Failed to send message");
+      }
 
       setIsSubmitted(true);
     } catch (error) {

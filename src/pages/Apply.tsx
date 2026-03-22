@@ -19,7 +19,6 @@ import {
   FileText,
   X,
 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import { applyFormSchema, type ApplyFormData } from "@/lib/formValidation";
 import { FormSuccessMessage } from "@/components/forms/FormSuccessMessage";
 
@@ -91,15 +90,7 @@ const Apply = () => {
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/crm-proxy?action=get-roles`,
-          {
-            headers: {
-              Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-              apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-            },
-          }
-        );
+        const response = await fetch("/api/roles");
 
         if (!response.ok) throw new Error("Failed to fetch roles");
         const rolesData = await response.json();
@@ -171,17 +162,10 @@ const Apply = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/upload-resume`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-            apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-          },
-          body: formData,
-        }
-      );
+      const response = await fetch("/api/upload-resume", {
+        method: "POST",
+        body: formData,
+      });
 
       const data = await response.json();
 
@@ -255,24 +239,14 @@ const Apply = () => {
     setIsSubmitting(true);
 
     try {
-      // Send email notification (existing flow) — include resume link
-      const emailPromise = supabase.functions.invoke("send-form-email", {
-        body: {
-          formType: "apply",
-          ...result.data,
-          resumeUrl: resumeUrl || undefined,
-        },
-      });
-
-      // Submit to CRM
-      const crmPayload: Record<string, unknown> = {
+      // Build lead payload for ERP + email
+      const leadPayload: Record<string, unknown> = {
+        formType: "apply",
+        ...result.data,
         full_name: result.data.name,
-        email: result.data.email,
-        phone: result.data.phone,
         years_of_experience: experienceOptions.find(
           (o) => o.value === result.data.experience || o.label === result.data.experience
         )?.value || result.data.experience,
-        about: result.data.about || undefined,
         linkedin_profile: result.data.linkedin
           ? (result.data.linkedin.startsWith("http")
               ? result.data.linkedin
@@ -282,48 +256,40 @@ const Apply = () => {
       };
 
       if (selectedRoleId) {
-        crmPayload.role_id = selectedRoleId;
+        leadPayload.role_id = selectedRoleId;
       }
 
-      const crmPromise = supabase.functions.invoke("crm-proxy?action=submit-application", {
-        body: crmPayload,
+      // Send to /api/lead which handles both email notification and ERP submission
+      const response = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(leadPayload),
       });
 
-      // Execute both in parallel
-      const [emailResult, crmResult] = await Promise.allSettled([emailPromise, crmPromise]);
+      const data = await response.json();
 
-      // Check email result
-      if (emailResult.status === "rejected") {
-        console.error("Email send failed:", emailResult.reason);
-      } else if (emailResult.value.error) {
-        console.error("Email send error:", emailResult.value.error);
+      if (response.status === 409) {
+        toast({
+          title: "Already Applied",
+          description: "An application with this email already exists in our system.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
       }
 
-      // Check CRM result
-      if (crmResult.status === "rejected") {
-        console.error("CRM submit failed:", crmResult.reason);
-      } else if (crmResult.value.error) {
-        const crmError = crmResult.value.error;
-        // Handle specific CRM error codes
-        if (typeof crmError === "object" && crmError?.context?.status === 409) {
-          toast({
-            title: "Already Applied",
-            description: "An application with this email already exists in our system.",
-            variant: "destructive",
-          });
-          setIsSubmitting(false);
-          return;
-        }
-        if (typeof crmError === "object" && crmError?.context?.status === 429) {
-          toast({
-            title: "Too Many Requests",
-            description: "Please wait a moment before submitting again.",
-            variant: "destructive",
-          });
-          setIsSubmitting(false);
-          return;
-        }
-        console.error("CRM submit error:", crmError);
+      if (response.status === 429) {
+        toast({
+          title: "Too Many Requests",
+          description: "Please wait a moment before submitting again.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!response.ok) {
+        console.error("Lead submission error:", data);
       }
 
       setIsSubmitted(true);
