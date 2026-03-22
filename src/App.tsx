@@ -11,9 +11,6 @@ import Services from "./pages/Services";
 import Testimonials from "./pages/Testimonials";
 import Contact from "./pages/Contact";
 import Apply from "./pages/Apply";
-import ClientLogin from "./pages/ClientLogin";
-import ClientDashboard from "./pages/ClientDashboard";
-import Payment from "./pages/Payment";
 import GoogleBusinessGuide from "./pages/GoogleBusinessGuide";
 import NotFound from "./pages/NotFound";
 
@@ -34,9 +31,6 @@ const App = () => (
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/apply" element={<Apply />} />
-            <Route path="/client-login" element={<ClientLogin />} />
-            <Route path="/client-dashboard" element={<ClientDashboard />} />
-            <Route path="/payment" element={<Payment />} />
             <Route path="/google-business-guide" element={<GoogleBusinessGuide />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
