@@ -1,4 +1,5 @@
 const { app } = require("@azure/functions");
+const { BlobServiceClient } = require("@azure/storage-blob");
 
 const ALLOWED_TYPES = [
   "application/pdf",
@@ -6,6 +7,7 @@ const ALLOWED_TYPES = [
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 ];
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+const CONTAINER_NAME = "resumes";
 
 app.http("upload-resume", {
   methods: ["POST"],
@@ -45,70 +47,43 @@ app.http("upload-resume", {
         };
       }
 
-      // Forward file to ERP API for storage
-      const erpUrl = process.env.ERP_API_URL;
-      const erpKey = process.env.ERP_API_KEY;
-
-      if (!erpUrl) {
-        context.warn("ERP_API_URL not configured, cannot store resume");
+      const connectionString = process.env.AZURE_STORAGE_CONNECTION_STRING;
+      if (!connectionString) {
+        context.error("AZURE_STORAGE_CONNECTION_STRING not configured");
         return {
           status: 503,
           jsonBody: { success: false, error: "File storage not available." },
         };
       }
 
-      // Manually build multipart/form-data because Node.js Web API FormData
-      // doesn't produce output that multer (Express) can parse reliably
+      // Upload directly to Azure Blob Storage
+      const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
+      const containerClient = blobServiceClient.getContainerClient(CONTAINER_NAME);
+
+      // Ensure container exists (public read access for blobs so URLs work)
+      await containerClient.createIfNotExists({ access: "blob" });
+
+      // Generate unique blob name: timestamp-originalname
+      const timestamp = Date.now();
+      const safeName = (file.name || "resume.pdf").replace(/[^a-zA-Z0-9._-]/g, "_");
+      const blobName = `${timestamp}-${safeName}`;
+
+      const blockBlobClient = containerClient.getBlockBlobClient(blobName);
       const fileBuffer = Buffer.from(await file.arrayBuffer());
-      const boundary = "----WebKitFormBoundary" + Math.random().toString(36).slice(2);
-      const fileName = file.name || "resume.pdf";
 
-      const bodyParts = [
-        `--${boundary}\r\n`,
-        `Content-Disposition: form-data; name="file"; filename="${fileName}"\r\n`,
-        `Content-Type: ${file.type}\r\n`,
-        `\r\n`,
-      ];
-
-      const header = Buffer.from(bodyParts.join(""));
-      const footer = Buffer.from(`\r\n--${boundary}--\r\n`);
-      const body = Buffer.concat([header, fileBuffer, footer]);
-
-      const response = await fetch(`${erpUrl}/api/upload-resume`, {
-        method: "POST",
-        headers: {
-          "x-api-key": erpKey || "",
-          "Content-Type": `multipart/form-data; boundary=${boundary}`,
-        },
-        body,
+      await blockBlobClient.upload(fileBuffer, fileBuffer.length, {
+        blobHTTPHeaders: { blobContentType: file.type },
       });
 
-      let data;
-      try {
-        data = await response.json();
-      } catch {
-        const text = await response.text().catch(() => "Unknown error");
-        context.error("ERP upload non-JSON response:", text);
-        return {
-          status: 500,
-          jsonBody: { success: false, error: "Failed to upload file." },
-        };
-      }
+      const url = blockBlobClient.url;
+      context.log("Resume uploaded to blob storage:", url);
 
-      if (!response.ok || !data.success) {
-        context.error("ERP upload error:", data);
-        return {
-          status: 500,
-          jsonBody: { success: false, error: data.error || "Failed to upload file." },
-        };
-      }
-
-      return { jsonBody: { success: true, url: data.url } };
+      return { jsonBody: { success: true, url } };
     } catch (err) {
       context.error("Upload-resume function error:", err);
       return {
         status: 500,
-        jsonBody: { success: false, error: "Internal server error." },
+        jsonBody: { success: false, error: "Failed to upload file." },
       };
     }
   },

@@ -49,9 +49,9 @@ Jacob Soffer — solo operator, prefers autonomous execution. Run tasks end-to-e
 
 ### POST /api/upload-resume
 - Accepts PDF/DOC/DOCX up to 5MB
-- Forwards file to ERP: `POST {ERP_API_URL}/api/upload-resume` with x-api-key header
-- Returns `{ success: true, url: "..." }` with blob storage URL
-- Required env vars: ERP_API_URL, ERP_API_KEY
+- Stores file directly in Azure Blob Storage (container: "resumes")
+- Returns `{ success: true, url: "..." }` with public blob URL
+- Required env vars: AZURE_STORAGE_CONNECTION_STRING
 
 ---
 
@@ -77,6 +77,7 @@ Jacob Soffer — solo operator, prefers autonomous execution. Run tasks end-to-e
 | CONTACT_EMAIL_TO | Team inbox recipient |
 | ERP_API_URL | ClearPath ERP API base URL |
 | ERP_API_KEY | API key for authenticated ERP endpoints |
+| AZURE_STORAGE_CONNECTION_STRING | Azure Storage account connection string for resume uploads |
 
 ---
 
