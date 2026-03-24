@@ -13,7 +13,9 @@ app.http("upload-resume", {
   methods: ["POST"],
   authLevel: "anonymous",
   handler: async (request, context) => {
+    let step = "init";
     try {
+      step = "parsing formData";
       const formData = await request.formData();
       const file = formData.get("file");
 
@@ -24,7 +26,7 @@ app.http("upload-resume", {
         };
       }
 
-      // Validate file type
+      step = "validating file type: " + file.type;
       if (!ALLOWED_TYPES.includes(file.type)) {
         return {
           status: 400,
@@ -32,7 +34,6 @@ app.http("upload-resume", {
         };
       }
 
-      // Validate file size
       if (file.size > MAX_SIZE) {
         return {
           status: 400,
@@ -47,6 +48,7 @@ app.http("upload-resume", {
         };
       }
 
+      step = "checking connection string";
       const connectionString = process.env.AZURE_STORAGE_CONNECTION_STRING;
       if (!connectionString) {
         context.error("AZURE_STORAGE_CONNECTION_STRING not configured");
@@ -56,21 +58,23 @@ app.http("upload-resume", {
         };
       }
 
-      // Upload directly to Azure Blob Storage
+      step = "creating blob client";
       const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
       const containerClient = blobServiceClient.getContainerClient(CONTAINER_NAME);
 
-      // Ensure container exists (no public access — storage account policy)
+      step = "ensuring container exists";
       await containerClient.createIfNotExists();
 
-      // Generate unique blob name: timestamp-originalname
+      step = "preparing blob name";
       const timestamp = Date.now();
       const safeName = (file.name || "resume.pdf").replace(/[^a-zA-Z0-9._-]/g, "_");
       const blobName = `${timestamp}-${safeName}`;
 
+      step = "reading file buffer";
       const blockBlobClient = containerClient.getBlockBlobClient(blobName);
       const fileBuffer = Buffer.from(await file.arrayBuffer());
 
+      step = "uploading to blob storage (" + fileBuffer.length + " bytes)";
       await blockBlobClient.upload(fileBuffer, fileBuffer.length, {
         blobHTTPHeaders: { blobContentType: file.type },
       });
@@ -80,10 +84,10 @@ app.http("upload-resume", {
 
       return { jsonBody: { success: true, url } };
     } catch (err) {
-      context.error("Upload-resume function error:", err);
+      context.error(`Upload-resume failed at step [${step}]:`, err.message || err);
       return {
         status: 500,
-        jsonBody: { success: false, error: "Failed to upload file." },
+        jsonBody: { success: false, error: `Upload failed at: ${step}`, detail: err.message },
       };
     }
   },
