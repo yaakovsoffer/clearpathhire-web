@@ -73,8 +73,6 @@ const Apply = () => {
   const [rolesLoading, setRolesLoading] = useState(true);
   const [selectedRoleId, setSelectedRoleId] = useState<string>("");
   const [resumeFile, setResumeFile] = useState<File | null>(null);
-  const [resumeUrl, setResumeUrl] = useState<string>("");
-  const [isUploadingResume, setIsUploadingResume] = useState(false);
   const [resumeError, setResumeError] = useState<string>("");
   const [formData, setFormData] = useState<ApplyFormData>({
     name: "",
@@ -110,7 +108,6 @@ const Apply = () => {
     setIsSubmitted(false);
     setSelectedRoleId("");
     setResumeFile(null);
-    setResumeUrl("");
     setResumeError("");
     setFormData({
       name: "",
@@ -130,7 +127,7 @@ const Apply = () => {
   ];
   const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
-  const handleResumeChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleResumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     setResumeError("");
 
@@ -156,42 +153,10 @@ const Apply = () => {
     }
 
     setResumeFile(file);
-    setIsUploadingResume(true);
-
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const response = await fetch("/api/upload-resume", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await response.json();
-
-      if (!response.ok || !data.success) {
-        throw new Error(data.error || "Upload failed");
-      }
-
-      setResumeUrl(data.url);
-      toast({
-        title: "Resume Uploaded",
-        description: "Your resume has been uploaded successfully.",
-      });
-    } catch (err) {
-      console.error("Resume upload error:", err);
-      const msg = err instanceof Error ? err.message : "Failed to upload resume";
-      setResumeError(msg);
-      setResumeFile(null);
-      setResumeUrl("");
-    } finally {
-      setIsUploadingResume(false);
-    }
   };
 
   const removeResume = () => {
     setResumeFile(null);
-    setResumeUrl("");
     setResumeError("");
   };
 
@@ -239,31 +204,58 @@ const Apply = () => {
     setIsSubmitting(true);
 
     try {
+      // Upload resume if attached
+      let resumeUrl: string | undefined;
+      if (resumeFile) {
+        const uploadData = new FormData();
+        uploadData.append("file", resumeFile);
+
+        const uploadResponse = await fetch("/api/upload-resume", {
+          method: "POST",
+          body: uploadData,
+        });
+
+        const uploadResult = await uploadResponse.json();
+
+        if (!uploadResponse.ok || !uploadResult.success) {
+          throw new Error(uploadResult.error || "Failed to upload resume");
+        }
+
+        resumeUrl = uploadResult.url;
+      }
+
       // Build lead payload for ERP + email
-      const leadPayload: Record<string, unknown> = {
+      const leadPayload: Record<string, string | undefined> = {
         formType: "apply",
-        ...result.data,
-        full_name: result.data.name,
-        years_of_experience: experienceOptions.find(
+        name: result.data.name,
+        email: result.data.email,
+        phone: result.data.phone,
+        position: result.data.position,
+        experience: experienceOptions.find(
           (o) => o.value === result.data.experience || o.label === result.data.experience
         )?.value || result.data.experience,
-        linkedin_profile: result.data.linkedin
+        linkedin: result.data.linkedin
           ? (result.data.linkedin.startsWith("http")
               ? result.data.linkedin
               : `https://${result.data.linkedin}`)
           : undefined,
-        resume_url: resumeUrl || undefined,
+        about: result.data.about,
+        resume_url: resumeUrl,
+        role_id: selectedRoleId || undefined,
       };
 
-      if (selectedRoleId) {
-        leadPayload.role_id = selectedRoleId;
+      // Send as multipart form data (includes resume file for email attachment)
+      const submitData = new FormData();
+      for (const [key, val] of Object.entries(leadPayload)) {
+        if (val) submitData.append(key, val);
+      }
+      if (resumeFile) {
+        submitData.append("resume", resumeFile);
       }
 
-      // Send to /api/lead which handles both email notification and ERP submission
       const response = await fetch("/api/lead", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(leadPayload),
+        body: submitData,
       });
 
       const data = await response.json();
@@ -636,23 +628,17 @@ const Apply = () => {
                             {resumeFile.name}
                           </p>
                           <p className="text-xs text-muted-foreground">
-                            {(resumeFile.size / 1024).toFixed(0)} KB
-                            {isUploadingResume && " — Uploading..."}
-                            {resumeUrl && " — ✓ Uploaded"}
+                            {(resumeFile.size / 1024).toFixed(0)} KB — Ready to submit
                           </p>
                         </div>
-                        {isUploadingResume ? (
-                          <Loader2 className="animate-spin text-muted-foreground" size={16} />
-                        ) : (
-                          <button
-                            type="button"
-                            onClick={removeResume}
-                            className="text-muted-foreground hover:text-destructive transition-colors"
-                            aria-label="Remove resume"
-                          >
-                            <X size={16} />
-                          </button>
-                        )}
+                        <button
+                          type="button"
+                          onClick={removeResume}
+                          className="text-muted-foreground hover:text-destructive transition-colors"
+                          aria-label="Remove resume"
+                        >
+                          <X size={16} />
+                        </button>
                       </div>
                     )}
                     {resumeError && (
@@ -664,7 +650,7 @@ const Apply = () => {
                     type="submit"
                     variant="hero"
                     size="lg"
-                    disabled={isSubmitting || isUploadingResume}
+                    disabled={isSubmitting}
                     className="w-full"
                   >
                     {isSubmitting ? (

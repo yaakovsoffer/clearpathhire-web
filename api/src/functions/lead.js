@@ -6,8 +6,41 @@ app.http("lead", {
   authLevel: "anonymous",
   handler: async (request, context) => {
     try {
-      const body = await request.json();
-      const { name, email, phone, position, experience, linkedin, about, resume_url, role_id } = body;
+      let data;
+      let resumeFile = null;
+
+      const contentType = request.headers.get("content-type") || "";
+
+      if (contentType.includes("multipart/form-data")) {
+        // Parse multipart form data (new flow with resume attachment)
+        const formData = await request.formData();
+        data = {
+          name: formData.get("name"),
+          email: formData.get("email"),
+          phone: formData.get("phone"),
+          position: formData.get("position"),
+          experience: formData.get("experience"),
+          linkedin: formData.get("linkedin") || undefined,
+          about: formData.get("about"),
+          resume_url: formData.get("resume_url") || undefined,
+          role_id: formData.get("role_id") || undefined,
+        };
+
+        const file = formData.get("resume");
+        if (file && typeof file !== "string") {
+          resumeFile = {
+            filename: file.name || "resume.pdf",
+            content: Buffer.from(await file.arrayBuffer()),
+            contentType: file.type || "application/pdf",
+          };
+        }
+      } else {
+        // Fallback: JSON body (backward compatible)
+        const body = await request.json();
+        data = body;
+      }
+
+      const { name, email, phone, position, experience, linkedin, about, resume_url, role_id } = data;
 
       // Validate required fields
       if (!name || !email || !phone || !position || !experience || !about) {
@@ -17,10 +50,10 @@ app.http("lead", {
         };
       }
 
-      // Send email notification via Resend
+      // Send email notification via Resend (with resume attachment if available)
       const emailPromise = sendEmailNotification(context, {
         name, email, phone, position, experience, linkedin, about, resume_url,
-      });
+      }, resumeFile);
 
       // Forward to ERP API
       const erpPromise = forwardToERP(context, {
@@ -69,10 +102,10 @@ app.http("lead", {
   },
 });
 
-async function sendEmailNotification(context, data) {
+async function sendEmailNotification(context, data, resumeFile) {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
-  const { error } = await resend.emails.send({
+  const emailOptions = {
     from: process.env.CONTACT_EMAIL_FROM,
     to: [process.env.CONTACT_EMAIL_TO],
     replyTo: data.email,
@@ -90,7 +123,20 @@ async function sendEmailNotification(context, data) {
         ${data.resume_url ? `<tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Resume</td><td style="padding:8px;border:1px solid #ddd;"><a href="${sanitize(data.resume_url)}">Download</a></td></tr>` : ""}
       </table>
     `,
-  });
+  };
+
+  // Attach resume file if available
+  if (resumeFile) {
+    emailOptions.attachments = [
+      {
+        filename: resumeFile.filename,
+        content: resumeFile.content,
+        content_type: resumeFile.contentType,
+      },
+    ];
+  }
+
+  const { error } = await resend.emails.send(emailOptions);
 
   if (error) {
     context.error("Resend error:", error);
