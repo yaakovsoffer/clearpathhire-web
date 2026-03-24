@@ -57,8 +57,12 @@ app.http("upload-resume", {
         };
       }
 
+      // Convert file to a Blob with explicit type so the ERP receives correct MIME info
+      const fileBuffer = await file.arrayBuffer();
+      const blob = new Blob([fileBuffer], { type: file.type });
+
       const erpFormData = new FormData();
-      erpFormData.append("file", file);
+      erpFormData.append("file", blob, file.name);
 
       const response = await fetch(`${erpUrl}/api/upload-resume`, {
         method: "POST",
@@ -68,13 +72,23 @@ app.http("upload-resume", {
         body: erpFormData,
       });
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch {
+        const text = await response.text().catch(() => "Unknown error");
+        context.error("ERP upload non-JSON response:", text);
+        return {
+          status: 500,
+          jsonBody: { success: false, error: "Failed to upload file." },
+        };
+      }
 
       if (!response.ok || !data.success) {
         context.error("ERP upload error:", data);
         return {
           status: 500,
-          jsonBody: { success: false, error: "Failed to upload file." },
+          jsonBody: { success: false, error: data.error || "Failed to upload file." },
         };
       }
 
