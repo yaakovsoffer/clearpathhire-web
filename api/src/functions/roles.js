@@ -13,10 +13,9 @@ app.http("roles", {
         return { jsonBody: { roles: [] } };
       }
 
-      const response = await fetch(`${erpUrl}/api/roles`, {
+      const response = await fetch(`${erpUrl}/api/public/roles`, {
         headers: {
           "Content-Type": "application/json",
-          "x-api-key": erpKey || "",
         },
       });
 
@@ -26,7 +25,19 @@ app.http("roles", {
       }
 
       const data = await response.json();
-      return { jsonBody: { roles: data.roles || [] } };
+
+      // Normalize ERP camelCase fields to snake_case the frontend expects
+      const roles = (data.roles || []).map((r) => ({
+        id: r.id,
+        title: r.title,
+        description: r.description,
+        employment_type: r.employmentType || "",
+        location: r.location || "",
+        timezone: r.timezone || "",
+        company: r.client?.companyName || "",
+      }));
+
+      return { jsonBody: { roles } };
     } catch (err) {
       context.error("Roles function error:", err);
       return { jsonBody: { roles: [] } };
