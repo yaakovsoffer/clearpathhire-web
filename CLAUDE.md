@@ -78,6 +78,7 @@ Jacob Soffer — solo operator, prefers autonomous execution. Run tasks end-to-e
 | CONTACT_EMAIL_TO | Team inbox recipient |
 | ERP_API_URL | ClearPath ERP API base URL |
 | ERP_API_KEY | API key for authenticated ERP endpoints |
+| LEAD_EMAIL_TO | Recipient for job application emails (defaults to CONTACT_EMAIL_TO) |
 | AZURE_STORAGE_CONNECTION_STRING | Azure Storage account connection string for resume uploads |
 
 ---
