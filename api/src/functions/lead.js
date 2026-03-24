@@ -107,7 +107,7 @@ async function sendEmailNotification(context, data, resumeFile) {
 
   const emailOptions = {
     from: process.env.CONTACT_EMAIL_FROM,
-    to: [process.env.CONTACT_EMAIL_TO],
+    to: [process.env.LEAD_EMAIL_TO || process.env.CONTACT_EMAIL_TO],
     replyTo: data.email,
     subject: `New Job Application from ${sanitize(data.name)} - ${sanitize(data.position)}`,
     html: `
