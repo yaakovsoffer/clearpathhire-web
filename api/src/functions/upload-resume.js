@@ -60,8 +60,8 @@ app.http("upload-resume", {
       const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
       const containerClient = blobServiceClient.getContainerClient(CONTAINER_NAME);
 
-      // Ensure container exists (public read access for blobs so URLs work)
-      await containerClient.createIfNotExists({ access: "blob" });
+      // Ensure container exists (no public access — storage account policy)
+      await containerClient.createIfNotExists();
 
       // Generate unique blob name: timestamp-originalname
       const timestamp = Date.now();
