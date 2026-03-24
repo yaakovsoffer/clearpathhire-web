@@ -57,19 +57,30 @@ app.http("upload-resume", {
         };
       }
 
-      // Convert file to a Blob with explicit type so the ERP receives correct MIME info
-      const fileBuffer = await file.arrayBuffer();
-      const blob = new Blob([fileBuffer], { type: file.type });
+      // Manually build multipart/form-data because Node.js Web API FormData
+      // doesn't produce output that multer (Express) can parse reliably
+      const fileBuffer = Buffer.from(await file.arrayBuffer());
+      const boundary = "----WebKitFormBoundary" + Math.random().toString(36).slice(2);
+      const fileName = file.name || "resume.pdf";
 
-      const erpFormData = new FormData();
-      erpFormData.append("file", blob, file.name);
+      const bodyParts = [
+        `--${boundary}\r\n`,
+        `Content-Disposition: form-data; name="file"; filename="${fileName}"\r\n`,
+        `Content-Type: ${file.type}\r\n`,
+        `\r\n`,
+      ];
+
+      const header = Buffer.from(bodyParts.join(""));
+      const footer = Buffer.from(`\r\n--${boundary}--\r\n`);
+      const body = Buffer.concat([header, fileBuffer, footer]);
 
       const response = await fetch(`${erpUrl}/api/upload-resume`, {
         method: "POST",
         headers: {
           "x-api-key": erpKey || "",
+          "Content-Type": `multipart/form-data; boundary=${boundary}`,
         },
-        body: erpFormData,
+        body,
       });
 
       let data;
