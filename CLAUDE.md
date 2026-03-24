@@ -39,12 +39,13 @@ Jacob Soffer — solo operator, prefers autonomous execution. Run tasks end-to-e
 - Required env vars: RESEND_API_KEY, CONTACT_EMAIL_FROM, CONTACT_EMAIL_TO
 
 ### POST /api/lead
-- Receives job application form submissions
+- Receives job application form submissions (multipart form data with optional resume file)
 - Two parallel actions:
-  1. Sends email notification via Resend
-  2. Forwards to ERP: `POST {ERP_API_URL}/api/leads` with x-api-key header
+  1. Sends email notification via Resend (with resume attached if provided)
+  2. Forwards to ERP: `POST {ERP_API_URL}/api/leads` with x-api-key header (JSON with resume_url)
 - Surfaces 409 (duplicate) and 429 (rate limit) from ERP to user
 - Never surfaces other ERP errors publicly — still returns 200
+- Also accepts JSON body for backward compatibility
 - Required env vars: ERP_API_URL, ERP_API_KEY, RESEND_API_KEY
 
 ### POST /api/upload-resume

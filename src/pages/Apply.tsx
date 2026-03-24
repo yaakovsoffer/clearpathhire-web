@@ -225,30 +225,37 @@ const Apply = () => {
       }
 
       // Build lead payload for ERP + email
-      const leadPayload: Record<string, unknown> = {
+      const leadPayload: Record<string, string | undefined> = {
         formType: "apply",
-        ...result.data,
-        full_name: result.data.name,
-        years_of_experience: experienceOptions.find(
+        name: result.data.name,
+        email: result.data.email,
+        phone: result.data.phone,
+        position: result.data.position,
+        experience: experienceOptions.find(
           (o) => o.value === result.data.experience || o.label === result.data.experience
         )?.value || result.data.experience,
-        linkedin_profile: result.data.linkedin
+        linkedin: result.data.linkedin
           ? (result.data.linkedin.startsWith("http")
               ? result.data.linkedin
               : `https://${result.data.linkedin}`)
           : undefined,
+        about: result.data.about,
         resume_url: resumeUrl,
+        role_id: selectedRoleId || undefined,
       };
 
-      if (selectedRoleId) {
-        leadPayload.role_id = selectedRoleId;
+      // Send as multipart form data (includes resume file for email attachment)
+      const submitData = new FormData();
+      for (const [key, val] of Object.entries(leadPayload)) {
+        if (val) submitData.append(key, val);
+      }
+      if (resumeFile) {
+        submitData.append("resume", resumeFile);
       }
 
-      // Send to /api/lead which handles both email notification and ERP submission
       const response = await fetch("/api/lead", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(leadPayload),
+        body: submitData,
       });
 
       const data = await response.json();
