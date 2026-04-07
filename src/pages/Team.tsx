@@ -7,6 +7,7 @@ import jarredTeodoroImg from "@/assets/team/jarred-teodoro-gray.jpg";
 import johnReyJacobeImg from "@/assets/team/john-rey-enhanced.jpg";
 import jemStrellaImg from "@/assets/team/jem-strella-gray.jpg";
 import janMattImg from "@/assets/team/jan-matt-gray.jpg";
+import loriBillingsImg from "@/assets/team/lori-billings.jpg";
 import outsourcingSolutionImg from "@/assets/outsourcing-solution.png";
 
 const teamMembers = [
@@ -15,6 +16,12 @@ const teamMembers = [
     role: "team.roles.founder",
     image: jacobSofferImg,
     imagePosition: "center 10%",
+  },
+  {
+    name: "Lori Billings",
+    role: "Partner & Chief Talent Officer",
+    image: loriBillingsImg,
+    imagePosition: "center 15%",
   },
   {
     name: "Jarred Teodoro",
