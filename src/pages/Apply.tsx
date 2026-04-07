@@ -67,6 +67,8 @@ const Apply = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [cooldownUntil, setCooldownUntil] = useState(0);
+  const [cooldownLeft, setCooldownLeft] = useState(0);
   const [showAllPositions, setShowAllPositions] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof ApplyFormData, string>>>({});
   const [crmRoles, setCrmRoles] = useState<CRMRole[]>([]);
@@ -83,6 +85,28 @@ const Apply = () => {
     linkedin: "",
     about: "",
   });
+
+  // Cooldown countdown timer
+  useEffect(() => {
+    if (cooldownUntil <= Date.now()) return;
+    const tick = () => {
+      const remaining = Math.ceil((cooldownUntil - Date.now()) / 1000);
+      if (remaining <= 0) {
+        setCooldownLeft(0);
+        setCooldownUntil(0);
+      } else {
+        setCooldownLeft(remaining);
+      }
+    };
+    tick();
+    const id = setInterval(tick, 500);
+    return () => clearInterval(id);
+  }, [cooldownUntil]);
+
+  const startCooldown = () => {
+    setCooldownUntil(Date.now() + 10_000);
+    setCooldownLeft(10);
+  };
 
   // Fetch open roles from CRM
   useEffect(() => {
@@ -182,6 +206,7 @@ const Apply = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (cooldownLeft > 0) return;
     setErrors({});
 
     const result = applyFormSchema.safeParse(formData);
@@ -262,10 +287,10 @@ const Apply = () => {
 
       if (response.status === 409) {
         toast({
-          title: "Already Applied",
-          description: "An application with this email already exists in our system.",
-          variant: "destructive",
+          title: "You've Already Applied",
+          description: "We already have your application on file. Our team will be in touch — no need to resubmit.",
         });
+        startCooldown();
         setIsSubmitting(false);
         return;
       }
@@ -276,6 +301,7 @@ const Apply = () => {
           description: "Please wait a moment before submitting again.",
           variant: "destructive",
         });
+        startCooldown();
         setIsSubmitting(false);
         return;
       }
@@ -292,6 +318,7 @@ const Apply = () => {
         description: "Failed to submit your application. Please try again or email us directly.",
         variant: "destructive",
       });
+      startCooldown();
     } finally {
       setIsSubmitting(false);
     }
@@ -650,13 +677,17 @@ const Apply = () => {
                     type="submit"
                     variant="hero"
                     size="lg"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || cooldownLeft > 0}
                     className="w-full"
                   >
                     {isSubmitting ? (
                       <>
                         <Loader2 className="animate-spin mr-2" size={18} />
                         Submitting...
+                      </>
+                    ) : cooldownLeft > 0 ? (
+                      <>
+                        Please wait ({cooldownLeft}s)
                       </>
                     ) : (
                       <>

@@ -1,6 +1,27 @@
 const { app } = require("@azure/functions");
 const { Resend } = require("resend");
 
+// In-memory email dedup: Map<normalizedEmail, timestampMs>
+const recentEmails = new Map();
+const DEDUP_WINDOW_MS = 5 * 60 * 1000; // 5 minutes
+
+function isDuplicateEmail(email) {
+  const key = email.toLowerCase().trim();
+  const now = Date.now();
+
+  // Prune expired entries (keep map small)
+  for (const [k, ts] of recentEmails) {
+    if (now - ts > DEDUP_WINDOW_MS) recentEmails.delete(k);
+  }
+
+  if (recentEmails.has(key) && now - recentEmails.get(key) < DEDUP_WINDOW_MS) {
+    return true;
+  }
+
+  recentEmails.set(key, now);
+  return false;
+}
+
 app.http("lead", {
   methods: ["POST"],
   authLevel: "anonymous",
@@ -50,13 +71,10 @@ app.http("lead", {
         };
       }
 
-      // Send email notification via Resend (with resume attachment if available)
-      const emailPromise = sendEmailNotification(context, {
-        name, email, phone, position, experience, linkedin, about, resume_url,
-      }, resumeFile);
+      const emailIsDuplicate = isDuplicateEmail(email);
 
-      // Forward to ERP API
-      const erpPromise = forwardToERP(context, {
+      // Forward to ERP API first — if it returns 409 (duplicate) we skip the email entirely
+      const erpResult = await forwardToERP(context, {
         full_name: name,
         email,
         phone,
@@ -67,28 +85,30 @@ app.http("lead", {
           : undefined,
         resume_url: resume_url || undefined,
         role_id: role_id || undefined,
+      }).catch((err) => {
+        context.error("ERP submit failed:", err);
+        return { status: null };
       });
 
-      const [emailResult, erpResult] = await Promise.allSettled([emailPromise, erpPromise]);
-
-      if (emailResult.status === "rejected") {
-        context.error("Email send failed:", emailResult.reason);
-      }
-
       // Surface ERP-specific status codes to the client (409 duplicate, 429 rate limit)
-      if (erpResult.status === "fulfilled" && erpResult.value.status) {
-        const erpStatus = erpResult.value.status;
-        if (erpStatus === 409 || erpStatus === 429) {
-          return {
-            status: erpStatus,
-            jsonBody: { success: false, error: erpResult.value.error },
-          };
-        }
+      if (erpResult.status === 409 || erpResult.status === 429) {
+        return {
+          status: erpResult.status,
+          jsonBody: { success: false, error: erpResult.error },
+        };
       }
 
-      if (erpResult.status === "rejected") {
-        context.error("ERP submit failed:", erpResult.reason);
-        // Per CLAUDE.md: never surface ERP errors publicly — still return 200
+      // Only send email if not a duplicate within the dedup window
+      if (emailIsDuplicate) {
+        context.warn(`Skipping notification email — duplicate submission from ${email} within 5 min`);
+      } else {
+        try {
+          await sendEmailNotification(context, {
+            name, email, phone, position, experience, linkedin, about, resume_url,
+          }, resumeFile);
+        } catch (emailErr) {
+          context.error("Email send failed:", emailErr);
+        }
       }
 
       return { jsonBody: { success: true } };
