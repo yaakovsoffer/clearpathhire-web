@@ -3,17 +3,18 @@ import { Layout } from "@/components/layout/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { User } from "lucide-react";
 import jacobSofferImg from "@/assets/team/jacob-soffer-enhanced.jpg";
-import jarredTeodoroImg from "@/assets/team/jarred-teodoro-gray.jpg";
+import jarredTeodoroImg from "@/assets/team/jarred-teodoro-processed.jpg";
 import johnReyJacobeImg from "@/assets/team/john-rey-enhanced.jpg";
 import jemStrellaImg from "@/assets/team/jem-strella-gray.jpg";
 import janMattImg from "@/assets/team/jan-matt-gray.jpg";
-import loriBillingsImg from "@/assets/team/lori-billings.jpg";
+import loriBillingsImg from "@/assets/team/lori-billings-processed.jpg";
+import deniceGarciaImg from "@/assets/team/denice-garcia.jpg";
 import outsourcingSolutionImg from "@/assets/outsourcing-solution.png";
 
-const teamMembers = [
+const leadership = [
   {
     name: "Jacob Soffer",
-    role: "team.roles.founder",
+    role: "Founder & Partner",
     image: jacobSofferImg,
     imagePosition: "center 10%",
   },
@@ -23,6 +24,9 @@ const teamMembers = [
     image: loriBillingsImg,
     imagePosition: "center 15%",
   },
+];
+
+const directors = [
   {
     name: "Jarred Teodoro",
     role: "team.roles.directorOps",
@@ -30,14 +34,8 @@ const teamMembers = [
     imagePosition: "center 20%",
   },
   {
-    name: "John Rey Jacobe",
-    role: "team.roles.directorTalent",
-    image: johnReyJacobeImg,
-    imagePosition: "center 10%",
-  },
-  {
     name: "Jem Estrella-Cudiamat",
-    role: "Director of Finance",
+    role: "Director of Accounting",
     image: jemStrellaImg,
     imagePosition: "center 0%",
   },
@@ -46,6 +44,21 @@ const teamMembers = [
     role: "Director of Marketing",
     image: janMattImg,
     imagePosition: "center 20%",
+  },
+];
+
+const recruiters = [
+  {
+    name: "John Rey Jacobe",
+    role: "Talent Recruiter",
+    image: johnReyJacobeImg,
+    imagePosition: "center 10%",
+  },
+  {
+    name: "Denice Garcia",
+    role: "Talent Recruiter",
+    image: deniceGarciaImg,
+    imagePosition: "center 10%",
   },
 ];
 
@@ -91,21 +104,65 @@ const Team = () => {
       {/* Team Grid */}
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-8">
-            {teamMembers.map((member, index) => (
+          {/* Leadership Row — larger cards */}
+          <div className="flex flex-wrap justify-center gap-8 mb-8">
+            {leadership.map((member, index) => (
               <motion.div
                 key={member.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{ 
+                whileHover={{
+                  scale: 1.02,
+                  boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.15)"
+                }}
+                className="bg-background rounded-3xl overflow-hidden cursor-pointer w-full md:w-[calc(50%-1rem)] lg:w-[calc(40%-1rem)]"
+              >
+                <div className="relative h-[28rem] overflow-hidden bg-muted">
+                  {member.image ? (
+                    <>
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        style={{ objectPosition: member.imagePosition }}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-navy/10 to-transparent" />
+                    </>
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-muted">
+                      <User className="w-24 h-24 text-muted-foreground/40" />
+                    </div>
+                  )}
+                </div>
+                <div className="p-6">
+                  <h3 className="text-2xl font-bold text-navy mb-1">
+                    {member.name}
+                  </h3>
+                  <p className="text-accent font-medium text-lg">
+                    {t(member.role)}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Directors Row — 3 across */}
+          <div className="flex flex-wrap justify-center gap-8 mb-8">
+            {directors.map((member, index) => (
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: (index + 2) * 0.1 }}
+                whileHover={{
                   scale: 1.02,
                   boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.15)"
                 }}
                 className="bg-background rounded-3xl overflow-hidden cursor-pointer w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
               >
-                {/* Image Container */}
                 <div className="relative h-96 overflow-hidden bg-muted">
                   {member.image ? (
                     <>
@@ -115,7 +172,6 @@ const Team = () => {
                         style={{ objectPosition: member.imagePosition }}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
-                      {/* Branded Navy Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-navy/10 to-transparent" />
                     </>
                   ) : (
@@ -124,8 +180,50 @@ const Team = () => {
                     </div>
                   )}
                 </div>
-                
-                {/* Content */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-navy mb-1">
+                    {member.name}
+                  </h3>
+                  <p className="text-accent font-medium">
+                    {t(member.role)}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Recruiters Row — 2 centered */}
+          <div className="flex flex-wrap justify-center gap-8">
+            {recruiters.map((member, index) => (
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: (index + 5) * 0.1 }}
+                whileHover={{
+                  scale: 1.02,
+                  boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.15)"
+                }}
+                className="bg-background rounded-3xl overflow-hidden cursor-pointer w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
+              >
+                <div className="relative h-96 overflow-hidden bg-muted">
+                  {member.image ? (
+                    <>
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        style={{ objectPosition: member.imagePosition }}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-navy/10 to-transparent" />
+                    </>
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-muted">
+                      <User className="w-24 h-24 text-muted-foreground/40" />
+                    </div>
+                  )}
+                </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-navy mb-1">
                     {member.name}
